@@ -1,0 +1,64 @@
+<form #RegisterForm="ngForm" (ngSubmit)="registerUser(RegisterForm)" class="flex items-center justify-center w-full h-full">    
+    <div class="flex flex-col w-[900px] rounded-[10px] bg-lightGrey/20 items-center justify-center p-6">
+        <img src="../../../assets/Logo.png" class="w-[78px]"/>
+        <div class="flex flex-row my-4 w-full">
+            <div class="flex flex-col w-[48%]">
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">First Name</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="e.g. John" ngModel name="name"
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Last Name</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="e.g. Doe" ngModel name="lastname"
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Date of Birth</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="MM/DD/YYYY"
+                            type="date" ngModel name="dateOfBirth">
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Phone number</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="Enter your phone number" ngModel name="phone"
+                            type="text">
+                </div>
+            </div>
+            <div class="flex w-[4%]"></div>
+            <div class="flex flex-col w-[48%]">
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Username</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="e.g. john" ngModel name="username"
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Email</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="you@gmail.com" ngModel name="email"
+                            type="email" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Password</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="Enter your password" ngModel name="password"
+                            type="password" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Confirm password</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="Re-enter your password"
+                            type="password">
+                </div>
+            </div>
+        </div>
+        <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-gray border-[3px] border-deepGreen justify-center items-center hover:bg-lightGreen/20 transition-[0.5s]"
+                type="submit">
+            <p class="font-manrope text-deepGreen font-semibold text-[24px]">Sign Up</p>
+        </button>
+    </div>
+</form>

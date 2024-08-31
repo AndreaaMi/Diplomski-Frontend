@@ -1,0 +1,18 @@
+<div class="flex flex-col items-center w-full h-full justify-end items-end">
+    <button class="flex flex-row w-[258px] h-[43px] rounded-[10px] bg-deepGreen justify-center items-center hover:bg-lightGreen transition-[0.5s]"
+            (click)="navigateToSignIn()">
+        <p class="font-manrope text-darkGrey font-semibold text-[16px]">Sign In</p>
+        <fa-icon [icon]="faArrowRight" class="w-[16px] ml-[10px] text-darkGrey"/>
+    </button>
+    <div class="flex flex-row w-full items-center justify-center justify-between my-5">
+        <hr class="flex w-[40px] text-lightGrey/70">
+        <p class="flex text-lightGrey/70 font-manrope font-light text-[12px]">Don't have an account yet?</p>
+        <hr class="flex w-[40px] text-lightGrey/70">
+    </div>
+    <button class="flex flex-row w-[258px] h-[43px] rounded-[10px] border-[1px] border-deepGreen justify-center items-center text-deepGreen
+                    hover:bg-lightGreen/20 hover:text-deepGreen transition-[0.5s]"
+            (click)="navigateToSignUp()">
+        <p class="font-manrope font-semibold text-[16px]">Sign Up</p>
+        <fa-icon [icon]="faArrowRight" class="w-[16px] ml-[10px]"/>
+    </button>
+</div>

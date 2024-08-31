@@ -1,0 +1,44 @@
+<form #BalanceForm="ngForm" (ngSubmit)="UpdateBalance(BalanceForm)" class="flex items-center justify-center w-full h-full">    
+    <div class="flex flex-col w-[900px] h-auto rounded-[10px] bg-lightGrey/20 items-center justify-center p-6">
+        <div class="flex rounded-full w-[78px] h-[78px] bg-white"></div>
+        <div class="flex flex-row my-4 w-full">
+            <div class="flex flex-col w-[48%]">
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Card number</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="" ngModel name="cardNumber"
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Card date</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="" ngModel name="cardDate" 
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Card holder</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="" ngModel name="cardHolder"
+                            type="text">
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">CVS</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="" ngModel name="cvs"
+                            type="text">
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Payment</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="" ngModel name="payment"
+                            type="number">
+                </div>
+            </div>                      
+        </div>
+        <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-lightGreen justify-center items-center hover:bg-deepGreen transition-[0.5s]"
+                type="submit">
+            <p class="font-manrope text-white font-semibold text-[24px]">Update Balance</p>
+            <!--<fa-icon [icon]="faArrowRight" class="w-[32px] ml-[10px] text-darkGrey"/>-->
+        </button>
+    </div>
+</form>

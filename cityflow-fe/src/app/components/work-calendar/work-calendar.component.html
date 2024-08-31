@@ -1,0 +1,28 @@
+<div class="container mx-auto p-5 bg-gradient-to-br from-[#1f2630] to-[#313b4a] text-white rounded-lg font-manrope shadow-lg">
+  <div class="flex w-full justify-end items-center mb-4">
+    <button class="bg-white text-[#2C3E50] font-manrope font-semibold h-10 px-5 text-sm rounded-lg shadow-md 
+        hover:bg-gray-200 focus:ring-2 focus:ring-gray-300 transition duration-300 ease-in-out"
+        (click)="addShift()">
+    Add new shift
+</button>
+
+  </div>
+
+  <full-calendar class="w-full h-[80vh] md:h-[85vh] lg:h-[90vh]" [options]="calendarOptions" eventContent="bg-white text-gray-900 rounded shadow p-2">
+    <ng-template #eventContent let-arg class="overflow-y-auto">
+      <div *ngIf="arg.event.extendedProps"
+            [ngStyle]="getEventStyles(arg.event.extendedProps)"
+            class="flex flex-col overflow-y-auto p-3 bg-gray-50 rounded-md shadow text-gray-800">
+        <p class="font-manrope font-semibold text-sm">{{ arg.event.title }}</p>
+        <p class="font-manrope text-xs">Start: {{ arg.event.start | date: 'd/MM/yyyy HH:mm' }}</p>
+        <p class="font-manrope text-xs">End: {{ arg.event.end | date: 'd/MM/yyyy HH:mm' }}</p>
+        <hr class="my-1 border-gray-300"/>
+        <div class="flex flex-col items-start">
+          <p class="font-manrope text-xs uppercase">Location</p>
+          <p class="font-manrope text-xs">{{arg.event.extendedProps.location}}</p>
+        </div>
+      </div>
+    </ng-template>
+    
+  </full-calendar>
+</div>

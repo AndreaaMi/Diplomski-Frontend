@@ -1,0 +1,93 @@
+<div class="flex flex-col w-full h-full p-4 gap-8 font-manrope text-white justify-start">
+
+    <div class="flex flex-row w-full justify-center items-center">
+        <div class="search-field relative" style="width: 50%;">
+            <input class="w-full pl-10 pr-4 py-2 rounded-lg bg-transparent text-white" type="text" [(ngModel)]="nameFilter" (ngModelChange)="onNameFilterChange($event)" placeholder="Search by name">
+            <button class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                <fa-icon [icon]="faSearch" class="text-white"/>
+            </button>
+        </div>
+        <div class="relative ml-4">
+            <button (click)="toggleRoleDropdown()" class="filter-btn bg-white p-2 rounded-lg">
+                <fa-icon [icon]="faFilter" class="text-gray-900"/>
+            </button>
+            <div *ngIf="roleDropdownOpen" class="absolute top-full right-0 bg-gray-800 rounded-lg shadow-lg z-20">
+                <ul class="py-2 text-sm">
+                    <li *ngFor="let role of roles">
+                        <label class="flex items-center px-4 py-2 text-white w-35">
+                            <input type="checkbox" [value]="role" (change)="onRoleChange($event)" class="mr-2">
+                            {{ role }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-6 justify-between h-full">
+        <div class="card hover:text-lightGreen hover:border-[3px] hover:border-deepGreen transition-[0.5s] relative cursor-pointer"
+            (click)="navigateToAddNewEmployee()">
+            <div class="flex flex-col justify-center items-center h-full">
+                <fa-icon [icon]="faPlus" class="text-[40px] mb-4"></fa-icon>
+                <p class="text-center text-lg font-semibold">New Employee</p>
+            </div>
+        </div>
+        <div *ngFor="let user of users$ | async; let i = index"
+            class="card hover:translate-y-[-5px] transition-[0.5s] relative">
+            <head>
+                <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+            </head>
+            <button id="dropdownOffsetButton{{i}}" (click)="toggleDropdown(i)"
+                class="text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-centeritems-center  absolute top-5 right-5"
+                type="button">
+                <fa-icon [icon]="faEllipsis" class="text-[28px] hover:text-lightGrey/50 transition-[0.5s]" />
+            </button>
+
+            <body>
+                <div *ngIf="dropdownOpen[i]"
+                    class="z-10 bg-grey divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 absolute top-[70px] right-6">
+                    <ul class="py-2 text-[16px]">
+                        <li class="text-deepYellow hover:bg-white/5 transition-[0.5s]">
+                            <button class="edit-btn " (click)="editEmployee(user.id)">
+                                <p class="block px-4 py-2">
+                                    Edit Profile</p>
+                            </button>
+                        </li>
+                        <li class="text-white hover:bg-white/5 transition-[0.5s]">
+                            <button class="salary-btn" (click)="openAssignSalaryForm(user.id)">
+                                <p class="block px-4 py-2">
+                                    Change Salary</p>
+                            </button>
+                        </li>
+                        <li class="text-deepRed hover:bg-white/5 transition-[0.5s]">
+                            <button class="terminate-btn" (click)="navigateToDeleteEmployee(user.id)">
+                                <p class="block px-4 py-2">Delete</p>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+            </body>
+
+            <div class="image-container">
+                <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" alt="{{ user.name }}"
+                    class="user-image bg-fixed opacity-100 transition-[0.5] ease-in-out hover:opacity-50 transition-[0.5s] cursor-pointer"
+                    (click)="openImageModal(userImages.get(user.id))">
+                <div *ngIf="!userImages.get(user.id)" class="no-image-placeholder">X</div>
+            </div>
+
+            <div class="card-content">
+                <h5 class="card-title">{{ user.name }} {{ user.lastname }}</h5>
+                <p class="card-role">{{ getRoleDisplayName(user.roles) }}</p>
+                <div #modal *ngIf="isModalOpen" class="modal-overlay">
+                    <div class="modal-content">
+                        <button class="close" (click)="closeModal()">&times;</button>
+                        <div class="modal-body">
+                            <img [src]="selectedImage" alt="Full size image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

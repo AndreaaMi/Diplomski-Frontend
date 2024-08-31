@@ -1,0 +1,62 @@
+<div class="flex flex-col w-full h-full p-4 font-manrope text-white items-center justify-between">
+    <div class="flex flex-row w-full h-[13%] justify-between items-center">
+        <div class="flex flex-col w-[400px]">
+            <p class="text-[16px] font-normal">Enter route name</p>
+            <div class="flex flex-row justify-between w-full rounded-[10px] border-[1px] 
+                        h-[50px] border-white/60 bg-white/0 w-full px-2 py-4 items-center">
+                <input class="bg-white/0"
+                        placeholder="e.g. 7A" ngModel name="password"
+                        type="text" required>
+                <button class="w-[25px]">
+                    <fa-icon [icon]="faSearch"/>
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-row">
+            <div class="flex flex-col w-[220px]">
+                <p class="text-[16px] font-normal">Enter starting point</p>
+                <div class="flex flex-row justify-between w-full rounded-[10px] border-[1px] 
+                        h-[50px] border-white/60 bg-white/0 w-full px-2 py-4 items-center">
+                    <input class="bg-white/0"
+                            placeholder="e.g. 7A" ngModel name="password"
+                            type="text" required>
+                    <button class="w-[25px]">
+                        <fa-icon [icon]="faArrowDown"/>
+                    </button>
+                </div>
+            </div>
+            <div class="flex flex-col ml-[20px] w-[220px]">
+                <p class="text-[16px] font-normal">Enter end point</p>
+                <div class="flex flex-row justify-between w-full rounded-[10px] border-[1px] 
+                        h-[50px] border-white/60 bg-white/0 w-full px-2 py-4 items-center">
+                    <input class="bg-white/0"
+                            placeholder="e.g. 7A" ngModel name="password"
+                            type="text" required>
+                    <button class="w-[25px]">
+                        <fa-icon [icon]="faArrowDown"/>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button class="flex items-center justify-center bg-white/0 h-full">
+            <p class="underline font-semibold text-[24px]">Show all</p>
+        </button>
+    </div>
+    <div class="flex flex-col h-[70%] w-full overflow-y-auto">
+        @for (route of routes; track $index) {
+            <app-route-list-item
+                [routeId]="route.id"
+                [routeName]="route.name"
+                [startTime]="route.openingTime"
+                [endTime]="route.closingTime">
+            </app-route-list-item>
+        }
+    </div>
+    <div class="flex flex-row items-center justify-end w-full h-[13%]">
+        <button class="flex flex-row w-[258px] h-[43px] rounded-[10px] bg-white justify-center items-center mt-20 hover:bg-lightGrey transition-[0.5s]"
+                (click)="navigateToNewRoute()">
+            <p class="font-manrope text-darkGrey font-semibold text-[16px]">New route</p>
+            <fa-icon [icon]="faPlus" class="w-[16px] ml-[10px] text-darkGrey"/>
+        </button>
+    </div>
+</div>

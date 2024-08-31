@@ -1,0 +1,19 @@
+<div class="user-component flex flex-col items-center justify-center relative">
+    <fa-icon [icon]="faCircle" class="absolute top-0 right-0 text-lightGreen text-2xl z-50"></fa-icon>
+    <div class="profile-pic" (click)="fileInput.click()">
+        <div class="image-container" *ngIf="userImage; else noImageTemplate">
+            <img [src]="userImage" class="profile-image">
+            <div class="overlay">
+                <div class="plus-sign">+</div>
+            </div>
+        </div>
+        <ng-template #noImageTemplate>
+            <div class="plus-sign no-image-plus">+</div>
+        </ng-template>
+    </div>
+    <input type="file" (change)="uploadImage($event)" hidden #fileInput>
+    <div class="user-info flex flex-col my-4 items-center justify-center">
+        <p class="username font-manrope font-bold text-lg text-white">{{ loggedUser.username }}</p>
+        <p class="role font-manrope font-light text-sm text-white">{{ getRoleDisplayName(loggedUser.roles) }}</p>
+    </div>
+</div>

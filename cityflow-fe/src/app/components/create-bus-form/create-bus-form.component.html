@@ -1,0 +1,52 @@
+<div class="fixed inset-0 flex items-center justify-center bg-opacity-40 z-50 font-manrope text-white">
+    <div class="flex flex-col bg-[#A0A0A0] rounded-[10px] w-[40%] h-[70%] items-center justify-between justify-center p-4">
+      <h2 class="text-[36px] font-semibold">Create new bus</h2>
+        <div class="flex flex-row justify-start items-center w-full">
+            <p class="font-Light text-[18px] mb-2">Licence plate </p>
+            <input class="rounded-[10px] border-[1px] h-[40px] border-white/60 w-[300px] ml-4 bg-lightGrey px-2 py-4"
+                            placeholder="AA-1111-BB"  name="name"
+                            type="text" [(ngModel)]="licencePlate" >
+        </div>
+        <hr class="w-full text-lightGrey my-2">
+        <div class="flex flex-col justify-start items-start w-full">
+            <p class="font-Light text-[18px] mb-2">Arrange on routes</p>
+            <button class="flex flex-row h-[35px] w-[200px] rounded-[6px] bg-white justify-center items-center hover:bg-lightGrey transition-[0.5s]"
+                    (click)="toggleDropdown()">
+                <p class="font-manrope text-darkGrey font-semibold text-[14px]">Select routes</p>
+                @if (!isOpen) {
+                    <fa-icon [icon]="faArrowDown" class="w-[10px] text-[14px] ml-[10px] text-darkGrey"/>        
+                } @else {
+                    <fa-icon [icon]="faArrowUp" class="w-[10px] text-[14px] ml-[10px] text-darkGrey"/>        
+                }
+            </button>
+
+            @if (isOpen) {
+                <div class="flex bg-grey mt-20 absolute rounded-md w-[200px] max-h-[200px] overflow-y-scroll">
+                    <ul class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCheckboxButton">
+                        @for (route of routes; track $index) {
+                            <li>
+                                <div class="flex items-center">
+                                  <input id="checkbox-item-1" type="checkbox" value="" (change)="onCheckboxChange($event, route)" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                  <label for="checkbox-item-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{route.name}}</label>
+                                </div>
+                            </li>
+                        }
+                      </ul>
+                </div>
+            }
+        </div>
+        <div class="flex flex-col justify-start items-start w-full mt-10 mb-6">
+            <p class="font-light text-[14px]">Selected</p>
+            <div class="flex flex-row mt-2 items-center justify-start w-full">
+                @for (selectedRoute of selectedRoutes; track $index) {
+                    <p class="text-[20px] font-regular">{{selectedRoute.name}} </p>
+                }
+            </div>
+        </div>
+      <button class="w-[400px] h-[50px] font-manrope font-semiLight text-white rounded-[10px] text-[25px] 
+                    bg-lightGreen hover:bg-deepGreen transition-[0.5s]"
+              type="submit" (click)="createBus()">
+          Save
+      </button>
+    </div>
+  </div>

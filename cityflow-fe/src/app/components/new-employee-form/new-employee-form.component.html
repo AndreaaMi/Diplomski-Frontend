@@ -1,0 +1,74 @@
+<div class="flex flex-col justify-center items-center pb-12 min-h-screen bg-grey"> 
+<form #RegisterForm="ngForm" (ngSubmit)="registerUser(RegisterForm)">    
+    <div class="flex flex-col w-[900px] rounded-[10px] bg-lightGrey/20 items-center justify-center p-6">
+        <div class="flex felx-col items-center justify-center w-full border-b-[1px] border-white">
+            <p class="text-white font-manrope font-semibold text-[32px]">Add new employee</p>
+        </div>
+        <div class="flex flex-row my-4 w-full">
+            <div class="flex flex-col w-[48%]">
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">First Name</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="e.g. John" ngModel name="name"
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Last Name</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="e.g. Doe" ngModel name="lastname"
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Date of Birth</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="MM/DD/YYYY"
+                            type="date" ngModel name="dateOfBirth">
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Phone number</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="Enter your phone number" ngModel name="phoneNumber"
+                            type="text">
+                </div>
+            </div>
+            <div class="flex w-[4%]"></div>
+            <div class="flex flex-col w-[48%]">
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Username</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="e.g. john" ngModel name="username"
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Email</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="you@gmail.com" ngModel name="email"
+                            type="email" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Password</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                            placeholder="Enter your password" ngModel name="password"
+                            type="password" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">User Role</p>
+                    <select class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-2"
+                            ngModel name="roles" required >
+                        <option value="ROLE_ROUTEADMINISTRATOR" style="color: black; font-size: 18px; background-color: #f3f3f3; border: 1px solid #ccc; outline: none;">Route Administrator</option>
+                        <option value="ROLE_HRAdministrator" style="color: black; font-size: 18px; background-color: #f3f3f3; border: 1px solid #ccc; outline: none;">HR Administrator</option>
+                        <option value="ROLE_DRIVER" style="color: black; font-size: 18px; background-color: #f3f3f3; border: 1px solid #ccc; outline: none;">Driver</option>
+                        <option value="ROLE_SERVICER" style="color: black; font-size: 18px; background-color: #f3f3f3; border: 1px solid #ccc; outline: none;">Servicer</option>
+                        <option value="ROLE_Accountant" style="color: black; font-size: 18px; background-color: #f3f3f3; border: 1px solid #ccc; outline: none;">Accountant</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-white justify-center items-center hover:bg-lightGrey transition-[0.5s]"
+                type="submit">
+            <p class="font-manrope text-darkGrey font-semibold text-[24px]">Save</p>
+            <!--<fa-icon [icon]="faArrowRight" class="w-[32px] ml-[10px] text-darkGrey"/>-->
+        </button>
+    </div>
+</form>
+</div>

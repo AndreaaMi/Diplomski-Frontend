@@ -1,0 +1,166 @@
+<div class="flex flex-col w-full p-4 items-start h-full">
+  <button class="flex flex-row h-[35px] w-[200px] rounded-[6px] bg-white justify-center items-center hover:bg-lightGrey transition-[0.5s]"
+        (click)="toggleDropdown()">
+    <p class="font-manrope text-darkGrey font-semibold text-[14px]">Select request type</p>
+    @if (!isOpen) {
+        <fa-icon [icon]="faArrowDown" class="w-[10px] text-[14px] ml-[10px] text-darkGrey"/>        
+    } @else {
+        <fa-icon [icon]="faArrowUp" class="w-[10px] text-[14px] ml-[10px] text-darkGrey"/>        
+    }
+  </button>
+
+  @if (isOpen) {
+    <div class="flex bg-white mt-10 absolute rounded-md w-[200px]">
+        <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCheckboxButton">
+            <li (click)="selectStudentRequest()" class="hover:bg-lightGrey rounded-t-md w-full cursor-pointer">
+                <div class="flex items-center p-2">
+                  <label for="checkbox-item-1" class="text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+                    Application for issuing a student card                
+                  </label>
+                </div>
+            </li>
+            <li (click)="selectPensionerRequest()" class="hover:bg-lightGrey cursor-pointer">
+                <div class="flex items-center p-2">
+                    <label for="checkbox-item-2" class="text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+                      Application for issuing a pensioner card
+                    </label>
+                </div>
+            </li>
+            <li (click)="selectVacationRequest()" class="hover:bg-lightGrey cursor-pointer">
+                <div class="flex items-center p-2">
+                    <label for="checkbox-item-3" class="text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+                      Request for annual leave
+                    </label>
+                </div>
+            </li>
+            <li (click)="selectHealthcareRequest()" class="hover:bg-lightGrey rounded-b-md cursor-pointer">
+                <div class="flex items-center p-2">
+                    <label for="checkbox-item-4" class="text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">
+                      Request for opening or closing sick leave
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+  }
+
+  @if (selectedRequest == "Student"){
+    <div class="flex flex-col w-full h-full items-start text-white font-manrope my-4 justify-evenly">
+      <div class="flex flex-col w-full items-start">
+        <p class="text-[24px] font-medium">Application for issuing a student card </p>
+        <hr class="w-full text-lightGrey/40 my-2">
+      </div>
+      <form class="flex flex-col w-full" enctype="multipart/form-data">
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload the request pdf file</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'zahtev')"/>
+        </div>
+
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload the data collection agreement pdf file.</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'obrada')" />
+        </div>
+
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload your photo.</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'fotografija')" />
+        </div>
+
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload the picture of index document.</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'indeks')" />
+        </div>
+        <div class="flex w-full items-end justify-end">
+          <button class="flex w-[350px] h-[54px] rounded-[10px] bg-lightGreen justify-center items-center hover:bg-deepGreen transition-[0.5s]"
+                  type="submit"
+                  (click)="uploadStudentFiles()">
+              <p class="font-manrope text-white font-semibold text-[18px]">Upload student files</p>
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+  } @else if (selectedRequest == "Pensioner") {
+    <div class="flex flex-col w-full h-full items-start text-white font-manrope my-4 justify-evenly">
+      <div class="flex flex-col w-full items-start">
+        <p class="text-[24px] font-medium">Application for issuing a pensioner card</p>
+        <hr class="w-full text-lightGrey/40 my-2">
+      </div>
+      <form class="flex flex-col w-full" enctype="multipart/form-data">
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload the request pdf file</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'zahtev')"/>
+        </div>
+
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload the data collection agreement pdf file.</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'obrada')"/>
+        </div>
+
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload the picture of your last pension check.</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'penzioniCek')"/>
+        </div>
+
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please submit the picture of your ID card.</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'licna')"/>
+        </div>
+
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload your photo.</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'fotografija')"/>
+        </div>
+        <div class="flex w-full items-end justify-end">
+          <button class="flex w-[350px] h-[54px] rounded-[10px] bg-lightGreen justify-center items-center hover:bg-deepGreen transition-[0.5s]"
+                  type="submit"
+                  (click)="uploadPensionerFiles()">
+              <p class="font-manrope text-white font-semibold text-[18px]">Upload pensioner files</p>
+          </button>
+        </div>
+      </form>
+    </div>
+  } @else if (selectedRequest == "Vacation") {
+    <div class="flex flex-col w-full h-full items-start text-white font-manrope my-4 justify-evenly">
+      <div class="flex flex-col w-full items-start">
+        <p class="text-[24px] font-medium">Request for annual leave</p>
+        <hr class="w-full text-lightGrey/40 my-2">
+      </div>
+      <form class="flex flex-col w-full" enctype="multipart/form-data">
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload the request pdf file</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'zahtev')"/>
+        </div>
+        <div class="flex w-full items-end justify-end">
+          <button class="flex w-[350px] h-[54px] rounded-[10px] bg-lightGreen justify-center items-center hover:bg-deepGreen transition-[0.5s]"
+                  type="submit"
+                  (click)="uploadVacationFiles()">
+              <p class="font-manrope text-white font-semibold text-[18px]">Upload annual leave request files</p>
+          </button>
+        </div>
+      </form>
+    </div>
+
+  } @else if (selectedRequest == "Healthcare"){
+    <div class="flex flex-col w-full h-full items-start text-white font-manrope my-4 justify-evenly">
+      <div class="flex flex-col w-full items-start">
+        <p class="text-[24px] font-medium">Request for opening or closing sick leave</p>
+        <hr class="w-full text-lightGrey/40 my-2">
+      </div>
+      <form class="flex flex-col w-full" enctype="multipart/form-data">
+        <div class="flex flex-col w-full items-start mb-6">
+          <label class="font-light text-[14px] text-lightGrey mb-[5px]">Please upload the request pdf file</label>
+          <input type="file" class="flex w-full hover:bg-darkGrey shadow-md cursor-pointer rounded-[6px] bg-darkGrey" (change)="onFileSelected($event, 'zahtev')"/>
+        </div>
+        <div class="flex w-full items-end justify-end">
+          <button class="flex w-[350px] h-[54px] rounded-[10px] bg-lightGreen justify-center items-center hover:bg-deepGreen transition-[0.5s]"
+                  type="submit"
+                  (click)="uploadHealthcareFiles()">
+              <p class="font-manrope text-white font-semibold text-[18px]">Upload healthcare request file</p>
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

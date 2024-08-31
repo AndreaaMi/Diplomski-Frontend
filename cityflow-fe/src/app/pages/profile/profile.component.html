@@ -1,0 +1,76 @@
+<form #EditProfileForm="ngForm" (ngSubmit)="editProfile(EditProfileForm)" class="flex items-center justify-center w-full h-full">    
+    <div class="flex flex-col w-[900px] h-auto rounded-[10px] bg-lightGrey/20 items-center justify-center p-6">
+        <div class="profile-pic" (click)="fileInput.click()">
+            <div class="image-container" *ngIf="userImage; else noImageTemplate">
+                <img [src]="userImage" class="profile-image">
+                <div class="overlay">
+                    <div class="plus-sign">+</div>
+                </div>
+            </div>
+            <ng-template #noImageTemplate>
+                <div class="plus-sign no-image-plus">+</div>
+            </ng-template>
+        </div>
+        <input type="file" (change)="uploadImage($event)" hidden #fileInput>
+            <div class="flex flex-row my-4 w-full">
+            <div class="flex flex-col w-[48%]">
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">First Name</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="{{loggedUser.name}}" [(ngModel)]="loggedUser.name" name="name"
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Last Name</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="{{loggedUser.lastname}}" [(ngModel)]="loggedUser.lastname" name="lastname" 
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Date of Birth</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="{{loggedUser.dateOfBirth}}"
+                            type="date" [(ngModel)]="loggedUser.dateOfBirth" name="dateOfBirth">
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Phone number</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="{{loggedUser.phoneNumber}}" [(ngModel)]="loggedUser.phoneNumber" name="phoneNumber"
+                            type="text">
+                </div>
+            </div>
+            <div class="flex w-[4%]"></div>
+            <div class="flex flex-col w-[48%]">
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Username</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="{{loggedUser.username}}" [(ngModel)]="loggedUser.username" name="username"
+                            type="text" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Email</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="{{loggedUser.email}}" [(ngModel)]="loggedUser.email" name="email"
+                            type="email" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Password</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="{{loggedUser.password}}" [(ngModel)]="loggedUser.password" name="password"
+                            type="password" required>
+                </div>
+                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                    <p class="text-[14px] mb-2">Confirm password</p>
+                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/0 px-2 py-4"
+                            placeholder="Re-enter your password"
+                            type="password">
+                </div>
+            </div>
+        </div>
+        <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-lightGreen justify-center items-center hover:bg-deepGreen transition-[0.5s]"
+                type="submit">
+            <p class="font-manrope text-white font-semibold text-[24px]">Save Changes</p>
+            <!--<fa-icon [icon]="faArrowRight" class="w-[32px] ml-[10px] text-darkGrey"/>-->
+        </button>
+    </div>
+</form>

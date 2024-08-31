@@ -1,0 +1,48 @@
+<div class="flex flex-col w-full h-full items-center overflow-hidden">
+    <div #mapContainer class="flex xl:h-[400px] sm:h-[300px] w-full"></div>
+    <div class="flex w-full flex-row justify-between items-center my-4 text-white">
+        <div class="flex flex-col justify-start">
+            <p class="text-white xl:text-[18px] sm:text-[14px] font-manrope mb-2">Route name</p>
+            <input class="rounded-[10px] border-[1px] h-[35px] border-white/60 w-[300px] bg-lightGrey/20 px-2 py-4" [(ngModel)]="routeName">
+        </div>
+        <div class="flex flex-row items-center w-auto">
+            <div class="flex flex-col justify-start">
+                <p class="text-white xl:text-[18px] sm:text-[14px] font-manrope mb-2">Opening time</p>
+                <input class="rounded-[10px] border-[1px] xl:h-[35px] sm:h-[10px] border-white/60 w-full bg-lightGrey/20 px-2 py-4" [(ngModel)]="openingTime">
+            </div>
+            <div class="flex flex-col justify-start ml-10">
+                <p class="text-white xl:text-[18px] sm:text-[14px] font-manrope mb-2">Closing time</p>
+                <input class="rounded-[10px] border-[1px] h-[35px] border-white/60 w-full bg-lightGrey/20 px-2 py-4" [(ngModel)]="closingTime">
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-row w-full justify-center justify-between my-4 font-manrope text-white">
+        <div class="flex flex-col w-[33%] h-auto items-center">
+            <p class="font-semibold xl:text-[24px] sm:text-[18px]">Starting position</p>
+            <div class="flex flex-col w-full justify-center items-center my-2">
+                <p class="font-regular xl:text-[18px] sm:text-[14px]">{{startingStation}}</p>
+            </div>
+        </div>
+        <div class="flex flex-col w-[33%] h-auto items-center border-x-[1px] border-white">
+            <p class="font-semibold xl:text-[24px] sm:text-[18px]">Stations</p>
+            <div class="flex flex-col w-full justify-center items-center my-2">
+                @for (station of stations; track $index) {
+                    <p class="font-regular xl:text-[18px] sm:text-[14px]">{{station}}</p>
+                }
+            </div>
+        </div>
+        <div class="flex flex-col w-[33%] h-auto items-center">
+            <p class="font-semibold xl:text-[24px] sm:text-[18px]">Ending position</p>
+            <div class="flex flex-col w-full justify-center items-center my-2">
+                <p class="font-regular xl:text-[18px] sm:text-[14px]">{{endingStation}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="flex w-full items-center justify-end">
+        <button class="flex flex-row w-[258px] h-[43px] rounded-[10px] bg-white justify-center items-center mt-20 hover:bg-lightGrey transition-[0.5s]"
+                (click)="saveRoute()">
+            <p class="font-manrope text-darkGrey font-semibold text-[16px]">Save route</p>
+            <fa-icon [icon]="faPlus" class="w-[16px] ml-[10px] text-darkGrey"/>
+        </button>
+    </div>
+</div>

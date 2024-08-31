@@ -1,0 +1,23 @@
+<div class="flex flex-col w-[250px] h-[300px] bg-lightGrey/40 rounded-[10px] justify-evenly mb-4
+            items-center justify-center font-manrope text-white p-4 relative">
+    <fa-icon [icon]="faBus" class="text-7xl"/>
+    <div class="flex flex-row w-auto absolute top-[10px] right-[10px]">
+        <button class="flex bg-yellow rounded-[10px] size-[30px] items-center justify-center">
+            <fa-icon [icon]="faPen" class="text-md"/>
+        </button>
+        <button class="flex bg-lightRed rounded-[10px] size-[30px] items-center justify-center ml-[12px] hover:bg-deepRed transition-[0.5s]"
+                (click)="deleteBus(busId)">
+            <fa-icon [icon]="faTrash" class="text-md"/>
+        </button>
+    </div>
+    <div class="flex flex-col w-full items-center justify-center">
+        <p class="font-semibold text-[24px]">Bus #{{busId}}</p>
+        <p class="font-medium text-[22px]">{{licencePlate}}</p>
+    </div>
+    <div class="flex flex-col w-full items-center justify-center">
+        <p class="font-regular text-[20px]">Routes:</p>
+        @for (routeName of routes; track $index) {
+            <p class="font-medium text-[24px]">{{routeName}}</p>
+        }
+    </div>
+</div>

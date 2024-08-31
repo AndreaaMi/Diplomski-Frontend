@@ -1,0 +1,58 @@
+<div class="flex flex-col w-full p-4 items-start h-full">
+    <button class="flex flex-row h-[35px] w-[200px] rounded-[6px] bg-white justify-center items-center hover:bg-lightGrey transition-[0.5s]"
+            (click)="toggleDropdown()">
+        <p class="font-manrope text-darkGrey font-semibold text-[14px]">Select request type</p>
+        @if (!isOpen) {
+            <fa-icon [icon]="faArrowDown" class="w-[10px] text-[14px] ml-[10px] text-darkGrey"/>        
+        } @else {
+            <fa-icon [icon]="faArrowUp" class="w-[10px] text-[14px] ml-[10px] text-darkGrey"/>        
+        }
+    </button>
+
+    @if (isOpen) {
+        <div class="flex bg-white mt-10 absolute rounded-md w-[200px]">
+            <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCheckboxButton">
+                <li (click)="getStudentRequests()" class="hover:bg-lightGrey rounded-t-md w-full cursor-pointer">
+                    <div class="flex items-center p-2">
+                    <label for="checkbox-item-1" class="text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">Applications for issuing a student card</label>
+                    </div>
+                </li>
+                <li (click)="getPensionerRequests()" class="hover:bg-lightGrey w-full cursor-pointer">
+                    <div class="flex items-center p-2">
+                        <label for="checkbox-item-2" class="text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">Applications for issuing a pensioner card</label>
+                    </div>
+                </li>
+                <li (click)="getVacationRequests()" class="hover:bg-lightGrey w-full cursor-pointer">
+                    <div class="flex items-center p-2">
+                        <label for="checkbox-item-3" class="text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">Requests for annual leave</label>
+                    </div>
+                </li>
+                <li (click)="getHealthcareRequests()" class="hover:bg-lightGrey rounded-b-md w-full cursor-pointer">
+                    <div class="flex items-center p-2">
+                        <label for="checkbox-item-4" class="text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">Requests for opening or closing sick leave</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    }
+
+    <div class="flex flex-col w-full items-start justify-center my-4 font-manrope text-white">
+        <div class="flex flex-col w-full items-start">
+            <p class="text-[24px] font-medium">{{requestCategory}}</p>
+            <hr class="w-full text-lightGrey/40 my-2">
+          </div>
+        @for (user of selected; track $index) {
+            <div class="flex flex-row w-full items-center justify-between my-4 border-b-[1px] py-2">
+                <div class="flex flex-row items-center">
+                    <fa-icon [icon]="faFile" class="text-2xl"/>
+                    <p class="font-bold text-[24px] ml-4">Student card request</p>
+                </div>
+                <p class="font-light text-[16px]">Submitted by: {{user}}</p>
+                <button class="flex items-center size-[35px] justify-center text-grey bg-white hover:bg-lightGrey transition-[0.5s] rounded-[6px]"
+                        (click)="collectUsername(user)">
+                    <fa-icon [icon]="faDownload" class="text-2xl"/>
+                </button>
+            </div>
+        }
+    </div>
+</div>

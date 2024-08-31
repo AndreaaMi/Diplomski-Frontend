@@ -1,0 +1,56 @@
+<div class="chat-container font-manrope">
+  <div class="user-list-section">
+    <div class="user-search">
+      <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="searchUsersByName()"
+        placeholder="Search users by name">
+      <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
+    </div>
+    <div class="user-list">
+      <ng-container *ngIf="nameFilter; else showPartners">
+        <div *ngFor="let user of chatUsers" class="user-item" (click)="selectUser(user)">
+          <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" alt="{{ user.name }}">
+          <div>
+            <span>{{ user.name }} {{ user.lastname }}</span>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #showPartners>
+        <div *ngFor="let partner of communicationPartners" class="user-item" (click)="selectUser(partner.user)">
+          <img *ngIf="userImages.get(partner.user.id)" [src]="userImages.get(partner.user.id)"
+            alt="{{ partner.user.name }}">
+          <div>
+            <span>{{ partner.user.name }} {{ partner.user.lastname }}</span>
+            <p>{{ partner.lastMessage.content | slice:0:30 }}...</p>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="message-area">
+    <div *ngIf="selectedUser" class="user-info">
+      <img *ngIf="userImages.get(selectedUser.id)" [src]="userImages.get(selectedUser.id)" alt="{{ selectedUser.name }}"
+        class="user-avatar">
+      <div class="user-details">
+        <span>{{ selectedUser.name }} {{ selectedUser.lastname }} ({{ getRoleDisplayName(selectedUser.roles) }})</span>
+      </div>
+    </div>
+    <div class="messages">
+      <div *ngFor="let message of messages"
+        [ngClass]="{'message': true, 'mine': message.senderId === loggedUser.id, 'theirs': message.senderId !== loggedUser.id}">
+        {{ message.content }}
+      </div>
+    </div>
+    <div class="flex flex-row w-full p-4 rounded-md gap-4 items-center">
+      <div class="flex flex-row w-[95%] h-auto">
+        <textarea
+          class="placeholder:italic flex w-full bg-darkGrey text-[#F5F6FA] p-2 rounded-md max-h-[200px] h-[55px]"
+          [(ngModel)]="newMessageContent" placeholder="Enter your message here..."></textarea>
+      </div>
+      <div
+        class="flex rounded-full size-[50px] bg-[#4CD137] text-[#ffffff] items-center justify-center p-4 cursor-pointer hover:bg-[#049f21] transition-[0.5s]"
+        (click)="sendMessage()">
+        <fa-icon [icon]="faPaperPlane" class="text-[24px]"></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>

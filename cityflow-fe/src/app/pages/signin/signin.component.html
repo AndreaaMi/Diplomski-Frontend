@@ -1,0 +1,25 @@
+<form #SignInForm="ngForm" (ngSubmit)="signIn(SignInForm)" class="flex items-center justify-center w-full h-full">
+    <div class="flex flex-col items-center justify-center px-16 py-12 bg-lightGrey/20 rounded-[16px] w-[510px]">
+        <img src="../../../assets/Logo.png" class="w-[74px]">
+        <div class="flex flex-col font-manrope font-regular w-full my-4 text-white">
+            <label for="username" class="text-[14px] mb-2">Username</label>
+            <input id="username" class="rounded-[10px] border-[1px] h-[50px] border-white/60 bg-lightGrey/20 px-4 py-2"
+                   placeholder="Enter your username" ngModel name="username" type="text" required>
+        </div>
+        <div class="flex flex-col font-manrope font-regular text-white w-full mb-4">
+            <label for="password" class="text-[14px] mb-2">Password</label>
+            <div class="relative">
+                <input id="password" class="rounded-[10px] border-[1px] h-[50px] border-white/60 bg-lightGrey/20 pr-12 pl-4 py-2 w-full"
+                       [type]="hidePassword ? 'password' : 'text'" placeholder="Enter your password" ngModel name="password" required>
+                <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-3 flex items-center justify-center h-full">
+                    <fa-icon [icon]="hidePassword ? faEyeSlash : faEye" class="text-white text-[16px]"></fa-icon>
+                </button>
+            </div>
+        </div>
+        <button class="flex flex-row w-full h-[64px] rounded-[10px] bg-deepGreen justify-center items-center mt-12 hover:bg-lightGreen transition-[0.5s]"
+                type="submit">
+            <p class="font-manrope text-darkGrey font-semibold text-[24px]">Sign In</p>
+            <fa-icon [icon]="faArrowRight" class="w-[32px] ml-[10px] text-darkGrey"/>
+        </button>
+    </div>
+</form>
