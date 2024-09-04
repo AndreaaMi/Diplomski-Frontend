@@ -11,20 +11,24 @@ import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SidePanelProfileComponent } from '../side-panel-profile/side-panel-profile.component';
 import { faSignOut } from '@fortawesome/free-solid-svg-icons';
+import { SigninComponent } from "../../pages/signin/signin.component";
+import { SignupComponent } from "../../pages/signup/signup.component";
 
 @Component({
   selector: 'app-side-panel',
   standalone: true,
   imports: [
-    SigninSignupComponent, 
-    FontAwesomeModule, 
-    SidePanelMenuComponent, 
-    FormsModule, 
-    RouterOutlet, 
-    HttpClientModule, 
+    SigninSignupComponent,
+    FontAwesomeModule,
+    SidePanelMenuComponent,
+    FormsModule,
+    RouterOutlet,
+    HttpClientModule,
     CommonModule,
-    SidePanelProfileComponent
-  ],
+    SidePanelProfileComponent,
+    SigninComponent,
+    SignupComponent
+],
   templateUrl: './side-panel.component.html',
   styleUrl: './side-panel.component.css'
 })

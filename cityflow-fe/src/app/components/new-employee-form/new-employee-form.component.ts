@@ -5,11 +5,13 @@ import { UserDTO } from '../../dtos/userDTO';
 import { newUserDTO } from '../../dtos/newUserDTO';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faChevronDown} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-new-employee-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, FontAwesomeModule],
   templateUrl: './new-employee-form.component.html',
   styleUrl: './new-employee-form.component.css'
 })
@@ -17,7 +19,7 @@ export class NewEmployeeFormComponent implements OnInit{
   roles: string = 'ROLE_ROUTEADMINISTRATOR';
 
   newUser!: newUserDTO;
-
+  faChevronDown = faChevronDown;
   constructor(private hrService : HrAdminService,
               private router: Router,
               private toast: NgToastService

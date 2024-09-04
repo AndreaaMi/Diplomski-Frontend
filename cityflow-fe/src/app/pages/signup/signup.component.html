@@ -1,64 +1,128 @@
-<form #RegisterForm="ngForm" (ngSubmit)="registerUser(RegisterForm)" class="flex items-center justify-center w-full h-full">    
-    <div class="flex flex-col w-[900px] rounded-[10px] bg-lightGrey/20 items-center justify-center p-6">
-        <img src="../../../assets/Logo.png" class="w-[78px]"/>
-        <div class="flex flex-row my-4 w-full">
-            <div class="flex flex-col w-[48%]">
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
-                    <p class="text-[14px] mb-2">First Name</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
-                            placeholder="e.g. John" ngModel name="name"
-                            type="text" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
-                    <p class="text-[14px] mb-2">Last Name</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
-                            placeholder="e.g. Doe" ngModel name="lastname"
-                            type="text" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
-                    <p class="text-[14px] mb-2">Date of Birth</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
-                            placeholder="MM/DD/YYYY"
-                            type="date" ngModel name="dateOfBirth">
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
-                    <p class="text-[14px] mb-2">Phone number</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
-                            placeholder="Enter your phone number" ngModel name="phone"
-                            type="text">
-                </div>
-            </div>
-            <div class="flex w-[4%]"></div>
-            <div class="flex flex-col w-[48%]">
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
-                    <p class="text-[14px] mb-2">Username</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
-                            placeholder="e.g. john" ngModel name="username"
-                            type="text" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
-                    <p class="text-[14px] mb-2">Email</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
-                            placeholder="you@gmail.com" ngModel name="email"
-                            type="email" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
-                    <p class="text-[14px] mb-2">Password</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
-                            placeholder="Enter your password" ngModel name="password"
-                            type="password" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
-                    <p class="text-[14px] mb-2">Confirm password</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
-                            placeholder="Re-enter your password"
-                            type="password">
-                </div>
-            </div>
+<div class="relative flex w-full h-full items-center justify-end bg-cover bg-center" 
+     [ngStyle]="{'background-image': 'url(../../../assets/bg5.jpg)'}">
+
+    <!-- Right section with welcome message and sign-up form -->
+    <div class="flex flex-col mr-20 justify-center items-start px-8 py-8 bg-lightBusYellow/60 rounded-[16px] w-[45%] space-y-6 shadow-lg">
+
+        <!-- Welcome message -->
+        <div class="w-full">
+            <h1 class="text-white font-manrope font-bold text-[32px] leading-tight mb-4">
+                Welcome to City Flow!
+            </h1>
+            <p class="text-text-blueGray font-manrope text-[15px] leading-relaxed">
+                Join City Flow today and manage transportation schedules, routes, and drivers effortlessly. Sign up to get started and become part of the system.
+            </p>
         </div>
-        <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-gray border-[3px] border-deepGreen justify-center items-center hover:bg-lightGreen/20 transition-[0.5s]"
-                type="submit">
-            <p class="font-manrope text-deepGreen font-semibold text-[24px]">Sign Up</p>
-        </button>
+
+        <!-- Sign-up form -->
+        <form #RegisterForm="ngForm" (ngSubmit)="registerUser(RegisterForm)" 
+              class="flex flex-col items-center justify-center px-6 py-8 bg-white rounded-[20px] w-full shadow-2xl border border-[#e4e4e7]">
+
+            <!-- Title for the sign-up form -->
+            <h2 class="text-darkGrey font-manrope font-semibold text-[28px] mb-1">Sign Up</h2>
+
+            <!-- Form fields divided into two columns -->
+            <div class="flex flex-row w-full justify-between space-x-4">
+                
+                <!-- Left column -->
+                <div class="flex flex-col w-1/2 space-y-3">
+                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray">
+                        <label for="name" class="text-[14px] mb-2 text-blueGray">First Name</label>
+                        <input id="name" 
+                               class="shadow-lg rounded-[10px] h-[45px] border border-[#e4e4e7] focus:border-lightYellow bg-white px-4 py-2 placeholder:text-blueGray/50 transition duration-300"
+                               placeholder="e.g. John" 
+                               ngModel name="name" 
+                               type="text" 
+                               required>
+                    </div>
+
+                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray">
+                        <label for="lastname" class="text-[14px] mb-2 text-blueGray">Last Name</label>
+                        <input id="lastname" 
+                               class="shadow-lg rounded-[10px] h-[45px] border border-[#e4e4e7] focus:border-lightYellow bg-white px-4 py-2 placeholder:text-blueGray/50 transition duration-300"
+                               placeholder="e.g. Doe" 
+                               ngModel name="lastname" 
+                               type="text" 
+                               required>
+                    </div>
+
+                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray">
+                        <label for="dateOfBirth" class="text-[14px] mb-2 text-blueGray">Date of Birth</label>
+                        <input id="dateOfBirth" 
+                               class="shadow-lg rounded-[10px] h-[45px] border border-[#e4e4e7] focus:border-lightYellow bg-white px-4 py-2 placeholder:text-blueGray/50 transition duration-300"
+                               type="date" 
+                               ngModel name="dateOfBirth">
+                    </div>
+
+                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray">
+                        <label for="phone" class="text-[14px] mb-2 text-blueGray">Phone Number</label>
+                        <input id="phone" 
+                               class="shadow-lg rounded-[10px] h-[45px] border border-[#e4e4e7] focus:border-lightYellow bg-white px-4 py-2 placeholder:text-blueGray/50 transition duration-300"
+                               placeholder="Enter your phone number" 
+                               ngModel name="phone" 
+                               type="text">
+                    </div>
+                </div>
+
+                <!-- Right column -->
+                <div class="flex flex-col w-1/2 space-y-3">
+                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray">
+                        <label for="username" class="text-[14px] mb-2 text-blueGray">Username</label>
+                        <input id="username" 
+                               class="shadow-lg rounded-[10px] h-[45px] border border-[#e4e4e7] focus:border-lightYellow bg-white px-4 py-2 placeholder:text-blueGray/50 transition duration-300"
+                               placeholder="e.g. john" 
+                               ngModel name="username" 
+                               type="text" 
+                               required>
+                    </div>
+
+                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray">
+                        <label for="email" class="text-[14px] mb-2 text-blueGray">Email</label>
+                        <input id="email" 
+                               class="shadow-lg rounded-[10px] h-[45px] border border-[#e4e4e7] focus:border-lightYellow bg-white px-4 py-2 placeholder:text-blueGray/50 transition duration-300"
+                               placeholder="you@gmail.com" 
+                               ngModel name="email" 
+                               type="email" 
+                               required>
+                    </div>
+
+                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray">
+                        <label for="password" class="text-[14px] mb-2 text-blueGray">Password</label>
+                        <input id="password" 
+                               class="shadow-lg rounded-[10px] h-[45px] border border-[#e4e4e7] focus:border-lightYellow bg-white px-4 py-2 placeholder:text-blueGray/50 transition duration-300"
+                               placeholder="Enter your password" 
+                               ngModel name="password" 
+                               type="password" 
+                               required>
+                    </div>
+
+                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray">
+                        <label for="confirmPassword" class="text-[14px] mb-2 text-blueGray">Confirm Password</label>
+                        <input id="confirmPassword" 
+                               class="shadow-lg rounded-[10px] h-[45px] border border-[#e4e4e7] focus:border-lightYellow bg-white px-4 py-2 placeholder:text-blueGray/50 transition duration-300"
+                               placeholder="Re-enter your password" 
+                               ngModel name="confirmPassword" 
+                               type="password">
+                    </div>
+                </div>
+            </div>
+
+            <button class="flex flex-row w-full h-[45px] rounded-[10px] bg-veryLightYellow justify-center items-center mt-6 hover:bg-lightYellow transition-[0.5s] shadow-md"
+                    type="submit">
+                <p class="font-manrope text-darkGrey font-semibold text-[18px]">Sign Up</p>
+                <fa-icon [icon]="faArrowRight" class="w-[20px] ml-[8px] text-darkGrey"/>
+            </button>
+
+            <!-- Divider and Sign In Link -->
+            <div class="flex flex-col items-center w-full space-y-4 mt-6">
+                <p class="text-blueGray text-sm">Already have an account?</p>
+                <button class="flex flex-row w-full h-[50px] rounded-[12px] bg-blueGray justify-center items-center text-white
+                            hover:bg-blueGray/60 transition-[0.5s] shadow-md"
+                        type="button" (click)="navigateToSignIn()">
+                    <p class="font-manrope font-semibold text-[18px]">Sign In</p>
+                    <fa-icon [icon]="faArrowRight" class="w-[20px] ml-[8px] text-white"/>
+                </button>
+            </div>
+        </form>
     </div>
-</form>
+</div>

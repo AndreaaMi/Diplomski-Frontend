@@ -1,32 +1,32 @@
 <div class="flex flex-col justify-center items-center pb-12 min-h-screen bg-grey" *ngIf="userDTO"> 
     <form (ngSubmit)="updateUser(updateEmployeeForm)" #updateEmployeeForm="ngForm">
-        <div class="flex flex-col w-[900px] rounded-[10px] bg-lightGrey/20 items-center justify-center p-6">
-        <div class="flex felx-col items-center justify-center w-full border-b-[1px] border-white">
-            <p class="text-white font-manrope font-semibold text-[32px]">Edit employee information</p>
+        <div class="flex flex-col w-[900px] rounded-[10px] bg-gradient-to-br from-[#1f2630]/50 to-[#c5d7fc]/10 items-center justify-center p-6 border-4 border-[#5b9fb3]">
+        <div class="flex felx-col items-center justify-center w-full border-b-[4px] pb-4 border-[#5b9fb3]">
+            <p class="text-[#5b9fb3] font-manrope font-semibold text-[35px]">Edit employee information</p>
         </div>
         <div class="flex flex-row my-4 w-full">
             <div class="flex flex-col w-[48%]">
                 <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
                     <p class="text-[14px] mb-2">First Name</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="rounded-[10px] h-[50px] border-none w-full w-full bg-lightGrey/10 px-2 py-4"
                             placeholder="e.g. John" [(ngModel)]="userDTO.name" name="name"
                             type="text" >
                 </div>
                 <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
                     <p class="text-[14px] mb-2">Last Name</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="rounded-[10px] h-[50px] border-none w-full w-full bg-lightGrey/10 px-2 py-4"
                             placeholder="e.g. Doe" [(ngModel)]="userDTO.lastname" name="lastname"
                             type="text" >
                 </div>
                 <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
                     <p class="text-[14px] mb-2">Date of Birth</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="rounded-[10px] h-[50px] border-none w-full w-full bg-lightGrey/10 px-2 py-4"
                             placeholder="MM/DD/YYYY"
                             type="date" [(ngModel)]="userDTO.dateOfBirth" name="dateOfBirth">
                 </div>
                 <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
                     <p class="text-[14px] mb-2">Phone number</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="placeholder:text-lightGrey/30 border-none rounded-[10px] h-[50px] w-full w-full bg-lightGrey/20 px-2 py-4"
                             placeholder="Enter your phone number" [(ngModel)]="userDTO.phone" name="phoneNumber"
                             type="text">
                 </div>
@@ -35,25 +35,25 @@
             <div class="flex flex-col w-[48%]">
                 <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
                     <p class="text-[14px] mb-2">Username</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="rounded-[10px] h-[50px] w-full border-none w-full bg-lightGrey/10 px-2 py-4"
                             placeholder="e.g. john" [(ngModel)]="userDTO.username" name="username"
                             type="text" >
                 </div>
                 <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
                     <p class="text-[14px] mb-2">Email</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="rounded-[10px] h-[50px] w-full border-none w-full bg-lightGrey/10 px-2 py-4"
                             placeholder="you@gmail.com" [(ngModel)]="userDTO.email" name="email"
                             type="email" >
                 </div>
                 <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
                     <p class="text-[14px] mb-2">Password</p>
-                    <input class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="rounded-[10px] h-[50px] w-full border-none w-full bg-lightGrey/10 px-2 py-4"
                             placeholder="Enter your password" [(ngModel)]="userDTO.password" name="password"
                             type="password" >
                 </div>
                 <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
                     <p class="text-[14px] mb-2">User Role</p>
-                    <select class="rounded-[10px] border-[1px] h-[50px] border-white/60 w-full w-full bg-lightGrey/20 px-2 py-2"
+                    <select class="rounded-[10px] h-[50px] border-none w-full w-full bg-lightGrey/10 px-2 py-2"
                             [(ngModel)]="userDTO.roles" name="roles" >
                         <option value="ROLE_ROUTEADMINISTRATOR" style="color: black; font-size: 18px; background-color: #f3f3f3; border: 1px solid #ccc; outline: none;">Route Administrator</option>
                         <option value="ROLE_HRAdministrator" style="color: black; font-size: 18px; background-color: #f3f3f3; border: 1px solid #ccc; outline: none;">HR Administrator</option>
@@ -64,9 +64,9 @@
                 </div>
             </div>
         </div>
-        <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-deepYellow justify-center items-center hover:bg-lightYellow transition-[0.5s]"
+        <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-lightGreen justify-center items-center hover:bg-deepGreen transition-[0.5s]"
                 type="submit">
-            <p class="font-manrope text-white font-semibold text-[24px]">Update</p>
+            <p class="font-manrope text-white font-semibold text-[24px]">Save</p>
         </button>
     </div>
 </form>

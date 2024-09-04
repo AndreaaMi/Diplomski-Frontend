@@ -8,11 +8,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
-  imports: [FontAwesomeModule, FormsModule],
+  imports: [FontAwesomeModule, FormsModule, CommonModule],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.css'
 })
@@ -29,6 +30,10 @@ export class SigninComponent implements OnInit{
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
+  
+  navigateToSignUp() {
+    this.router.navigate(['/signup']);
+  } 
   
   public signIn(SignInForm: NgForm) : void{
     this.authService.logIn(SignInForm.value).subscribe(

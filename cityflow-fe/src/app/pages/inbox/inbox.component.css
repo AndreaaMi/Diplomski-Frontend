@@ -21,7 +21,7 @@
     padding: 8px 30px 8px 10px;
     color: white;
     background: linear-gradient(165deg, #1f2630, #313b4a);
-    border: 1px solid #363d4a;
+    border: none;
     box-sizing: border-box;
 }
 
@@ -106,7 +106,7 @@
 }
 
 .mine {
-    background-color: #049f21;
+    background-color: #5b9fb3;
     align-self: flex-end;
     color: white;
     margin-left: auto;

@@ -13,13 +13,16 @@ import L from 'leaflet';
 import { Location } from '../../models/location';
 import { NgbCalendar, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPipe } from '@angular/common';
+import { Router } from '@angular/router';
+import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
 @Component({
   selector: 'app-add-shift-form',
   standalone: true,
-  imports: [CommonModule, FormsModule,JsonPipe,NgbDatepickerModule],
+  imports: [CommonModule, FormsModule,JsonPipe,NgbDatepickerModule, FontAwesomeModule],
   templateUrl: './add-shift-form.component.html',
   styleUrl: './add-shift-form.component.css'
 })
@@ -44,7 +47,7 @@ export class AddShiftFormComponent implements OnInit {
   selectedMarker?: L.Marker;
   today = inject(NgbCalendar).getToday();
   datepickerOpen: boolean = false;  // Dodato za kontrolu prikaza datepicker-a
-
+  faExclamationTriangle = faExclamationTriangle;
 
 	model!: NgbDateStruct;
 	date!: { year: number; month: number };
@@ -66,6 +69,7 @@ export class AddShiftFormComponent implements OnInit {
     private hrAdminService: HrAdminService,
     private sanitizer: DomSanitizer,
     private busService: BusService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -114,6 +118,7 @@ export class AddShiftFormComponent implements OnInit {
         console.log('Shift added successfully');
         this.clearForm(newShiftForm);
         this.toggleForm();
+        this.router.navigate(['/work-calendar']); 
       },
       error: (error) => {
         console.error('Failed to add shift:', error);
@@ -172,6 +177,10 @@ export class AddShiftFormComponent implements OnInit {
     this.selectedLocation = location.address;
     this.newShift.location = this.selectedLocation;
   }
+  get allFieldsFilled(): boolean {
+    return !!this.selectedUser && !!this.selectedBus && !!this.selectedLocation && !!this.newShift.startTime;
+  }
+  
 
 
   loadMap(): void {

@@ -25,7 +25,7 @@
     </div>
 
     <div class="grid grid-cols-4 gap-6 justify-between h-full">
-        <div class="card hover:text-lightGreen hover:border-[3px] hover:border-deepGreen transition-[0.5s] relative cursor-pointer"
+        <div class="card hover:text-lightBlue hover:border-[3px] hover:border-lightBlue transition-[0.5s] relative cursor-pointer"
             (click)="navigateToAddNewEmployee()">
             <div class="flex flex-col justify-center items-center h-full">
                 <fa-icon [icon]="faPlus" class="text-[40px] mb-4"></fa-icon>
@@ -47,7 +47,7 @@
                 <div *ngIf="dropdownOpen[i]"
                     class="z-10 bg-grey divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 absolute top-[70px] right-6">
                     <ul class="py-2 text-[16px]">
-                        <li class="text-deepYellow hover:bg-white/5 transition-[0.5s]">
+                        <li class="text-white hover:bg-white/5 transition-[0.5s]">
                             <button class="edit-btn " (click)="editEmployee(user.id)">
                                 <p class="block px-4 py-2">
                                     Edit Profile</p>

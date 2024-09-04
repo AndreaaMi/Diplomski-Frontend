@@ -115,10 +115,10 @@ export class WorkCalendarComponent implements OnInit {
 
   public getEventStyles(extendedProps: any): any {
     return {
-      'backgroundColor': '#1d343b',
+      'backgroundColor': '#5b9fb3',
       'border': '4px solid #5b9fb3',
       'border-radius': '0.375rem',
-      'color': '#5b9fb3',
+      'color': 'white',
       'padding': '10px',
       'box-shadow': '0px 2px 10px rgba(0,0,0,0.15)',
     };
