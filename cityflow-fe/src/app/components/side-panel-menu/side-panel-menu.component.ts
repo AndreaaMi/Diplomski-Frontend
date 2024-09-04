@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUser, faHome, faIdCard, faInbox, faCalendar, faBus, faMoneyBillTransfer, faRoute } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHome, faIdCard, faMessage, faCalendar, faBus, faMoneyBillTransfer, faRoute } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../service/auth.service';
 import { User } from '../../models/user';
 import { response } from 'express';
@@ -17,12 +17,11 @@ import { Router } from '@angular/router';
   styleUrl: './side-panel-menu.component.css'
 })
 export class SidePanelMenuComponent implements OnInit{
-  //Icons
   faSignOut = faSignOut;
   faUser = faUser;
   faHome = faHome;
   faIdCard = faIdCard;
-  faInbox = faInbox;
+  faMessage = faMessage;
   faBus = faBus;
   faMoneyBillTransfer = faMoneyBillTransfer;
   faRoute = faRoute;

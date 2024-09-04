@@ -8,10 +8,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { NgToastComponent } from 'ng-angular-popup';
 import { NgChartsModule } from 'ng2-charts';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { AddShiftFormComponent } from './components/add-shift-form/add-shift-form.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 
 @NgModule({
   declarations: [ 
+    
   ],
   imports: [
     BrowserModule, 
@@ -20,7 +28,13 @@ import { NgChartsModule } from 'ng2-charts';
     RouterModule.forRoot([]), 
     FontAwesomeModule,
     NgbModule,
-    NgChartsModule
+    NgChartsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatSlideToggleModule,
+
   ],
   providers: [NgToastComponent],
   bootstrap: [] 

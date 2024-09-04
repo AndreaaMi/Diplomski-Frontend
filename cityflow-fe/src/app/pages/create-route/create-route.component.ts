@@ -117,10 +117,16 @@ export class CreateRouteComponent implements AfterViewInit {
   });
 
   public saveRoute() : void {
-    const startingPoint: Location = { latitude: this.startingStation.lat, longitude: this.startingStation.lng };
-    const endingPoint: Location = { latitude: this.endingStation.lat, longitude: this.endingStation.lng };
+    const startingPoint: Location = {
+      latitude: this.startingStation.lat, longitude: this.startingStation.lng,
+      address: ''
+    };
+    const endingPoint: Location = {
+      latitude: this.endingStation.lat, longitude: this.endingStation.lng,
+      address: ''
+    };
 
-    const stationsArray: Location[] = this.stations.map(station => ({ latitude: station.lat, longitude: station.lng }));
+    const stationsArray: Location[] = this.stations.map(station => ({ latitude: station.lat, longitude: station.lng, address: ''}));
     const routeDTO: RouteDTO = {
       routeName: this.routeName,
       startingPoint: startingPoint,

@@ -8,8 +8,10 @@ import { User } from '../models/user';
 import { newUserDTO } from '../dtos/newUserDTO';
 import { SalaryDTO } from '../dtos/salaryDTO';
 import { EmploymentStatisticsDTO } from '../dtos/employmentStatisticsDTO';
-import { Message } from 'ng-angular-popup';
 import { UserMessages } from '../models/userMessages';
+import { Location } from '../models/location';
+import { Shift } from '../models/shift';
+
 
 @Injectable({
   providedIn: 'root'
@@ -85,7 +87,9 @@ export class HrAdminService {
   getCommunicationPartners(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiServerUrl}/CityFlow/communicationPartners/${userId}`);
   }
-
+  public getAllLocations(): Observable<Location[]> {
+    return this.http.get<Location[]>(`${this.apiServerUrl}/CityFlow/locations`);
+  }
 
 }
 

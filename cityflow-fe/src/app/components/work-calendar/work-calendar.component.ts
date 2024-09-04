@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions, EventInput } from '@fullcalendar/core';
 import { WorkCalendarService } from '../../service/calendar.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -10,13 +10,17 @@ import { AddShiftFormComponent } from '../add-shift-form/add-shift-form.componen
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { isWeekend } from 'date-fns';
+import { HrAdminService } from '../../service/hr-admin.service';
+import { forkJoin, map } from 'rxjs';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @Component({
   standalone: true,
   selector: 'app-work-calendar',
   templateUrl: './work-calendar.component.html',
-  imports: [FullCalendarModule, CommonModule, FormsModule],
+  imports: [FullCalendarModule, CommonModule, FormsModule,FontAwesomeModule],
   styleUrls: ['./work-calendar.component.css']
 })
 export class WorkCalendarComponent implements OnInit {
@@ -32,57 +36,92 @@ export class WorkCalendarComponent implements OnInit {
   customizeDayCell(arg: any): void {
     const isWeekendDay = isWeekend(arg.date);
     if (isWeekendDay) {
-      arg.el.classList.add('bg-white-500', 'text-white');
-      arg.el.style.backgroundColor = '#37404f'; // Fallback if Tailwind doesn't apply
+      arg.el.classList.add('bg-lightBlue', 'text-lightBlue');
+      arg.el.style.backgroundColor = '#37404f';
       arg.el.style.color = '#ffffff';
     } else {
       arg.el.classList.add('bg-white/20', 'text-white');
-      arg.el.style.backgroundColor = ''; // Fallback if Tailwind doesn't apply
-      arg.el.style.color = 'white';
+      arg.el.style.backgroundColor = '';
+      arg.el.style.color = 'lightBlue';
     }
   }
 
-  
-
+  faPlus = faPlus;
   currentMonth: string = '';
   currentYear: number = 0;
 
-  appointmentSelected: boolean = false;  // To track if any appointment is selected
+  appointmentSelected: boolean = false;
   selectedAppointment: any = null;
 
-  constructor(private workCalendarService: WorkCalendarService, 
-              private router: Router,
-              private modalService: NgbModal ) { }
+  constructor(private workCalendarService: WorkCalendarService,
+    private router: Router,
+    private modalService: NgbModal,
+    private hrAdminService: HrAdminService) { }
 
-  ngOnInit(): void {
-    const today = new Date();
-    this.currentMonth = today.toLocaleString('default', { month: 'long' });
-    this.currentYear = today.getFullYear();
+    ngOnInit(): void {
+      this.workCalendarService.getAllShifts().subscribe((shifts: any[]) => {
+        const eventSources = shifts.map((shift: any) => {
+          return this.hrAdminService.getUserDetails(shift.userId).pipe(
+            map(user => ({
+              title: `User: ${user.username}`,
+              start: shift.startTime,
+              end: shift.endTime,
+              location: shift.location,
+              extendedProps: {
+                role: user.roles
+              }
+            }) as EventInput)
+          );
+        });
+    
+        forkJoin(eventSources).subscribe({
+          next: (events: EventInput[]) => {
+            this.calendarOptions.events = events;
+          },
+          error: (error) => {
+            console.error('Failed to fetch shifts:', error);
+          }
+        });
+      });
+    }
+    
 
-    this.workCalendarService.getAllShifts().subscribe((shifts: any) => {
-      this.calendarOptions.events = shifts.map((shift: any) => ({
-        title: `User: ${shift.userId} - Route: ${shift.routeId || 'N/A'}`,
-        start: shift.startTime,
-        end: shift.endTime,
-        location: `${shift.location}`
-      }));
-    }, (error) => {
-      console.error('Failed to fetch shifts:', error);
-    });
+  getColorByRole(role: string): string {
+    const roleColors: { [key: string]: string } = { // Index signature added
+      'Driver': '#1d343b',
+      'HR Administrator': '#3d3427',
+      'Route Administrator': '#3e452e',
+      'Servicer': '#3b272d',
+      'Accountant': '#342b40'
+    };
+    return roleColors[role] || '#ffffff'; // Now TypeScript knows role can be any string
   }
 
-  
+  getTextColorByRole(role: string): string {
+    const textColors: { [key: string]: string } = { // Index signature added
+      'Driver': '#5b9fb3',
+      'HR Administrator': '#e6c79c',
+      'Route Administrator': '#cce394',
+      'Servicer': '#de99ad',
+      'Accountant': '#b799de'
+    };
+    return textColors[role] || '#000000'; // This line is now type-safe
+  }
+
+
   addShift(): void {
     this.router.navigate(['/add-shift']);
   }
 
   public getEventStyles(extendedProps: any): any {
     return {
-      'background-image': 'linear-gradient(to right, #ffffff, #f7fafc)',
-      'border': '1px solid #404752',
+      'backgroundColor': '#1d343b',
+      'border': '4px solid #5b9fb3',
       'border-radius': '0.375rem',
-      'color': '#1f2937' 
+      'color': '#5b9fb3',
+      'padding': '10px',
+      'box-shadow': '0px 2px 10px rgba(0,0,0,0.15)',
     };
   }
-  
+
 }
