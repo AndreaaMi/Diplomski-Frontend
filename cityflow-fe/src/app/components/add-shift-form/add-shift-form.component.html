@@ -1,24 +1,22 @@
-<div *ngIf="formOpen" class="flex items-center justify-center min-h-screen bg-grey relative z-[1]">
+<div *ngIf="formOpen" class="flex items-center justify-center min-h-screen relative z-[1]">
   <div
-    class="flex flex-col bg-gradient-to-br from-[#1f2630]/50 to-[#c5d7fc]/10 rounded-[10px] w-[600px] items-center justify-center p-6 border-4 border-[#5b9fb3] relative">
+    class="flex flex-col rounded-[10px] bg-white p-6 pb-12 shadow-2xl w-[600px] items-center justify-center relative">
 
     <form #newShiftForm="ngForm" (ngSubmit)="addShift(newShiftForm)">
 
-
-
-      <div class="flex flex-col items-center justify-center w-full border-b-[4px] border-[#5b9fb3] pb-4">
-        <p class="text-[#5b9fb3] font-manrope font-semibold text-[35px]">Add New Shift</p>
+      <div class="flex flex-col items-center justify-center w-full pb-2">
+        <p class="text-darkGray font-manrope font-semibold text-[35px]">Add New Shift</p>
       </div>
 
-      <div class="flex flex-col w-full gap-2 pt-2">
-        <div class="flex flex-col font-manrope font-regular text-white my-4">
+      <div class="flex flex-col w-full gap-2">
+        <div class="flex flex-col font-manrope font-regular text-white">
           <button (click)="toggleUserModal()"
-            class="w-[444px] h-[64px] font-manrope font-semibold text-white rounded-[10px] bg-lightGrey/10 hover:bg-lightGrey/20 transition-[0.5s]">
+            class="w-[444px] h-[60px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-4">
             {{ selectedUser ? (selectedUser.name + ' ' + selectedUser.lastname) : 'Select User' }}
           </button>
 
           <div *ngIf="userModalOpen"
-            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 absolute z-[10]">
+            class="fixed inset-0 flex items-center justify-center p-4 absolute z-[10]">
             <div class="bg-grey rounded-lg max-w-lg w-full overflow-auto">
               <div class="border-b p-4 flex justify-between items-center">
                 <span class="text-lg font-medium text-deepYellow">Select a User</span>
@@ -55,7 +53,7 @@
         </div>
 
         <button (click)="toggleBusModal()"
-          class="w-[444px] h-[64px] font-manrope font-semibold text-white rounded-[10px] bg-lightGrey/10 hover:bg-lightGrey/20 transition-[0.5s]">
+          class="w-[444px] h-[60px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-4">
           {{ selectedBus ? selectedBus.licencePlate : 'Select Bus' }}
         </button>
 
@@ -68,14 +66,14 @@
             </div>
             <div #mapContainer class="h-96 w-full"></div>
             <button (click)="confirmLocation()"
-              class="w-full h-[64px] mt-4 font-manrope font-semibold text-white rounded-[10px] bg-lightGreen hover:bg-deepGreen transition-[0.5s]">
+              class="w-full h-[60px] font-manrope font-semibold text-white rounded-[10px] bg-lightGreen hover:bg-deepGreen transition-[0.5s]">
               Confirm Location
             </button>
           </div>
         </div>
 
         <button (click)="toggleLocationModal()"
-          class="w-[444px] h-[64px] font-manrope font-semibold text-white rounded-[10px] bg-lightGrey/10 hover:bg-lightGrey/20 transition-[0.5s] my-4">
+          class="w-[444px] h-[60px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-4">
           {{ selectedLocation || 'Select Location' }}
         </button>
 
@@ -83,17 +81,17 @@
           <div class="flex flex-row w-full gap-4">
             <div class="flex flex-col w-[213px]">
               <div class="flex flex-col font-manrope items-center text-white ">
-                <p class="text-[16px] mb-2">Start Time</p>
+                <p class="text-[16px]">Start Time</p>
                 <input type="datetime-local" id="startTime" name="startTime" [(ngModel)]="newShift.startTime"
-                  class="rounded-[10px] w-full h-[60px] border-none border-none bg-lightGrey/10 px-2 py-4 text-white"
+                  class="w-full h-[60px] shadow-lg border border-[#e4e4e7] rounded-[10px] px-2 py-4 text-blueGray"
                   placeholder="Start Time">
               </div>
             </div>
             <div class="flex flex-col w-[213px]">
               <div class="flex flex-col font-manrope font-regular items-center text-white ">
-                <p class="text-[16px] mb-2">Extra hours</p>
+                <p class="text-[16px]">Extra hours</p>
                 <input type="number" id="extraHours" name="extraHours" [(ngModel)]="newShift.extraHours"
-                  class="rounded-[10px] w-full h-[60px] border-none bg-lightGrey/10 px-2 py-4 text-white"
+                  class="rounded-[10px] w-full h-[60px] shadow-lg border border-[#e4e4e7] bg-white px-2 py-4 text-blueGray"
                   placeholder="Extra Hours">
               </div>
             </div>
@@ -102,11 +100,11 @@
 
       </div>
       <div class="flex flex-row gap-2 items-center">
-        <button type="submit" class="w-[444px] h-[64px] font-manrope font-semibold text-white rounded-[10px] 
+        <button type="submit" class="w-[444px] h-[60px] font-manrope font-semibold text-white rounded-[10px] 
             bg-lightGreen hover:bg-deepGreen transition-[0.5s] my-4">
           Add Shift
         </button>
-        <div class="flex items-center relative group">
+        <!-- <div class="flex items-center relative group">
           <fa-icon [icon]="faExclamationTriangle" class="text-deepYellow text-[24px]"></fa-icon>
           <div
             class="absolute hidden group-hover:flex flex-col items-center left-3 bottom-10 transform -translate-x-1/2 mt-19">
@@ -114,9 +112,9 @@
               class="relative p-4 text-[16px] leading-tight text-white whitespace-no-wrap bg-deepYellow shadow-lg rounded-md w-max">
               Please fill out all fields before submitting.
             </div>
-            <div class="w-4 h-4 bg-deepYellow rotate-45 -mt-2"></div> <!-- Triangle directly below the icon -->
+            <div class="w-4 h-4 bg-deepYellow rotate-45 -mt-2"></div>
           </div>
-        </div>
+        </div>-->
       </div>
     </form>
   </div>

@@ -1,15 +1,15 @@
-<div class="flex flex-col justify-center items-center pb-12 min-h-screen bg-grey">
+<div class="flex flex-col justify-center items-center pb-12 min-h-screen">
     <form (ngSubmit)="deleteEmployee()">
-        <div class="flex flex-col w-[900px] rounded-[10px] bg-gradient-to-br from-[#1f2630] to-[#313b4a] items-center justify-center p-6 border-4 border-lightBlue">
-            <div class="flex flex-col items-center justify-center w-full border-b-[4px] border-lightBlue pb-4">
-                <p class="text-lightBlue font-manrope font-semibold text-[30px]">Are you sure you want to terminate this user?</p>
-                <p class="text-veryLightBlue font-manrope font-medium text-[35px]">{{ username }} (<span class="text-[24px]">{{ userRole }}</span>)</p>
+        <div class="flex flex-col w-[600px] rounded-[10px] bg-white justify-center p-6 items-center justify-center p-6 pb-12 shadow-2xl">
+            <div class="flex flex-col items-center justify-center w-full pb-2 space-x-3">
+                <p class="text-darkGrey font-manrope font-semibold text-[30px]">Terminate</p>
+                <p class="text-blueGray font-manrope font-medium text-[35px]">{{ username }} (<span class="text-[24px]">{{ userRole }}</span>)</p>
             </div>
-            <div class="flex flex-row my-4 w-full">
+            <div class="flex flex-row my-6 w-[80%]">
                 <div class="flex flex-col w-full">
-                    <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
-                        <p class="text-[16px] mb-2">Reason *</p>
-                        <textarea #reasonInput [(ngModel)]="reason" name="reason" class="border-none rounded-[10px] h-[200px] w-full bg-lightGrey/10 px-2 py-4 placeholder:text-lightGrey/30" placeholder="Enter reason for termiantion..."
+                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
+                        <p class="text-[16px] mb-2">Reason</p>
+                        <textarea #reasonInput [(ngModel)]="reason" name="reason" class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[350px] w-full max-h-[400px] min-h-[200px] bg-white px-2 py-4 placeholder:text-blueGray/30" placeholder="Enter reason for termiantion..."
           placeholder="Enter reason for termination" required></textarea>
                     </div>
                 </div>

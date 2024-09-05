@@ -1,9 +1,9 @@
-<div class="chat-container font-manrope">
-  <div class="user-list-section">
-    <div class="user-search">
+<div class="chat-container font-manrope rounded-[10px] space-x-3">
+  <div class="user-list-section rounded-[10px]">
+    <div class="user-search border-white text-blueGray/10 rounded-[10px] mt-3 mr-2 ml-2">
       <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="searchUsersByName()"
-        placeholder="Search users by name">
-      <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
+        placeholder="Search users by name" class="rounded-[10px]">
+      <fa-icon [icon]="faSearch" class="search-icon text-blueGray/20"></fa-icon>
     </div>
     <div class="user-list">
       <ng-container *ngIf="nameFilter; else showPartners">
@@ -26,24 +26,34 @@
       </ng-template>
     </div>
   </div>
-  <div class="message-area">
-    <div *ngIf="selectedUser" class="user-info">
+
+  <div class="message-area rounded-[10px] shadow-2xl">
+    <div *ngIf="selectedUser" class="user-info rounded-[10px] shadow-2xl">
       <img *ngIf="userImages.get(selectedUser.id)" [src]="userImages.get(selectedUser.id)" alt="{{ selectedUser.name }}"
-        class="user-avatar">
+        class="user-avatar ">
       <div class="user-details">
         <span>{{ selectedUser.name }} {{ selectedUser.lastname }} ({{ getRoleDisplayName(selectedUser.roles) }})</span>
       </div>
     </div>
-    <div class="messages">
-      <div *ngFor="let message of messages"
-        [ngClass]="{'message': true, 'mine': message.senderId === loggedUser.id, 'theirs': message.senderId !== loggedUser.id}">
-        {{ message.content }}
+    
+    <div class="messages ">
+      <div *ngFor="let message of messages; let i = index" class="mb-4">
+        <div [ngClass]="{'message': true, 'mine': message.senderId === loggedUser.id, 'theirs': message.senderId !== loggedUser.id}">
+          {{ message.content }}
+        </div>
+        <div *ngIf="message.senderId === loggedUser.id && i === messages.length - 1" class="flex justify-end text-xs text-blueGray/50">
+          <fa-icon [icon]="message.readStatus ? faCheckDouble : faCheck" 
+                   [ngClass]="{'text-blue-500': message.readStatus, 'text-blueGray/50': !message.readStatus}" class="text-xs"></fa-icon>
+          <fa-icon [icon]="message.readStatus ? faCheckDouble : faCheck" 
+                   [ngClass]="{'text-blue-500': message.readStatus, 'text-blueGray/50': !message.readStatus}" class="text-xs"></fa-icon>
+          <span class="ml-1">{{ message.readStatus ? 'Read' : 'Delivered' }}</span>
+        </div>
       </div>
     </div>
     <div class="flex flex-row w-full p-4 rounded-md gap-4 items-center">
       <div class="flex flex-row w-[95%] h-auto">
         <textarea
-          class="placeholder:italic flex w-full bg-lightGrey/10 text-[#F5F6FA] p-2 border-none rounded-md max-h-[200px] h-[55px]"
+          class="placeholder:italic flex w-full bg-blueGray/5 text-[#1f2630] p-2 shadow-lg border border-[#e4e4e7] rounded-[10px] max-h-[100px] min-h-[60px] h-[60px]"
           [(ngModel)]="newMessageContent" placeholder="Enter your message here..."></textarea>
       </div>
       <div

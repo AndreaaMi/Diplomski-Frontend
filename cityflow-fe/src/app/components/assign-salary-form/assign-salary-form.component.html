@@ -1,52 +1,49 @@
-<div class="flex flex-col justify-center items-center pb-12 min-h-screen bg-grey"> 
+<div class="flex flex-col justify-center items-center pb-12 min-h-screen"> 
   <form #AssignSalaryForm="ngForm" (ngSubmit)="onUpdateEmployee(AssignSalaryForm)">
-      <div class="flex flex-col w-[900px] rounded-[10px] bg-gradient-to-br from-[#1f2630]/50 to-[#c5d7fc]/10 items-center justify-center p-6 border-4 border-[#5b9fb3]">
-          <div class="flex flex-col items-center justify-center w-full border-b-[4px] border-[#5b9fb3] pb-4">
-              <p class="text-[#5b9fb3] font-manrope font-semibold text-[30px]">Assign salary for</p>
-              <p class="text-[#add8e6] font-manrope font-medium text-[35px]">{{ username }} (<span class="text-[24px]">{{ userRole }}</span>)</p>
+      <div class="flex flex-col w-[600px] rounded-[10px] bg-white items-center justify-center p-6 pb-12 shadow-2xl">
+          <div class="flex flex-col items-center justify-center w-full pb-2 space-x-3">
+              <p class="text-darkGrey font-manrope font-semibold text-[30px]">Assign salary </p>
+              <p class="text-blueGray font-manrope font-medium text-[35px]">{{ username }}(<span class="text-[24px]">{{ userRole }}</span>)</p>
           </div>
-          <div class="flex flex-row my-4 w-full">
-              <div class="flex flex-col w-[48%]">
-                  <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+          <div class="flex flex-col my-4 w-[80%] items-center">
+                  <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                       <p class="text-[16px] mb-2">Base Salary</p>
                       <div class="flex items-center">
                           <input type="number" [(ngModel)]="assignSalary.baseSalary" name="baseSalary" 
-                                 class="rounded-[10px] h-[60px] w-full bg-lightGrey/20 px-2 py-4"
+                                 class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[60px] w-full bg-white px-2 py-4"
                                  placeholder="Enter base salary" required>
                           <span class="ml-2 text-[24px]">$</span>
                       </div>
                   </div>
-                  <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                  <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                       <p class="text-[16px] mb-2">Hourly Rate for Holiday Work</p>
                       <div class="flex items-center">
                           <input type="number" [(ngModel)]="assignSalary.holidayPayRate" name="holidayPayRate"
-                                 class="rounded-[10px] h-[60px] w-full bg-lightGrey/20 px-2 py-4"
+                                 class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[60px] w-full bg-white px-2 py-4"
                                  placeholder="Enter rate" required>
                           <span class="ml-2 text-[24px]">$</span>
                       </div>
                   </div>
-              </div>
+
               <div class="flex w-[4%]"></div>
-              <div class="flex flex-col w-[48%]">
-                  <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                  <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                       <p class="text-[16px] mb-2">Hourly Rate for Overtime Work</p>
                       <div class="flex items-center">
                           <input type="number" [(ngModel)]="assignSalary.overtimePayRate" name="overtimePayRate"
-                                 class="rounded-[10px] h-[60px] w-full bg-lightGrey/20 px-2 py-4"
+                                 class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[60px] w-full bg-white px-2 py-4"
                                  placeholder="Enter rate" required>
                           <span class="ml-2 text-[24px]">$</span>
                       </div>
                   </div>
-                  <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                  <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                       <p class="text-[16px] mb-2">Hourly Rate for Night Shift</p>
                       <div class="flex items-center">
                           <input type="number" [(ngModel)]="assignSalary.nightShiftPayRate" name="nightShiftPayRate"
-                                 class="rounded-[10px] h-[60px] w-full bg-lightGrey/20 px-2 py-4"
+                                 class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[60px] w-full bg-white px-2 py-4"
                                  placeholder="Enter rate" required>
                           <span class="ml-2 text-[24px]">$</span>
                       </div>
                   </div>
-              </div>
           </div>
           <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-deepGreen justify-center items-center hover:bg-lightGreen transition-[0.5s]"
                   type="submit">

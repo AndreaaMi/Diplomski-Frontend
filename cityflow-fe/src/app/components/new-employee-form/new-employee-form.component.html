@@ -1,66 +1,65 @@
-<div class="flex flex-col justify-center items-center pb-12 min-h-screen bg-grey"> 
+<div class="flex flex-col justify-center items-center pb-12 min-h-screen "> 
 <form #RegisterForm="ngForm" (ngSubmit)="registerUser(RegisterForm)">    
-    <div class="flex flex-col w-[900px] rounded-[10px] bg-gradient-to-br from-[#1f2630]/50 to-[#c5d7fc]/10 items-center justify-center p-6 border-4 border-lightBlue">
-        <div class="flex flex-col items-center justify-center w-full border-b-[4px] border-lightBlue pb-4">
-            <p class="text-lightBlue font-manrope font-semibold text-[35px]">Add new employee</p>
+    <div class="flex flex-col w-[1000px] rounded-[10px] bg-white items-center justify-center p-6 shadow-2xl">
+        <div class="flex flex-col items-center justify-center w-full mt-4">
+            <p class="text-darkGrey font-manrope font-semibold text-[35px]">Add new employee</p>
         </div>
         
         <div class="flex flex-row my-4 w-full">
             <div class="flex flex-col w-[48%]">
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                     <p class="text-[14px] mb-2">First Name</p>
-                    <input class="placeholder:text-lightGrey/30 rounded-[10px] h-[50px] w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
                             placeholder="e.g. John" ngModel name="name"
                             type="text" required>
                 </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                     <p class="text-[14px] mb-2">Last Name</p>
-                    <input class="placeholder:text-lightGrey/30 rounded-[10px] h-[50px] w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
                             placeholder="e.g. Doe" ngModel name="lastname"
                             type="text" required>
                 </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                     <p class="text-[14px] mb-2">Date of Birth</p>
-                    <input class="placeholder:text-lightGrey/30 rounded-[10px] h-[50px] w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
                             placeholder="MM/DD/YYYY"
                             type="date" ngModel name="dateOfBirth">
                 </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                     <p class="text-[14px] mb-2">Phone number</p>
-                    <input class="placeholder:text-lightGrey/30 rounded-[10px] h-[50px] w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
                             placeholder="Enter your phone number" ngModel name="phoneNumber"
                             type="text">
                 </div>
             </div>
             <div class="flex w-[4%]"></div>
             <div class="flex flex-col w-[48%]">
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                     <p class="text-[14px] mb-2">Username</p>
-                    <input class="placeholder:text-lightGrey/30 rounded-[10px] h-[50px] w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
                             placeholder="e.g. john" ngModel name="username"
                             type="text" required>
                 </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                     <p class="text-[14px] mb-2">Email</p>
-                    <input class="placeholder:text-lightGrey/30 rounded-[10px] h-[50px] w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
                             placeholder="you@gmail.com" ngModel name="email"
                             type="email" required>
                 </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4">
+                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
                     <p class="text-[14px] mb-2">Password</p>
-                    <input class="placeholder:text-lightGrey/30 rounded-[10px] h-[50px] w-full w-full bg-lightGrey/20 px-2 py-4"
+                    <input class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
                             placeholder="Enter your password" ngModel name="password"
                             type="password" required>
                 </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-white my-4 relative">
+                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4 relative">
                     <p class="text-[14px] mb-2">User Role</p>
-                    <fa-icon [icon]="faChevronDown" class="absolute right-4 top-10 transform text-white"></fa-icon>
-                    <select class="rounded-[10px] h-[50px] w-full bg-lightGrey/20 px-2 py-2 appearance-none text-white">
-                        <option value="ROLE_ROUTEADMINISTRATOR" class="bg-grey text-white">Route Administrator</option>
-                        <option value="ROLE_HRAdministrator" class="bg-grey text-white">HR Administrator</option>
-                        <option value="ROLE_DRIVER" class="bg-grey text-white">Driver</option>
-                        <option value="ROLE_SERVICER" class="bg-grey text-white">Servicer</option>
-                        <option value="ROLE_ACCOUNTANT" class="bg-grey text-white">Accountant</option>
+                    <select class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[50px] w-full bg-white px-2 py-2 appearance-none text-blueGray">
+                        <option value="ROLE_ROUTEADMINISTRATOR" style="color: black; font-size: 18px; background-color: white; outline: none;">Route Administrator</option>
+                        <option value="ROLE_HRAdministrator" style="color: black; font-size: 18px; background-color: white; outline: none;">HR Administrator</option>
+                        <option value="ROLE_DRIVER" style="color: black; font-size: 18px; background-color: white; outline: none;">Driver</option>
+                        <option value="ROLE_SERVICER" style="color: black; font-size: 18px; background-color: white; outline: none;">Servicer</option>
+                        <option value="ROLE_Accountant" style="color: black; font-size: 18px; background-color: white; outline: none;">Accountant</option>
                     </select>
                 </div>
             </div>

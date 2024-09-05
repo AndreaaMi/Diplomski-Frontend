@@ -1,4 +1,4 @@
-<div class="flex flex-col p-6 w-full h-full justify-between bg-darkGrey h-[100vh]">
+<div class="flex flex-col p-6 w-full h-full justify-between bg-lightYellow h-[100vh]">
     <div class="flex flex-col h-full gap-4 items-center">
         <img src="../../../assets/LogoWithName.png" class="w-[250px] h-[50px]">
         @if(isLoggedIn){
@@ -11,8 +11,8 @@
         }
     </div>
     @if (isLoggedIn) {
-        <button class="flex flex-row w-[258px] h-[43px] rounded-[10px] border border-deepRed justify-center items-center text-deepRed
-                hover:bg-deepRed/20 hover:text-deepRed transition-all duration-500"
+        <button class="flex flex-row w-[258px] h-[43px] rounded-[10px] bg-deepRed justify-center items-center text-white
+                hover:bg-lightRed  transition-all duration-500"
             (click)="signOut()">
             <p class="font-manrope font-semibold text-[16px]">Sign Out</p>
             <fa-icon [icon]="faSignOut" class="w-[16px] ml-[10px]"/>

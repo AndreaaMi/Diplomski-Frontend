@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../models/user';
 import { AuthService } from '../../service/auth.service';
 import { HrAdminService } from '../../service/hr-admin.service';
@@ -9,11 +9,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserMessages } from '../../models/userMessages';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCheckDouble, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
-
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-inbox',
@@ -23,6 +21,8 @@ import { Observable } from 'rxjs';
   styleUrl: './inbox.component.css'
 })
 export class InboxComponent implements OnInit {
+  @ViewChild('messageContainer', { static: false }) private messageContainer!: ElementRef;
+
   token = localStorage.getItem('token');
   loggedUser!: User;
   userImage: any;
@@ -39,7 +39,8 @@ export class InboxComponent implements OnInit {
   communicationPartners: any[] = [];
   faPaperPlane = faPaperPlane;
   userImages = new Map<number, any>();
-
+  faCheck = faCheck;
+  faCheckDouble = faCheckDouble;
   constructor(
     private authService: AuthService,
     private hrAdminService: HrAdminService,
@@ -109,7 +110,6 @@ export class InboxComponent implements OnInit {
     if (this.nameFilter.trim()) {
       this.hrAdminService.searchUsersByName(this.nameFilter).subscribe(users => {
         this.chatUsers = users;
-        // Fetch profile pictures for the searched users
         users.forEach(user => {
           if (user.profilePicture && !this.userImages.has(user.id)) {
             this.fetchUserProfilePicture(user.id);
@@ -120,7 +120,6 @@ export class InboxComponent implements OnInit {
       });
     } else {
       this.chatUsers = [];
-      // Optionally clear previously searched users' images if you want to save memory
     }
   }
 
@@ -141,9 +140,19 @@ export class InboxComponent implements OnInit {
       }, error => {
         console.error('Failed to load messages:', error);
       });
+      this.scrollToBottom();
+
     }
   }
-
+  private scrollToBottom(): void {
+    try {
+      setTimeout(() => {
+        this.messageContainer.nativeElement.scrollTop = this.messageContainer.nativeElement.scrollHeight;
+      }, 0);
+    } catch (err) {
+      console.log('Scroll to bottom failed', err);
+    }
+  }
 
   sendMessage(): void {
     console.log('Send button clicked!');
@@ -154,6 +163,7 @@ export class InboxComponent implements OnInit {
         this.newMessageContent = '';
         this.fetchCommunicationPartners();
         this.loadMessages();
+        this.scrollToBottom();
       });
     }
   }

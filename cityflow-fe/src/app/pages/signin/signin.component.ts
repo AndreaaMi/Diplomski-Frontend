@@ -9,13 +9,26 @@ import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { CommonModule } from '@angular/common';
+import { trigger, style, animate, transition } from '@angular/animations';  // Import Angular animations
+
 
 @Component({
   selector: 'app-signin',
   standalone: true,
   imports: [FontAwesomeModule, FormsModule, CommonModule],
   templateUrl: './signin.component.html',
-  styleUrl: './signin.component.css'
+  styleUrl: './signin.component.css',
+  animations: [
+    trigger('fadeAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms ease-in', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('500ms ease-out', style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class SigninComponent implements OnInit{
   hidePassword: boolean = true;
@@ -34,7 +47,7 @@ export class SigninComponent implements OnInit{
   navigateToSignUp() {
     this.router.navigate(['/signup']);
   } 
-  
+
   public signIn(SignInForm: NgForm) : void{
     this.authService.logIn(SignInForm.value).subscribe(
       (response: LoginDTO) => {

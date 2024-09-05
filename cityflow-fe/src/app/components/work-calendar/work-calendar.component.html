@@ -1,22 +1,19 @@
-<div class="container mx-auto p-5 bg-gradient-to-br from-[#1f2630] to-[#313b4a] text-white rounded-lg font-manrope shadow-lg">
-  <div class="flex w-full justify-end items-center mb-7 mt-3">
-    <button class="bg-veryLightBlue text-deepBlue font-manrope font-semibold h-[70px] w-[174px] border-[4px] px-5 text-[21px] rounded-lg shadow-md 
-        hover:bg-veryLightBlue/20 border-veryLightBlue hover:text-veryLightBlue focus:ring-2 focus:ring-gray-300 transition duration-300 ease-in-out"
+<div class="container mx-auto p-6 bg-gray-50 text-darkGray rounded-[10px] font-manrope shadow-2xl mt-2 -ml-1">
+  <div class="flex w-full justify-end items-center">
+    <button class="bg-deepGreen text-white font-manrope font-semibold h-[45px] w-[174px] px-5 text-[21px] rounded-lg shadow-md 
+        hover:bg-lightGreen focus:ring-2 focus:ring-gray-300 transition duration-300 ease-in-out"
         (click)="addShift()">
         <fa-icon [icon]="faPlus" class="pr-1 text-[21px]"/>
     Add Shift
     </button>
   </div>
 
-  <full-calendar class="w-full h-[80vh] md:h-[75vh] lg:h-[85vh]" [options]="calendarOptions">
-    
-    <ng-template #eventContent let-arg class="h-full overflow-y-auto custom-scrollbar border-nonwe">
-      <div *ngIf="arg.event.extendedProps"
-           [ngStyle]="getEventStyles(arg.event.extendedProps)"
-           class="h-full flex flex-col overflow-hidden p-5 rounded-md shadow">
-        <p class="font-manrope font-semibold text-sm ">{{ arg.event.title }}</p>
-        <hr class=" border-white border-[1px]"/>
-        <p class="font-manrope text-xl">{{ arg.event.start | date: 'HH:mm' }} - {{ arg.event.end | date: 'HH:mm' }}</p>
+  <full-calendar class="w-full h-[80vh] md:h-[75vh] lg:h-[85vh] " [options]="calendarOptions">
+    <ng-template #eventContent let-arg>
+      <div *ngIf="arg.event.extendedProps" [ngStyle]="getEventStyles(arg.event.extendedProps)" class="p-4 rounded-md shadow">
+        <p class="font-semibold text-lg">{{ arg.event.title }}</p>
+
+        <p class="text-base">{{ arg.event.start | date: 'HH:mm' }} - {{ arg.event.end | date: 'HH:mm' }}</p>
       </div>
     </ng-template>
   </full-calendar>
