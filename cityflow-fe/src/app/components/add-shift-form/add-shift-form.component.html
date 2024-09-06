@@ -9,24 +9,26 @@
       </div>
 
       <div class="flex flex-col w-full gap-2">
-        <div class="flex flex-col font-manrope font-regular text-white">
-          <button (click)="toggleUserModal()"
+        <div class="flex flex-col font-manrope font-regular text-darkGray">
+          <button type="button" (click)="toggleUserModal()"
             class="w-[444px] h-[60px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-4">
             {{ selectedUser ? (selectedUser.name + ' ' + selectedUser.lastname) : 'Select User' }}
           </button>
 
           <div *ngIf="userModalOpen"
-            class="fixed inset-0 flex items-center justify-center p-4 absolute z-[10]">
-            <div class="bg-grey rounded-lg max-w-lg w-full overflow-auto">
+            class="fixed inset-0 flex items-center justify-center absolute z-[10]">
+            <div class="bg-white rounded-[10px] w-full h-full overflow-auto shadow-2xl ">
               <div class="border-b p-4 flex justify-between items-center">
-                <span class="text-lg font-medium text-deepYellow">Select a User</span>
-                <button (click)="toggleUserModal()" class="text-sm text-deepRed hover:text-lightRed">Close</button>
+                <span class="text-lg font-semibold text-darkGrey">Select a User</span>
+                <button (click)="toggleUserModal()">
+                  <fa-icon [icon]="faX" class="pr-1 text-[21px] text-darkGray hover:text-darkGrey/60"/>
+                </button>
               </div>
               <ul class="list-none p-2 space-y-2">
                 <li *ngFor="let user of users$ | async" (click)="selectUser(user)"
                   class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-lightGrey/10">
                   <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" [alt]="user.name"
-                    class="h-10 w-10 rounded-full object-cover">
+                    class="h-10 w-10 rounded-full object-cover shadow-lg">
                   <div *ngIf="!userImages.get(user.id)"
                     class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-white">N/A</div>
                   <div>{{ user.name }} {{ user.lastname }} - {{ user.roles }}</div>
@@ -37,42 +39,46 @@
         </div>
 
         <div *ngIf="busModalOpen"
-          class="fixed inset-0 bg-black bg-opacity-50 flex items-center z-[10] justify-center p-4 absolute">
-          <div class="bg-grey rounded-lg max-w-lg w-full overflow-auto">
-            <div class="border-b p-4 flex justify-between items-center">
-              <span class="text-lg font-medium text-deepYellow">Select a Bus</span>
-              <button (click)="toggleBusModal()" class="text-sm text-deepRed hover:text-lightRed">Close</button>
+        class="fixed inset-0 flex items-center justify-center absolute z-[10]">
+        <div class="bg-white rounded-[10px] w-full h-full overflow-auto shadow-2xl ">
+          <div class="border-b p-4 flex justify-between items-center">
+              <span class="text-lg font-semibold text-darkGrey">Select a Bus</span>
+              <button (click)="toggleBusModal()">
+                <fa-icon [icon]="faX" class="pr-1 text-[21px] text-darkGray hover:text-darkGrey/60"/>
+              </button>
             </div>
             <ul class="list-none p-2 space-y-2">
               <li *ngFor="let bus of buses$ | async" (click)="selectBus(bus)"
-                class="flex items-center space-x-2 text-white p-2 hover:bg-lightGrey/10 hover:cursor-pointer">
+                class="flex items-center space-x-2 text-darkGray p-2 hover:bg-lightGrey/10 hover:cursor-pointer">
                 <div>{{ bus.licencePlate }}</div>
               </li>
             </ul>
           </div>
         </div>
 
-        <button (click)="toggleBusModal()"
+        <button (click)="toggleBusModal()" type="button"
           class="w-[444px] h-[60px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-4">
           {{ selectedBus ? selectedBus.licencePlate : 'Select Bus' }}
         </button>
 
         <div *ngIf="locationModalOpen"
-          class="fixed inset-0 bg-black bg-opacity-50 flex items-center z-[10] justify-center p-4 absolute">
-          <div class="bg-grey rounded-lg max-w-2xl w-full overflow-auto">
-            <div class="border-b p-4 flex justify-between items-center">
-              <span class="text-lg font-medium text-deepYellow">Select a Location</span>
-              <button (click)="toggleLocationModal()" class="text-sm text-deepRed hover:text-lightRed">Close</button>
+        class="fixed inset-0 flex items-center justify-center absolute z-[10]">
+        <div class="bg-white rounded-[10px] w-full h-full shadow-2xl p-4">
+            <div class="border-b flex justify-between items-center">
+              <span class="text-lg font-semibold text-darkGrey">Select a Location</span>
+              <button (click)="toggleLocationModal()">
+                <fa-icon [icon]="faX" class="pr-1 text-[21px] text-darkGray hover:text-darkGrey/60"/>
+              </button>
             </div>
-            <div #mapContainer class="h-96 w-full"></div>
+            <div #mapContainer class="h-[470px] w-full p-2"></div>
             <button (click)="confirmLocation()"
-              class="w-full h-[60px] font-manrope font-semibold text-white rounded-[10px] bg-lightGreen hover:bg-deepGreen transition-[0.5s]">
+              class="w-full h-[60px] font-manrope mt-4 font-semibold text-white rounded-[10px] bg-lightGreen hover:bg-deepGreen transition-[0.5s]">
               Confirm Location
             </button>
           </div>
         </div>
 
-        <button (click)="toggleLocationModal()"
+        <button (click)="toggleLocationModal()" type="button"
           class="w-[444px] h-[60px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-4">
           {{ selectedLocation || 'Select Location' }}
         </button>

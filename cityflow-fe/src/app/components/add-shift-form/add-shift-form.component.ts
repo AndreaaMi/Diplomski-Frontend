@@ -14,8 +14,9 @@ import { Location } from '../../models/location';
 import { NgbCalendar, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import {faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
+import {faExclamationTriangle, faX} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgToastService } from 'ng-angular-popup';
 
 
 
@@ -46,8 +47,9 @@ export class AddShiftFormComponent implements OnInit {
   map!: L.Map;
   selectedMarker?: L.Marker;
   today = inject(NgbCalendar).getToday();
-  datepickerOpen: boolean = false;  // Dodato za kontrolu prikaza datepicker-a
+  datepickerOpen: boolean = false; 
   faExclamationTriangle = faExclamationTriangle;
+  faX = faX;
 
 	model!: NgbDateStruct;
 	date!: { year: number; month: number };
@@ -69,7 +71,8 @@ export class AddShiftFormComponent implements OnInit {
     private hrAdminService: HrAdminService,
     private sanitizer: DomSanitizer,
     private busService: BusService,
-    private router: Router
+    private router: Router,
+    private toast: NgToastService
   ) { }
 
   ngOnInit(): void {
@@ -111,17 +114,14 @@ export class AddShiftFormComponent implements OnInit {
       location: this.newShift.location
     };
 
-    console.log('Submitting shift with data:', shiftData);
 
     this.workCalendarService.addShift(shiftData).subscribe({
       next: () => {
-        console.log('Shift added successfully');
-        this.clearForm(newShiftForm);
-        this.toggleForm();
+        this.toast.success({ detail: "SUCCESS", summary: 'Shift added successfully!' });
         this.router.navigate(['/work-calendar']); 
       },
       error: (error) => {
-        console.error('Failed to add shift:', error);
+        this.toast.error({ detail: "ERROR", summary: 'Failed to add sgift: ' + error.message });
       }
     });
   }
