@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import {faExclamationTriangle, faX} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgToastService } from 'ng-angular-popup';
+import { DayOfWeek } from '../../models/dayOfWeek';
 
 
 
@@ -29,6 +30,16 @@ import { NgToastService } from 'ng-angular-popup';
 })
 
 export class AddShiftFormComponent implements OnInit {
+  daysOfWeek: DayOfWeek[] = [
+    DayOfWeek.MONDAY,
+    DayOfWeek.TUESDAY,
+    DayOfWeek.WEDNESDAY,
+    DayOfWeek.THURSDAY,
+    DayOfWeek.FRIDAY,
+    DayOfWeek.SATURDAY,
+    DayOfWeek.SUNDAY
+  ];
+  selectedDaysOfWeek: DayOfWeek[] = [];
   @ViewChild('mapContainer', { static: false }) mapContainer?: ElementRef;
   newShift: Shift =
     {
@@ -38,7 +49,7 @@ export class AddShiftFormComponent implements OnInit {
       startTime: '',
       endTime: '',
       location: '',
-      extraHours: 0
+      extraHours: 0,
     }
   formOpen: boolean = true;
   userModalOpen: boolean = false;
@@ -106,25 +117,40 @@ export class AddShiftFormComponent implements OnInit {
     this.buses$ = this.busService.getAll();
   }
 
+  toggleDaySelection(day: DayOfWeek): void {
+    const index = this.selectedDaysOfWeek.indexOf(day);
+    if (index === -1) {
+      this.selectedDaysOfWeek.push(day);
+    } else {
+      this.selectedDaysOfWeek.splice(index, 1);
+    }
+  }
+
+  isDaySelected(day: DayOfWeek): boolean {
+    return this.selectedDaysOfWeek.includes(day);
+  }
+
   public addShift(newShiftForm: NgForm): void {
     const shiftData = {
       ...newShiftForm.value,
       userId: this.newShift.userId,
       busId: this.newShift.busId,
-      location: this.newShift.location
+      location: this.newShift.location,
+      daysOfWeek: this.selectedDaysOfWeek // Send selected days as part of the shiftDTO
     };
-
-
+  
     this.workCalendarService.addShift(shiftData).subscribe({
       next: () => {
         this.toast.success({ detail: "SUCCESS", summary: 'Shift added successfully!' });
-        this.router.navigate(['/work-calendar']); 
+        this.router.navigate(['/work-calendar']);
       },
       error: (error) => {
-        this.toast.error({ detail: "ERROR", summary: 'Failed to add sgift: ' + error.message });
+        this.toast.error({ detail: "ERROR", summary: 'Failed to add shift: ' + error.message });
       }
     });
   }
+  
+
 
   toggleForm(): void {
     this.formOpen = !this.formOpen;

@@ -1,4 +1,5 @@
 export interface SalaryDTO{
+   salaryMonth: string;
    baseSalary: number,
    overtimeHours: number,
    holidayWorkHours: number,

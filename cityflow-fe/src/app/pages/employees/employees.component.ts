@@ -4,14 +4,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSearch, faArrowDown, faPlus, faEllipsis, faPen, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { User } from '../../models/user';
 import { UserService } from '../../service/user.service';
-import { combineLatest, map, Observable, tap } from 'rxjs';
+import { catchError, combineLatest, map, Observable, tap } from 'rxjs';
 import { HrAdminService } from '../../service/hr-admin.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SalaryDTO } from '../../dtos/salaryDTO';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FlowbiteService } from '../../service/flowbite.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -30,6 +31,9 @@ export class EmployeesComponent implements OnInit {
   selectedEmployee: User | null = null;
   nameFilter: string = '';
   roleFilter: string = '';
+  salaries: Map<number, SalaryDTO | null> = new Map();
+  currentMonth!: string;
+  currentYear!: number;
 
   faSearch = faSearch;
   faFilter = faFilter;
@@ -54,7 +58,11 @@ export class EmployeesComponent implements OnInit {
     private sanitizer: DomSanitizer, 
     private modalService: NgbModal,
     private flowbiteService: FlowbiteService
-  ) {}
+  ) {
+    const today = new Date();
+    this.currentMonth = formatDate(today, 'MM', 'en');
+    this.currentYear = today.getFullYear();
+  }
 
   ngOnInit(): void {
     this.flowbiteService.loadFlowbite(flowbite => {
@@ -69,9 +77,46 @@ export class EmployeesComponent implements OnInit {
     this.users$.subscribe(users => {
       this.dropdownOpen = new Array(users.length).fill(false); 
     });
-    console.log('Flowbite loaded', flowbite);
+    this.loadUsers();
+
     });
 
+  }
+
+  loadUsers(): void {
+    this.users$ = this.hrAdminService.searchUsersByName('').pipe(
+      map(users => users.filter(user => user.employed)),
+      map(users => {
+        this.loadSalaries(users);  // Fetch salaries after users are loaded
+        return users;
+      })
+    );
+  }
+
+  loadSalaries(users: User[]): void {
+    users.forEach(user => {
+      this.hrAdminService.getSalaryByUserIdAndMonth(user.id, this.currentYear, parseInt(this.currentMonth, 10)).pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.salaries.set(user.id, null);  // Set null if no salary assigned
+          return [];
+        })
+      ).subscribe((salary: SalaryDTO) => {
+        this.salaries.set(user.id, salary);  // Store salary if available
+      });
+    });
+  }
+
+  getSalaryMessage(userId: number): string {
+    const salary = this.salaries.get(userId);
+    if (salary) {
+      return `Salary: $${salary.totalSalary.toFixed(2)}`;
+    } else {
+      return 'No salary assigned!';
+    }
+  }
+
+  getSalaryClass(userId: number): string {
+    return this.salaries.get(userId) ? 'text-green-500' : 'text-yellow-500';
   }
 
   toggleRoleDropdown(): void {

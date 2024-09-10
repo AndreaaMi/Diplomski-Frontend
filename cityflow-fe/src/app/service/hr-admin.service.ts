@@ -39,9 +39,25 @@ export class HrAdminService {
     return this.http.post<User>(`${this.apiServerUrl}/CityFlow/updateUser/${userId}`, userDTO);
   }
 
-  assignSalary(userId: number, salaryDTO: SalaryDTO): Observable<any> {
-    return this.http.post<any>(`${this.apiServerUrl}/CityFlow/assignSalary/${userId}`, salaryDTO);
+  public assignSalary(userId: number, salaryDTO: SalaryDTO): Observable<string> { // Change Observable<any> to Observable<string>
+    return this.http.post(`${this.apiServerUrl}/CityFlow/assignSalary/${userId}`, salaryDTO, { responseType: 'text' });
   }
+  public getSalaryByUserId(userId: number): Observable<SalaryDTO> {
+    return this.http.get<SalaryDTO>(`${this.apiServerUrl}/CityFlow/getSalaryByUserId/${userId}`);
+  }
+
+  public getLatestSalaryByUserId(userId: number): Observable<SalaryDTO> {
+    return this.http.get<SalaryDTO>(`${this.apiServerUrl}/CityFlow/getLatestSalaryByUserId/${userId}`);
+  }
+
+  getSalaryByUserIdAndMonth(userId: number, year: number, month: number): Observable<SalaryDTO> {
+    return this.http.get<SalaryDTO>(`${this.apiServerUrl}/CityFlow/getSalaryByUserIdAndMonth/${userId}/${year}/${month}`);
+  }
+
+  public getAllSalariesForUser(userId: number): Observable<SalaryDTO[]> {
+    return this.http.get<SalaryDTO[]>(`${this.apiServerUrl}/CityFlow/getAllSalariesForUser/${userId}`);
+  }
+
   public searchUsersByName(name: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiServerUrl}/CityFlow/searchByName?name=${encodeURIComponent(name)}`);
   }
@@ -53,9 +69,7 @@ export class HrAdminService {
   getUserDetails(userId: number): Observable<UserDTO> {
     return this.http.get<UserDTO>(`${this.apiServerUrl}/CityFlow/getUserDetails/${userId}`);
   }
-  getSalaryByUserId(userId: number): Observable<SalaryDTO> {
-    return this.http.get<SalaryDTO>(`${this.apiServerUrl}/CityFlow/getSalaryByUserId/${userId}`);
-  }
+  
   public uploadProfilePicture(userId: number, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
@@ -90,6 +104,13 @@ export class HrAdminService {
   public getAllLocations(): Observable<Location[]> {
     return this.http.get<Location[]>(`${this.apiServerUrl}/CityFlow/locations`);
   }
+  getUnreadMessages(userId: number): Observable<UserMessages[]> {
+    return this.http.get<UserMessages[]>(`${this.apiServerUrl}/CityFlow/unreadMessages/${userId}`);
+  }
+  markMessagesAsRead(senderId: number, receiverId: number): Observable<void> {
+    return this.http.put<void>(`${this.apiServerUrl}/CityFlow/markAsRead/${senderId}/${receiverId}`, {});
+  }
+
 
 }
 

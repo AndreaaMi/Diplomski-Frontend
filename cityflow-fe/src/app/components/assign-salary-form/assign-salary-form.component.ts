@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { UserDTO } from '../../dtos/userDTO';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -19,8 +20,8 @@ export class AssignSalaryFormComponent implements OnInit {
   userId!: number;
   username!: string;
   userRole!: string;
-  assignSalary: any = {
-    id: 0,
+  assignSalary: SalaryDTO = {
+    salaryMonth: formatDate(new Date(), 'yyyy-MM-dd', 'en-US'), // Format the current date to 'yyyy-MM-dd' right away
     baseSalary: 0,
     overtimeHours: 0,
     holidayWorkHours: 0,
@@ -38,7 +39,7 @@ export class AssignSalaryFormComponent implements OnInit {
     private router: Router,
     private hrAdminService: HrAdminService,
     private toast: NgToastService  
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -61,7 +62,7 @@ export class AssignSalaryFormComponent implements OnInit {
   }
 
   getRoleDisplayName(role: string): string {
-    const roleMap: {[key: string]: string} = {
+    const roleMap: { [key: string]: string } = {
       'ROLE_ROUTEADMINISTRATOR': 'Route Administrator',
       'ROLE_HRAdministrator': 'HR Administrator',
       'ROLE_DRIVER': 'Driver',
@@ -71,15 +72,21 @@ export class AssignSalaryFormComponent implements OnInit {
     return roleMap[role] || role;
   }
   
-  public onUpdateEmployee(assignSalaryForm: NgForm): void {
-    this.hrAdminService.assignSalary(this.userId, assignSalaryForm.value).subscribe(
-      (response: SalaryDTO) => {
-        this.toast.success({ detail: "SUCCESS", summary: 'Salary assigned successfully!' });
-        this.router.navigate(['/employees']); 
-      },
-      error => {
-        this.toast.error({ detail: "ERROR", summary: 'Failed to assign salary: ' + error.message });
-      }
-    );
+  
+  onUpdateEmployee(form: NgForm): void {
+    if (form.valid) {
+      this.hrAdminService.assignSalary(this.userId, this.assignSalary).subscribe(
+        response => {
+          this.toast.success({ detail: "SUCCESS", summary: 'Salary assigned successfully!' });
+          this.router.navigate(['/employees']);
+        },
+        error => {
+          console.error('Failed to assign salary:', error);
+          this.toast.error({ detail: "ERROR", summary: 'Failed to assign salary: ' + error.error });
+        }
+      );
+    }
   }
+  
+  
 }

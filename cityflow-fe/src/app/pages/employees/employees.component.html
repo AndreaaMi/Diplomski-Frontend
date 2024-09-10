@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full h-full p-4 gap-8 font-manrope text-white justify-start">
+<div class="flex flex-col w-full h-full  gap-8 font-manrope text-white justify-start">
 
     <div class="flex flex-row w-full justify-center items-center mb-4">
         <div class="relative" style="width: 50%;">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-4 gap-6 justify-between h-full">
+    <div class="grid grid-cols-5 gap-4 justify-between h-full">
         <div class="card text-blueGray hover:text-blueGray hover:border-[3px] hover:border-blueGray transition-[0.5s] relative cursor-pointer"
             (click)="navigateToAddNewEmployee()">
             <div class="flex flex-col justify-center items-center h-full">
@@ -38,7 +38,7 @@
                 <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
             </head>
             <button id="dropdownOffsetButton{{i}}" (click)="toggleDropdown(i)"
-                class="text-blueGray focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-centeritems-center  absolute top-5 right-5"
+                class="text-blueGray focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-centeritems-center absolute top-5 right-5"
                 type="button">
                 <fa-icon [icon]="faEllipsis" class="text-[28px] hover:text-lightGrey/50 transition-[0.5s]" />
             </button>
@@ -56,7 +56,7 @@
                         <li class="text-blueGray hover:bg-blueGray/5 transition-[0.5s]">
                             <button class="salary-btn" (click)="openAssignSalaryForm(user.id)">
                                 <p class="block px-4 py-2">
-                                    Change Salary</p>
+                                    Add Salary</p>
                             </button>
                         </li>
                         <li class="text-deepRed hover:bg-blueGray/5 transition-[0.5s]">
@@ -76,9 +76,12 @@
                 <div *ngIf="!userImages.get(user.id)" class="no-image-placeholder">X</div>
             </div>
 
-            <div class="card-content">
+            <div class="card-content text-center">
                 <h5 class="card-title text-blueGray">{{ user.name }} {{ user.lastname }}</h5>
                 <p class="card-role text-blueGray/80">{{ getRoleDisplayName(user.roles) }}</p>
+                <p [ngClass]="getSalaryClass(user.id)" class="mt-2 text-lg font-bold">
+                    {{ getSalaryMessage(user.id) }}
+                  </p>
                 <div #modal *ngIf="isModalOpen" class="modal-overlay">
                     <div class="modal-content">
                         <button class="close" (click)="closeModal()">&times;</button>

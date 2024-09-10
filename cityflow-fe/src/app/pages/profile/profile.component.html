@@ -1,75 +1,303 @@
-<form #EditProfileForm="ngForm" (ngSubmit)="editProfile(EditProfileForm)" class="flex items-center justify-center w-full h-full">    
-    <div class="flex flex-col w-[1000px] h-auto rounded-[10px] bg-white items-center justify-center p-6 shadow-2xl">
-        <div class="profile-pic shadow-xl" (click)="fileInput.click()">
-            <div class="image-container" *ngIf="userImage; else noImageTemplate">
-                <img [src]="userImage" class="profile-image">
-                <div class="overlay">
-                    <div class="plus-sign">+</div>
+<div
+    class="flex flex-col w-full h-full justify-between gap-1 text-manrope bg-gray-50 text-darkGray shadow-lg rounded-[10px]">
+    <!--General info-->
+    <div class="flex flex-row w-full p-4">
+    <div class="flex flex-col w-1/3 p-4">
+        <div
+            class="flex flex-row items-center w-full p-4 justify-between border-[1px] border-primaryGrey/50 rounded-[10px] shadow-lg bg-white relative">
+            <div class="flex flex-row gap-4 items-center">
+                <div class="profile-pic shadow-xl" (click)="fileInput.click()">
+                    <div class="image-container" *ngIf="userImage; else noImageTemplate">
+                        <img [src]="userImage" class="profile-image">
+                        <div class="overlay">
+                            <div class="plus-sign">+</div>
+                        </div>
+                    </div>
+                    <ng-template #noImageTemplate>
+                        <div class="plus-sign no-image-plus">+</div>
+                    </ng-template>
                 </div>
-            </div>
-            <ng-template #noImageTemplate>
-                <div class="plus-sign no-image-plus">+</div>
-            </ng-template>
-        </div>
-        <input type="file" (change)="uploadImage($event)" hidden #fileInput>
-            <div class="flex flex-row my-4 w-full">
-            <div class="flex flex-col w-[48%]">
-                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                    <p class="text-[14px] mb-2">First Name</p>
-                    <input class="shadow-lg rounded-[10px] border border-[#e4e4e7] h-[50px]  w-full w-full bg-bg-white px-2 py-4"
-                            placeholder="{{loggedUser.name}}" [(ngModel)]="loggedUser.name" name="name"
-                            type="text" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                    <p class="text-[14px] mb-2">Last Name</p>
-                    <input class="shadow-lg rounded-[10px] h-[50px] border border-[#e4e4e7] w-full w-full bg-bg-white px-2 py-4"
-                            placeholder="{{loggedUser.lastname}}" [(ngModel)]="loggedUser.lastname" name="lastname" 
-                            type="text" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                    <p class="text-[14px] mb-2">Date of Birth</p>
-                    <input class="shadow-lg rounded-[10px] h-[50px] border border-[#e4e4e7] w-full w-full bg-bg-white px-2 py-4"
-                            placeholder="{{loggedUser.dateOfBirth}}"
-                            type="date" [(ngModel)]="loggedUser.dateOfBirth" name="dateOfBirth">
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                    <p class="text-[14px] mb-2">Phone number</p>
-                    <input class="shadow-lg rounded-[10px] h-[50px] w-full border border-[#e4e4e7] w-full bg-bg-white px-2 py-4"
-                            placeholder="{{loggedUser.phoneNumber}}" [(ngModel)]="loggedUser.phoneNumber" name="phoneNumber"
-                            type="text">
-                </div>
-            </div>
-            <div class="flex w-[4%]"></div>
-            <div class="flex flex-col w-[48%]">
-                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                    <p class="text-[14px] mb-2">Username</p>
-                    <input class="shadow-lg rounded-[10px] h-[50px] w-full border border-[#e4e4e7] w-full bg-bg-white px-2 py-4"
-                            placeholder="{{loggedUser.username}}" [(ngModel)]="loggedUser.username" name="username"
-                            type="text" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                    <p class="text-[14px] mb-2">Email</p>
-                    <input class="shadow-lg rounded-[10px] h-[50px] w-full border border-[#e4e4e7] w-full bg-bg-white px-2 py-4"
-                            placeholder="{{loggedUser.email}}" [(ngModel)]="loggedUser.email" name="email"
-                            type="email" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular border-none w-full text-blueGray my-4">
-                    <p class="text-[14px] mb-2">Password</p>
-                    <input class="shadow-lg rounded-[10px] h-[50px] w-full border border-[#e4e4e7] w-full bg-bg-white px-2 py-4"
-                            placeholder="{{loggedUser.password}}" [(ngModel)]="loggedUser.password" name="password"
-                            type="password" required>
-                </div>
-                <div class="flex flex-col font-manrope font-regular border-none w-full text-blueGray my-4">
-                    <p class="text-[14px] mb-2">Confirm password</p>
-                    <input class="shadow-lg rounded-[10px] h-[50px] w-full border border-[#e4e4e7] w-full bg-bg-white px-2 py-4"
-                            placeholder="Re-enter your password"
-                            type="password">
+                <input type="file" (change)="uploadImage($event)" hidden #fileInput>
+                <div class="flex flex-col">
+                    <p class="text-[22px] text-primaryBlack">{{loggedUser?.name}} {{loggedUser?.lastname}}</p>
+                    <p class="text-[16px] text-primaryGrey">{{loggedUser?.roles}}</p>
                 </div>
             </div>
         </div>
-        <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-lightGreen justify-center items-center hover:bg-deepGreen transition-[0.8s]"
-                type="submit">
-            <p class="font-manrope text-white font-semibold text-[24px]">Save</p>
-        </button>
     </div>
-</form>
+    <!--Account info-->
+    <div class="flex flex-col w-full p-4">
+        <div
+            class="flex flex-col w-full p-4 gap-4 border-[1px] border-primaryGrey/50 rounded-[10px] shadow-lg bg-white relative">
+            <div class="flex flex-row w-full justify-between items-center">
+                <p class="text-[18px] font-light text-primaryGrey tracking-wider uppercase">Account</p>
+                @if(!toggleEditAccount){
+                <button
+                    class="flex flex-row gap-2 items-center group rounded-md px-4 py-2 border-[1px] border-primaryGrey/50 hover:border-primaryGrey transition-[0.5s]"
+                    (click)="toggleEditing('account')">
+                    <p class="text-primaryBlack group-hover:opacity-100 
+                            opacity-50 font-manrope text-[16px] transition-[0.5s]">
+                        Edit
+                    </p>
+                </button>
+                } @else {
+                <button
+                    class="flex flex-row gap-2 items-center group rounded-md px-4 py-2 border-[1px] border-primaryGrey/50 hover:border-primaryGrey transition-[0.5s]"
+                    (click)="toggleEditing('account')">
+                    <p class="text-primaryBlack group-hover:opacity-100 
+                            opacity-50 font-manrope text-[16px] transition-[0.5s]">
+                        Cancel
+                    </p>
+                </button>
+                }
+            </div>
+            <div class="flex flex-row w-full max-h-[500px] gap-4 items-start">
+                @if(!toggleEditAccount){
+                <div class="flex flex-col h-full w-full gap-4">
+                    <div class="flex flex-col">
+                        <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Username</p>
+                        <p class="text-[18px] text-primaryBlack">{{loggedUser?.username}}</p>
+                    </div>
+                    <div class="flex flex-col">
+                        <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Email address</p>
+                        <p class="text-[18px] text-primaryBlack">{{loggedUser?.email}}</p>
+                    </div>
+                </div>
+                <div class="flex flex-col h-full w-full gap-4">
+                    <div class="flex flex-col">
+                        <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Password</p>
+                        <p class="text-[18px] text-primaryBlack">{{loggedUser?.password}}</p>
+                    </div>
+                </div>
+                } @else {
+                <div class="flex flex-col h-full w-full gap-4">
+                    <div class="flex flex-col">
+                        <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Username</p>
+                        <input
+                            class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                            [placeholder]="loggedUser?.username" [(ngModel)]="username"
+                            (ngModelChange)="usernameChanged = true" name="name" />
+                    </div>
+                    <div class="flex flex-col">
+                        <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Email address</p>
+                        <input
+                            class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                            [placeholder]="loggedUser?.email" [(ngModel)]="email" name="name" />
+                    </div>
+                </div>
+                <div class="flex flex-col h-full w-full gap-4">
+                    <div class="flex flex-col">
+                        <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Password</p>
+                        <input
+                            class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                            [placeholder]="loggedUser?.password" [(ngModel)]="password"
+                            (ngModelChange)="passwordChanged = true" name="name" />
+                    </div>
+                </div>
+                }
+            </div>
+            @if(toggleEditAccount){
+            <div class="flex flex-row w-full items-center justify-end">
+                <button
+                    class="rounded-md py-2 px-8 flex items-center bg-primaryDarkGreen hover:bg-primaryLightGreen transition-[0.5s] text-primaryWhite"
+                    (click)="saveChanges()">
+                    Save changes
+                </button>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+    <!--personal info-->
+    <div class="flex flex-col w-full p-4">
+        <div
+            class="flex flex-col w-full p-4 gap-4 border-[1px] border-primaryGrey/50 rounded-[10px] rounded-[10px] shadow-lg bg-white relative">
+            <div class="flex flex-row w-full justify-between items-center">
+                <p class="text-[18px] font-light text-primaryGrey tracking-wider uppercase">PERSONAL INFO</p>
+                @if(!toggleEditPersonal){
+                <button
+                    class="flex flex-row gap-2 items-center group rounded-md px-4 py-2 border-[1px] border-primaryGrey/50 hover:border-primaryGrey transition-[0.5s]"
+                    (click)="toggleEditing('personal')">
+                    <p class="text-primaryBlack group-hover:opacity-100 
+                                        opacity-50 font-manrope text-[16px] transition-[0.5s]">
+                        Edit
+                    </p>
+                </button>
+                } @else {
+                <button
+                    class="flex flex-row gap-2 items-center group rounded-md px-4 py-2 border-[1px] border-primaryGrey/50 hover:border-primaryGrey  transition-[0.5s]"
+                    (click)="toggleEditing('personal')">
+                    <p class="text-primaryBlack group-hover:opacity-100 
+                                        opacity-50 font-manrope text-[16px] transition-[0.5s]">
+                        Cancel
+                    </p>
+                </button>
+                }
+            </div>
+            <div class="flex flex-col w-full max-h-[500px] gap-4 overflow-y-auto items-start">
+                <div class="flex flex-row w-full max-h-[500px]">
+                    @if(!this.toggleEditPersonal){
+                    <div class="flex flex-col h-full w-full gap-4">
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">First name</p>
+                            <p class="text-[18px] text-primaryBlack">{{loggedUser?.name}}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Last name</p>
+                            <p class="text-[18px] text-primaryBlack">{{loggedUser?.lastname}}</p>
+                        </div>
+
+                    </div>
+                    <div class="flex flex-col h-full w-full gap-4">
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Phone number</p>
+                            <p class="text-[18px] text-primaryBlack">{{loggedUser?.phoneNumber}}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Date of birth</p>
+                            <p class="text-[18px] text-primaryBlack">{{loggedUser?.dateOfBirth}}</p>
+                        </div>
+                        
+                    </div>
+                    } @else {
+                    <div class="flex flex-col h-full w-full gap-4">
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">First name</p>
+                            <input
+                                class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                                [placeholder]="loggedUser?.name" [(ngModel)]="firstname" name="name" />
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Last name</p>
+                            <input
+                                class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                                [placeholder]="loggedUser?.lastname" [(ngModel)]="lastname" name="name" />
+                        </div>
+                        
+                    </div>
+                    <div class="flex flex-col h-full w-full gap-4">
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Phone number</p>
+                            <input
+                                class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                                [placeholder]="loggedUser?.phoneNumber" [(ngModel)]="phoneNumber" name="name" />
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Date of birth</p>
+                            <input
+                                class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                                [placeholder]="loggedUser?.dateOfBirth" [(ngModel)]="dateOfBirth" name="name"
+                                type="date" />
+                        </div>
+                    </div>
+                    }
+                </div>
+                @if (toggleEditPersonal) {
+                <div class="flex flex-row w-full items-center justify-end">
+                    <button
+                        class="rounded-md py-2 px-8 flex items-center bg-primaryDarkGreen hover:bg-primaryLightGreen transition-[0.5s] text-primaryWhite"
+                        (click)="saveChanges()">
+                        Save changes
+                    </button>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col w-full p-4">
+        <div
+            class="flex flex-col w-full p-4 gap-4 border-[1px] border-primaryGrey/50 rounded-[10px] rounded-[10px] shadow-lg bg-white relative">
+            <div class="flex flex-row w-full justify-between items-center">
+                <p class="text-[18px] font-light text-primaryGrey tracking-wider uppercase">PERSONAL INFO</p>
+                @if(!toggleEditPersonal){
+                <button
+                    class="flex flex-row gap-2 items-center group rounded-md px-4 py-2 border-[1px] border-primaryGrey/50 hover:border-primaryGrey transition-[0.5s]"
+                    (click)="toggleEditing('personal')">
+                    <p class="text-primaryBlack group-hover:opacity-100 
+                                        opacity-50 font-manrope text-[16px] transition-[0.5s]">
+                        Edit
+                    </p>
+                </button>
+                } @else {
+                <button
+                    class="flex flex-row gap-2 items-center group rounded-md px-4 py-2 border-[1px] border-primaryGrey/50 hover:border-primaryGrey  transition-[0.5s]"
+                    (click)="toggleEditing('personal')">
+                    <p class="text-primaryBlack group-hover:opacity-100 
+                                        opacity-50 font-manrope text-[16px] transition-[0.5s]">
+                        Cancel
+                    </p>
+                </button>
+                }
+            </div>
+            <div class="flex flex-col w-full max-h-[500px] gap-4 overflow-y-auto items-start">
+                <div class="flex flex-row w-full max-h-[500px]">
+                    @if(!this.toggleEditPersonal){
+                    <div class="flex flex-col h-full w-full gap-4">
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">First name</p>
+                            <p class="text-[18px] text-primaryBlack">{{loggedUser?.name}}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Last name</p>
+                            <p class="text-[18px] text-primaryBlack">{{loggedUser?.lastname}}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Date of birth</p>
+                            <p class="text-[18px] text-primaryBlack">{{loggedUser?.dateOfBirth}}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col h-full w-full gap-4">
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Phone number</p>
+                            <p class="text-[18px] text-primaryBlack">{{loggedUser?.phoneNumber}}</p>
+                        </div>
+                        
+                    </div>
+                    } @else {
+                    <div class="flex flex-col h-full w-full gap-4">
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">First name</p>
+                            <input
+                                class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                                [placeholder]="loggedUser?.name" [(ngModel)]="firstname" name="name" />
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Last name</p>
+                            <input
+                                class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                                [placeholder]="loggedUser?.lastname" [(ngModel)]="lastname" name="name" />
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Date of birth</p>
+                            <input
+                                class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                                [placeholder]="loggedUser?.dateOfBirth" [(ngModel)]="dateOfBirth" name="name"
+                                type="date" />
+                        </div>
+                    </div>
+                    <div class="flex flex-col h-full w-full gap-4">
+                        <div class="flex flex-col">
+                            <p class="text-[14px] text-primaryGrey tracking-wider uppercase">Phone number</p>
+                            <input
+                                class="focus:outline-none text-primaryBlack border-[1px] border-primaryGrey rounded-md w-[50%] px-4 h-[35px]"
+                                [placeholder]="loggedUser?.phoneNumber" [(ngModel)]="phoneNumber" name="name" />
+                        </div>
+                        
+                    </div>
+                    }
+                </div>
+                @if (toggleEditPersonal) {
+                <div class="flex flex-row w-full items-center justify-end">
+                    <button
+                        class="rounded-md py-2 px-8 flex items-center bg-primaryDarkGreen hover:bg-primaryLightGreen transition-[0.5s] text-primaryWhite"
+                        (click)="saveChanges()">
+                        Save changes
+                    </button>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+</div>

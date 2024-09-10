@@ -5,10 +5,9 @@
 
 .user-list-section {
     width: 300px;
-    background: linear-gradient(165deg, #38464d, #5f7783);
+    background: #f0f0f0;
     padding: 10px;
-    border-right: 1px solid #363d4a;
-
+    border-right: 1px solid #f0f0f0;
 }
 
 .user-search {
@@ -33,17 +32,23 @@
 
 .user-list {
     overflow-y: auto;
-    color: white;
+    color: #303133;
 }
 
 .user-item {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #363d4a;
-
+    border-bottom: 1px solid #f0f0f0;
     cursor: pointer;
 }
+.unread-message {
+    background-color: #f8d7da; /* Light red background for unread messages */
+  }
+  
+  .font-bold {
+    font-weight: bold;
+  }
 
 .user-item img {
     width: 50px;
@@ -59,18 +64,18 @@
     align-items: center;
     padding: 10px;
     background: #363d4a;
-    color: #1f2630;
+    color: #303133;
 }
 
 .user-item span {
     font-size: 16px;
-    color: white;
+    color: #303133;
     font-weight: bold;
 }
 
 .user-item p {
     font-size: 12px;
-    color: #bbb;
+    color: #7a7c82;
     margin-top: 4px;
 }
 
@@ -105,9 +110,9 @@
 }
 
 .mine {
-    background-color: #e3ebb2;
+    background-color:#e9d5a0;
     align-self: flex-end;
-    color: #1f2630;
+    color: #313b49;
     margin-left: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 800px;
@@ -170,8 +175,8 @@ button:hover {
     display: flex;
     align-items: center;
     padding: 10px;
-    background: linear-gradient(180deg, #38464d, #5f7783);
-    border-bottom: 1px solid #363d4a;
+    background: linear-gradient(180deg, #f0f0f0, #f9fafb);
+    border-bottom: 1px solid #f0f0f0;
     margin-bottom: 10px;
 }
 
@@ -180,11 +185,12 @@ button:hover {
     height: 50px;
     border-radius: 50%;
     margin-right: 15px;
+
 }
 
 .user-details span {
     font-size: 18px;
-    color: white;
+    color: #303133;
     display: flex;
     align-items: center;
 }

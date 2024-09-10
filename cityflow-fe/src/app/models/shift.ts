@@ -1,3 +1,5 @@
+import { DayOfWeek } from "./dayOfWeek";
+
 export interface Shift{
     id: number,
     userId: number,
@@ -5,5 +7,5 @@ export interface Shift{
     startTime: string,
     endTime: string,
     location: string,
-    extraHours: number
+    extraHours: number,
 }

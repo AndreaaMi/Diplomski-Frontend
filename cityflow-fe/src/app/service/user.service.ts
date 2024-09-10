@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EditProfileDTO } from '../dtos/editProfileDTO';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { BalanceDTO } from '../dtos/balanceDTO';
 import { KYCBalanceDTO } from '../dtos/kycBalanceDTO';
@@ -17,10 +17,20 @@ export class UserService {
 
   constructor(private http: HttpClient,
               private router: Router) { }
-  
-  public updateProfile(requestBody : EditProfileDTO,headers : HttpHeaders) : Observable<string>{
-    return this.http.post<string>(`${this.apiServerUrl}/Account/updateProfile`, requestBody,{headers});  
-  }
+
+              public updateProfile(requestBody: EditProfileDTO): Observable<any> { 
+                const token = sessionStorage.getItem('token');
+                if (!token || token.split('.').length !== 3) {
+                    console.error('Invalid token format:', token);
+                    return throwError(() => new Error("Invalid token format"));
+                }
+                const headers = new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                });
+                return this.http.post<any>(`${this.apiServerUrl}/Account/updateProfile`, requestBody, {headers});
+            }
+            
   
   public getUsersByRole(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiServerUrl}/CityFlow/usersByRole`);

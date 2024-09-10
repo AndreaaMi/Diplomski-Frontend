@@ -17,6 +17,7 @@ export class WorkCalendarService {
   public addShift(shift: any): Observable<any> {
     return this.http.post<any>(`${this.apiServerUrl}/CityFlow/shift/add`, shift);
   }
+  
   public getShiftsByDate(date: string): Observable<Shift[]> {
     return this.http.get<Shift[]>(`${this.apiServerUrl}/CityFlow/shift/date/${date}`);
   }

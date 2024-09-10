@@ -71,15 +71,22 @@ export class InboxComponent implements OnInit {
       this.hrAdminService.getCommunicationPartners(this.loggedUser.id).subscribe(partners => {
         this.communicationPartners = partners;
         partners.forEach(partner => {
-          if (partner.user.profilePicture && !this.userImages.has(partner.user.id)) {
-            this.fetchUserProfilePicture(partner.user.id);
-          }
+
+          this.hrAdminService.getMessagesBetweenUsers(partner.user.id, this.loggedUser.id).subscribe(messages => {
+            const hasUnreadMessages = messages.some((message: UserMessages) => message.receiverId === this.loggedUser.id && !message.readStatus);
+            partner.hasUnreadMessages = hasUnreadMessages; 
+            
+            if (partner.user.profilePicture && !this.userImages.has(partner.user.id)) {
+              this.fetchUserProfilePicture(partner.user.id);
+            }
+          });
         });
       }, error => {
         console.error('Failed to fetch communication partners:', error);
       });
     }
   }
+  
 
   public fetchUser(): void {
     if (this.token != null) {
@@ -128,6 +135,10 @@ export class InboxComponent implements OnInit {
     this.messages = [];
     this.loadMessages();
     this.nameFilter = '';
+    const partner = this.communicationPartners.find(partner => partner.user.id === user.id);
+    if (partner) {
+      partner.hasUnreadMessages = false; // Mark as read
+    }
     this.fetchCommunicationPartners();
     this.cdr.detectChanges();
   }
@@ -137,13 +148,23 @@ export class InboxComponent implements OnInit {
     if (this.loggedUser && this.selectedUser) {
       this.hrAdminService.getMessagesBetweenUsers(this.loggedUser.id, this.selectedUser.id).subscribe(messages => {
         this.messages = messages;
+        
+        // Mark messages as read where the loggedUser is the receiver
+        this.hrAdminService.markMessagesAsRead(this.selectedUser.id, this.loggedUser.id).subscribe(
+          () => {
+            console.log('Messages marked as read');
+            
+          },
+          error => {
+            console.error('Error marking messages as read:', error);
+          }
+        );
       }, error => {
         console.error('Failed to load messages:', error);
       });
-      this.scrollToBottom();
-
     }
   }
+  
   private scrollToBottom(): void {
     try {
       setTimeout(() => {

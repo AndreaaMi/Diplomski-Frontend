@@ -9,7 +9,7 @@
   
 .fc-daygrid-day-events {
     overflow-y: auto;
-    max-height: 140px;
+    max-height: 100px;
 }
 
 .fc-more {

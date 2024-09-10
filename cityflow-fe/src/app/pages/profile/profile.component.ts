@@ -10,6 +10,7 @@ import { EditProfileDTO } from '../../dtos/editProfileDTO';
 import { HrAdminService } from '../../service/hr-admin.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { NgToastModule, NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-profile',
@@ -25,39 +26,44 @@ export class ProfileComponent implements OnInit{
   userImage: any;
   user: User = {} as User;
 
-  
+  public firstname : string = '';
+  public lastname : string = '';
+  public dateOfBirth : string = '';
+  public phoneNumber : string = '';
+  public username : string = '';
+  public email : string = '';
+  public password : string = '';
+
+  public toggleEditPersonal : boolean = false;
+  public toggleEditAddress : boolean = false;
+  public toggleEditAccount : boolean = false;
+
+  public usernameChanged = false;
+  public passwordChanged = false;
+
   constructor(private authService : AuthService,
               private userService : UserService,
               private hrAdminService : HrAdminService,
               private sanitizer: DomSanitizer,
-              private router: Router) {}
+              private router: Router,
+              private toast: NgToastService) {}
 
   ngOnInit(): void {
     this.fetchUser();
   }
-
-  public editProfile(RegisterForm : NgForm) : void {
-    if(this.token != null){
-      const headers = new HttpHeaders({
-        'Content-Type' : 'application/json',
-        'Authorization' : `Bearer ${this.token}`
-      });
-      this.userService.updateProfile(RegisterForm.value, headers).subscribe(
-        (response: string) => {
-          this.router.navigate(['/profile']);
-        },
-        (error : HttpErrorResponse) => {
-          console.log("Error while updating profile:\n", error.message);
-        }
-      )
-    }
-  }
-
+  
   public fetchUser() : void {
     if(this.token != null){
       this.authService.getUserFromToken(this.token).subscribe(
         (response : User) => {
           this.loggedUser = response;
+          this.firstname = this.loggedUser.name;
+          this.lastname = this.loggedUser.lastname;
+          this.dateOfBirth = this.loggedUser.dateOfBirth;
+          this.phoneNumber = this.loggedUser.phoneNumber;
+          this.username = this.loggedUser.username;
+          this.email = this.loggedUser.email;
+          this.password = this.loggedUser.password;
           if (this.loggedUser.profilePicture) {
             this.hrAdminService.getUserProfilePicture(this.loggedUser.id).subscribe(
               base64Image => {
@@ -68,7 +74,7 @@ export class ProfileComponent implements OnInit{
                 this.userImage = null; 
               }
             );
-          }
+          }          
         },
         (error: HttpErrorResponse) => {
           console.log('Error fetching user data:\n', error.message);
@@ -76,6 +82,58 @@ export class ProfileComponent implements OnInit{
       )
     }
   }
+
+  public saveChanges(): void {
+    const updateDto: EditProfileDTO = {
+        username: this.username,
+        name: this.firstname,
+        lastname: this.lastname,
+        email: this.email,
+        password: this.password,
+        dateOfBirth: this.dateOfBirth,
+        phoneNumber: this.phoneNumber
+    };
+
+    this.userService.updateProfile(updateDto).subscribe(
+        (response: any) => {
+          this.toast.error({detail:"ERROR", summary:'Failed to update profile!', duration:3000});
+        },
+        (error: HttpErrorResponse) => {
+          this.fetchUser(); 
+          if (this.usernameChanged || this.passwordChanged) {
+            localStorage.removeItem('token');
+            this.router.navigate(['/signin']);
+            setTimeout(() => {
+              window.location.reload();
+              }, 5);
+          } else {
+              this.resetEditingFlags();
+          }
+            this.toast.success({detail:"SUCCESS", summary:'Profile data successfully updated!', duration:3000});
+
+        }
+    );
+}
+
+private resetEditingFlags(): void {
+    this.toggleEditAccount = false;
+    this.toggleEditAddress = false;
+    this.toggleEditPersonal = false;
+}
+
+
+  public toggleEditing(section : string) {
+    if(section === "personal"){
+      this.toggleEditPersonal = !this.toggleEditPersonal;
+    } 
+    if(section === "address"){
+      this.toggleEditAddress = !this.toggleEditAddress;
+    }
+    if(section === "account"){
+      this.toggleEditAccount = !this.toggleEditAccount;
+    }
+  }
+
   public uploadImage(event: any): void {
     const file = event.target.files[0];
     if (file) {

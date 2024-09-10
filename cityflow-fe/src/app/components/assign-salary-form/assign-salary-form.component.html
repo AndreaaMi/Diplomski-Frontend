@@ -46,7 +46,7 @@
                   </div>
           </div>
           <button class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-deepGreen justify-center items-center hover:bg-lightGreen transition-[0.5s]"
-                  type="submit">
+                  type="submit" [disabled]="!AssignSalaryForm.valid">
               <p class="font-manrope text-white font-semibold text-[24px]">Save</p>
           </button>
       </div>
