@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash, faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +9,7 @@ import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { CommonModule } from '@angular/common';
-import { trigger, style, animate, transition } from '@angular/animations';  // Import Angular animations
+import { trigger, style, animate, transition } from '@angular/animations'; 
 
 
 @Component({
@@ -31,39 +31,38 @@ import { trigger, style, animate, transition } from '@angular/animations';  // I
   ],
 })
 export class SigninComponent implements OnInit{
-  hidePassword: boolean = true;
-  faEye = faEye;
-  faEyeSlash = faEyeSlash;
-  faArrowRight = faArrowRight;
+  @ViewChild('featuresSection') featuresSection!: ElementRef<HTMLDivElement>;
+  @ViewChild('homeSection') homeSection!: ElementRef<HTMLDivElement>;
+
+
+  showFeatures = false;
 
   ngOnInit(): void {}
 
   constructor(private authService : AuthService, private router: Router, private toast: NgToastService){}
 
-  togglePasswordVisibility(): void {
-    this.hidePassword = !this.hidePassword;
+  scrollToFeatures(): void {
+    this.featuresSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  scrollToHome(): void {
+    this.homeSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
   }
   
-  navigateToSignUp() {
-    this.router.navigate(['/signup']);
-  } 
-
-  public signIn(SignInForm: NgForm) : void{
-    this.authService.logIn(SignInForm.value).subscribe(
-      (response: LoginDTO) => {
-        this.toast.success({ detail: "SUCCESS", summary: 'WELCOME!' });
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 990);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000); 
-        
-
-      },
-      (error: HttpErrorResponse) => {
-        this.toast.error({ detail: "ERROR", summary: 'Failed to sign in: ' + error.message });
-      }
-    )
+  toggleFeatures() {
+    this.showFeatures = !this.showFeatures;
   }
+
+  public navigateToSignUp() : void {
+    this.router.navigate(['/signup']);
+  }
+  public navigateToLogIn() : void {
+    this.router.navigate(['/login']);
+  }
+
+
 }

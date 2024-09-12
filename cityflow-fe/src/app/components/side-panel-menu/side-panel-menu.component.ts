@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUser, faHome, faIdCard, faMessage, faCalendar, faBus, faMoneyBillTransfer, faRoute } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHome, faIdCard, faMessage, faCircle, faCalendar, faBus, faMoneyBillTransfer, faRoute } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../service/auth.service';
 import { User } from '../../models/user';
 import { response } from 'express';
@@ -8,6 +8,8 @@ import { faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { HrAdminService } from '../../service/hr-admin.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-side-panel-menu',
@@ -25,6 +27,8 @@ export class SidePanelMenuComponent implements OnInit{
   faBus = faBus;
   faMoneyBillTransfer = faMoneyBillTransfer;
   faRoute = faRoute;
+  faCircle = faCircle;
+
 
   faCalendar = faCalendar;
   showHome : boolean = true;
@@ -43,9 +47,13 @@ export class SidePanelMenuComponent implements OnInit{
   token : string | null = localStorage.getItem('token');
   loggedUser! : User;
   loggedUserRole : string  = '';
+  userImage: any;
+
 
   constructor(private authService : AuthService,
-              private router: Router){}
+              private router: Router,
+            private hrAdminService : HrAdminService,
+            private sanitizer: DomSanitizer){}
 
   ngOnInit(): void {
     this.fetchUser();
@@ -57,6 +65,17 @@ export class SidePanelMenuComponent implements OnInit{
         (response : User) => {
           this.loggedUser = response;
           this.loggedUserRole = this.loggedUser.roles;
+          if (this.loggedUser.profilePicture) {
+            this.hrAdminService.getUserProfilePicture(this.loggedUser.id).subscribe(
+              base64Image => {
+                this.userImage = this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${base64Image}`);
+              },
+              error => {
+                console.log('No image found:', error);
+                this.userImage = null; 
+              }
+            );
+          }
         },
         (error: HttpErrorResponse) => {
           console.log('Error fetching user data:\n', error.message);

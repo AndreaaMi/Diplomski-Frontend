@@ -1,15 +1,26 @@
-<div class="flex flex-col items-center justify-center w-full font-manrope text-white">
+
+<div class="flex flex-col items-center gap-6 justify-center w-full font-manrope text-white">
+
+    <div class="w-[60px] h-[60px] rounded-full mb-10 overflow-hidden bg-black flex items-center justify-center z-10">
+        <div class="w-[60px] h-[60px] relative" *ngIf="userImage; else noImageTemplate">
+          <img [src]="userImage" class="w-[60px] h-[60px] object-cover block">
+          
+        </div>
+        
+        <ng-template #noImageTemplate>
+          <div class="text-gray-500 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 text-2xl">+</div>
+        </ng-template>
+      </div>
+    
     <button [ngClass]="{'bg-lightBusYellow/10' : showHome,
                     'bg-transparent': !showHome}" 
             class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
                     hover:bg-lightBusYellow/10 transition-[0.5s]"
             (click)="viewHome()">
         <div class="flex w-[10%]">
-            <fa-icon [icon]="faHome" class="text-[20px]"/>
+            <fa-icon [icon]="faHome" class="text-[25px]"/>
         </div>
-        <div class="flex w-[90%] justify-start">
-            <p class="ml-[20px] text-[28px]">Dashboard</p>
-        </div>
+  
     </button>
 
     <button [ngClass]="{'bg-lightBusYellow/10' : showProfile,
@@ -18,11 +29,9 @@
                     hover:bg-lightBusYellow/10 transition-[0.5s]"
             (click)="viewProfile()">
         <div class="flex w-[10%]">
-            <fa-icon [icon]="faUser" class="text-[20px]"/>
+            <fa-icon [icon]="faUser" class="text-[25px]"/>
         </div>
-        <div class="flex w-[90%] justify-start">
-            <p class="ml-[20px] text-[28px]">Profile</p>
-        </div>
+       
     </button>
 
 
@@ -33,11 +42,9 @@
                 hover:bg-lightBusYellow/10 transition-[0.5s]"
         (click)="viewUserCardBalance()">
             <div class="flex w-[10%]">
-                <fa-icon [icon]="faIdCard" class="text-[20px]"/>
+                <fa-icon [icon]="faIdCard" class="text-[25px]"/>
             </div>
-            <div class="flex w-[90%] justify-start">
-                <p class="ml-[20px] text-[28px]">eWallet</p>
-            </div>
+         
         </button>
 
         <button [ngClass]="{'bg-lightBusYellow/10' : showCards,
@@ -46,11 +53,9 @@
                 hover:bg-lightBusYellow/10 transition-[0.5s]"
         (click)="viewCards()">
             <div class="flex w-[10%]">
-                <fa-icon [icon]="faIdCard" class="text-[20px]"/>
+                <fa-icon [icon]="faIdCard" class="text-[25px]"/>
             </div>
-            <div class="flex w-[90%] justify-start">
-                <p class="ml-[20px] text-[28px]">Cards</p>
-            </div>
+            
         </button>
 
         <button [ngClass]="{'bg-lightBusYellow/10' : showUserRoutes,
@@ -59,11 +64,9 @@
             hover:bg-lightBusYellow/10 transition-[0.5s]"
         (click)="viewUserRoutes()">
             <div class="flex w-[10%]">
-                <fa-icon [icon]="faRoute" class="text-[20px]"/>
+                <fa-icon [icon]="faRoute" class="text-[25px]"/>
             </div>
-            <div class="flex w-[90%] justify-start">
-                <p class="ml-[20px] text-[28px]">Routes</p>
-            </div>
+         
         </button>
 
     } @else if (loggedUserRole == 'ROLE_ROUTEADMINISTRATOR') {
@@ -73,11 +76,9 @@
                 hover:bg-lightBusYellow/10 transition-[0.5s]"
         (click)="viewRoutes()">
             <div class="flex w-[10%]">
-                <fa-icon [icon]="faRoute" class="text-[20px]"/>
+                <fa-icon [icon]="faRoute" class="text-[25px]"/>
             </div>
-            <div class="flex w-[90%] justify-start">
-                <p class="ml-[20px] text-[28px]">Routes</p>
-            </div>
+            
         </button>
         <button [ngClass]="{'bg-lightBusYellow/10' : showBuses,
                     'bg-transparent': !showBuses}" 
@@ -85,11 +86,9 @@
                 hover:bg-lightBusYellow/10 transition-[0.5s]"
         (click)="viewBuses()">
             <div class="flex w-[10%]">
-                <fa-icon [icon]="faBus" class="text-[20px]"/>
+                <fa-icon [icon]="faBus" class="text-[25px]"/>
             </div>
-            <div class="flex w-[90%] justify-start">
-                <p class="ml-[20px] text-[28px]">Buses</p>
-            </div>
+          
         </button>
 
     } @else if (loggedUserRole == 'ROLE_HRAdministrator') {
@@ -99,11 +98,9 @@
             hover:bg-lightBusYellow/10 transition-[0.5s]"
             (click)="viewWorkCalendar()">
             <div class="flex w-[10%]">
-                <fa-icon [icon]="faCalendar" class="text-[20px]"/>
+                <fa-icon [icon]="faCalendar" class="text-[25px]"/>
             </div>
-            <div class="flex w-[90%] justify-start">
-                <p class="ml-[20px] text-[28px]">Calendar</p>
-            </div>
+         
         </button>
 
         <button [ngClass]="{'bg-lightBusYellow/10' : showEmployees,
@@ -112,11 +109,9 @@
                 hover:bg-lightBusYellow/10 transition-[0.5s]"
         (click)="viewEmployees()">
             <div class="flex w-[10%]">
-                <fa-icon [icon]="faIdCard" class="text-[20px]"/>
+                <fa-icon [icon]="faIdCard" class="text-[25px]"/>
             </div>
-            <div class="flex w-[90%] justify-start">
-                <p class="ml-[20px] text-[28px]">Employees</p>
-            </div>
+     
         </button>
         
     }@else if (loggedUserRole == 'ROLE_KYCADMINISTRATOR') {
@@ -126,11 +121,9 @@
                 hover:bg-lightBusYellow/10 transition-[0.5s]"
         (click)="viewUserBalance()">
             <div class="flex w-[10%]">
-                <fa-icon [icon]="faMoneyBillTransfer" class="text-[20px]"/>
+                <fa-icon [icon]="faMoneyBillTransfer" class="text-[25px]"/>
             </div>
-            <div class="flex w-[90%] justify-start">
-                <p class="ml-[20px] text-[22px]">Update user balance</p>
-            </div>
+   
         </button>
 
         <button [ngClass]="{'bg-lightBusYellow/10' : showRequests,
@@ -139,11 +132,9 @@
                     hover:bg-lightBusYellow/10 transition-[0.5s]"
                 (click)="viewUserRequests()">
         <div class="flex w-[10%]">
-            <fa-icon [icon]="faIdCard" class="text-[24px]"/>
+            <fa-icon [icon]="faIdCard" class="text-[25px]"/>
         </div>
-        <div class="flex w-[90%] justify-start">
-            <p class="ml-[20px] text-[28px]">Requests</p>
-        </div>
+   
         </button>
     }
 
@@ -153,10 +144,8 @@
                     hover:bg-lightBusYellow/10 transition-[0.5s]"
             (click)="viewInbox()">
         <div class="flex w-[10%]">
-            <fa-icon [icon]="faMessage" class="text-[20px]"/>
+            <fa-icon [icon]="faMessage" class="text-[25px]"/>
         </div>
-        <div class="flex w-[90%] justify-start">
-            <p class="ml-[20px] text-[28px]">Chat</p>
-        </div>
+ 
     </button>
 </div>
