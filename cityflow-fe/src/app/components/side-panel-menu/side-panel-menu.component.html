@@ -1,151 +1,127 @@
-
 <div class="flex flex-col items-center gap-6 justify-center w-full font-manrope text-white">
 
     <div class="w-[60px] h-[60px] rounded-full mb-10 overflow-hidden bg-black flex items-center justify-center z-10">
         <div class="w-[60px] h-[60px] relative" *ngIf="userImage; else noImageTemplate">
-          <img [src]="userImage" class="w-[60px] h-[60px] object-cover block">
-          
+            <img [src]="userImage" class="w-[60px] h-[60px] object-cover block">
+
         </div>
-        
+
         <ng-template #noImageTemplate>
-          <div class="text-gray-500 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 text-2xl">+</div>
+            <div class="text-gray-500 opacity-0 transition-opacity duration-300 ease-in-out hover:opacity-100 text-2xl">
+                +</div>
         </ng-template>
-      </div>
-    
-    <button [ngClass]="{'bg-lightBusYellow/10' : showHome,
-                    'bg-transparent': !showHome}" 
-            class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                    hover:bg-lightBusYellow/10 transition-[0.5s]"
-            (click)="viewHome()">
-        <div class="flex w-[10%]">
-            <fa-icon [icon]="faHome" class="text-[25px]"/>
+    </div>
+
+    <button [ngClass]="{'text-[#FFD369]' : showHome,
+                    'text-white': !showHome}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+                     transition-[0.5s]" (click)="viewHome()">
+        <div>
+            <fa-icon [icon]="faChartLine" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
         </div>
-  
+
     </button>
 
-    <button [ngClass]="{'bg-lightBusYellow/10' : showProfile,
-                        'bg-transparent': !showProfile}" 
-            class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                    hover:bg-lightBusYellow/10 transition-[0.5s]"
-            (click)="viewProfile()">
-        <div class="flex w-[10%]">
-            <fa-icon [icon]="faUser" class="text-[25px]"/>
+    <button [ngClass]="{'text-[#FFD369]' : showProfile,
+                        'text-white': !showProfile}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+             transition-[0.5s]" (click)="viewProfile()">
+        <div >
+            <fa-icon [icon]="faUser" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
         </div>
-       
+
     </button>
 
 
     @if (loggedUserRole == 'ROLE_USER') {
-        <button [ngClass]="{'bg-lightBusYellow/10' : showUserCardBalance,
-                    'bg-transparent': !showUserCardBalance}" 
-        class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                hover:bg-lightBusYellow/10 transition-[0.5s]"
-        (click)="viewUserCardBalance()">
-            <div class="flex w-[10%]">
-                <fa-icon [icon]="faIdCard" class="text-[25px]"/>
-            </div>
-         
-        </button>
+    <button [ngClass]="{'text-[#FFD369]' : showUserCardBalance,
+                    'text-white': !showUserCardBalance}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+            transition-[0.5s]" (click)="viewUserCardBalance()">
+        <div>
+            <fa-icon [icon]="faIdCard" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
+        </div>
 
-        <button [ngClass]="{'bg-lightBusYellow/10' : showCards,
-                    'bg-transparent': !showCards}" 
-        class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                hover:bg-lightBusYellow/10 transition-[0.5s]"
-        (click)="viewCards()">
-            <div class="flex w-[10%]">
-                <fa-icon [icon]="faIdCard" class="text-[25px]"/>
-            </div>
-            
-        </button>
+    </button>
 
-        <button [ngClass]="{'bg-lightBusYellow/10' : showUserRoutes,
-                    'bg-transparent': !showUserRoutes}" 
-        class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-            hover:bg-lightBusYellow/10 transition-[0.5s]"
-        (click)="viewUserRoutes()">
-            <div class="flex w-[10%]">
-                <fa-icon [icon]="faRoute" class="text-[25px]"/>
-            </div>
-         
-        </button>
+    <button [ngClass]="{'text-[#FFD369]' : showCards,
+                    'text-white': !showCards}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+             transition-[0.5s]" (click)="viewCards()">
+            <div>
+                <fa-icon [icon]="faIdCard" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
+        </div>
+
+    </button>
+
+    <button [ngClass]="{'text-[#FFD369]' : showUserRoutes,
+                    'text-white': !showUserRoutes}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+            transition-[0.5s]" (click)="viewUserRoutes()">
+            <div>
+                <fa-icon [icon]="faRoute" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
+        </div>
+
+    </button>
 
     } @else if (loggedUserRole == 'ROLE_ROUTEADMINISTRATOR') {
-        <button [ngClass]="{'bg-lightBusYellow/10' : showRoutes,
-                    'bg-transparent': !showCards}" 
-        class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                hover:bg-lightBusYellow/10 transition-[0.5s]"
-        (click)="viewRoutes()">
-            <div class="flex w-[10%]">
-                <fa-icon [icon]="faRoute" class="text-[25px]"/>
-            </div>
-            
-        </button>
-        <button [ngClass]="{'bg-lightBusYellow/10' : showBuses,
-                    'bg-transparent': !showBuses}" 
-        class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                hover:bg-lightBusYellow/10 transition-[0.5s]"
-        (click)="viewBuses()">
-            <div class="flex w-[10%]">
-                <fa-icon [icon]="faBus" class="text-[25px]"/>
-            </div>
-          
-        </button>
+    <button [ngClass]="{'text-[#FFD369]' : showRoutes,
+                    'text-white': !showCards}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+             transition-[0.5s]" (click)="viewRoutes()">
+            <div>
+                <fa-icon [icon]="faRoute" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
+        </div>
+
+    </button>
+    <button [ngClass]="{'text-[#FFD369]' : showBuses,
+                    'text-white': !showBuses}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+             transition-[0.5s]" (click)="viewBuses()">
+            <div>
+                <fa-icon [icon]="faBus" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
+        </div>
+
+    </button>
 
     } @else if (loggedUserRole == 'ROLE_HRAdministrator') {
-        <button [ngClass]="{'bg-lightBusYellow/10' : showWorkCalendar,
-                            'bg-transparent': !showWorkCalendar}" 
-            class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-            hover:bg-lightBusYellow/10 transition-[0.5s]"
-            (click)="viewWorkCalendar()">
-            <div class="flex w-[10%]">
-                <fa-icon [icon]="faCalendar" class="text-[25px]"/>
-            </div>
-         
-        </button>
-
-        <button [ngClass]="{'bg-lightBusYellow/10' : showEmployees,
-                    'bg-transparent': !showCards}" 
-        class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                hover:bg-lightBusYellow/10 transition-[0.5s]"
-        (click)="viewEmployees()">
-            <div class="flex w-[10%]">
-                <fa-icon [icon]="faIdCard" class="text-[25px]"/>
-            </div>
-     
-        </button>
-        
-    }@else if (loggedUserRole == 'ROLE_KYCADMINISTRATOR') {
-        <button [ngClass]="{'bg-lightBusYellow/10' : showUserBalance,
-                    'bg-transparent': !showUserBalance}" 
-        class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                hover:bg-lightBusYellow/10 transition-[0.5s]"
-        (click)="viewUserBalance()">
-            <div class="flex w-[10%]">
-                <fa-icon [icon]="faMoneyBillTransfer" class="text-[25px]"/>
-            </div>
-   
-        </button>
-
-        <button [ngClass]="{'bg-lightBusYellow/10' : showRequests,
-                'bg-transparent': !showRequests}" 
-                class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                    hover:bg-lightBusYellow/10 transition-[0.5s]"
-                (click)="viewUserRequests()">
-        <div class="flex w-[10%]">
-            <fa-icon [icon]="faIdCard" class="text-[25px]"/>
+    <button [ngClass]="{'text-[#FFD369]' : showWorkCalendar,
+                            'text-white': !showWorkCalendar}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+             transition-[0.5s]" (click)="viewWorkCalendar()">
+            <div>
+                <fa-icon [icon]="faCalendar" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
         </div>
-   
-        </button>
+
+    </button>
+
+    <button [ngClass]="{'text-[#FFD369]' : showEmployees,
+                    'text-white': !showEmployees}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+             transition-[0.5s]" (click)="viewEmployees()">
+            <div>
+                <fa-icon [icon]="faIdCard" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
+        </div>
+
+    </button>
+
+    }@else if (loggedUserRole == 'ROLE_KYCADMINISTRATOR') {
+    <button [ngClass]="{'text-[#FFD369]' : showUserBalance,
+                    'text-white': !showUserBalance}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+             transition-[0.5s]" (click)="viewUserBalance()">
+            <div>
+                <fa-icon [icon]="faMoneyBillTransfer" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
+        </div>
+
+    </button>
+
+    <button [ngClass]="{'text-[#FFD369]' : showRequests,
+                'text-white': !showRequests}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+             transition-[0.5s]" (click)="viewUserRequests()">
+            <div>
+                <fa-icon [icon]="faIdCard" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
+        </div>
+
+    </button>
     }
 
-    <button [ngClass]="{'bg-lightBusYellow/10' : showInbox,
-                        'bg-transparent': !showInbox}" 
-            class="flex flex-row w-full justify-start items-center px-2 mb-2 cursor-pointer rounded-[12px]
-                    hover:bg-lightBusYellow/10 transition-[0.5s]"
-            (click)="viewInbox()">
-        <div class="flex w-[10%]">
-            <fa-icon [icon]="faMessage" class="text-[25px]"/>
+    <button [ngClass]="{'text-[#FFD369]' : showInbox,
+                        'text-white': !showInbox}" class="flex flex-row w-full justify-center items-center px-2 mb-2 cursor-pointer rounded-[12px]
+             transition-[0.5s]" (click)="viewInbox()">
+            <div>
+                <fa-icon [icon]="faMessage" class="hover:text-[#FFD369] text-[25px] transition-all duration-500" />
         </div>
- 
+
     </button>
 </div>

@@ -8,7 +8,7 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Chart, PieController, ArcElement, Tooltip, Legend, ChartConfiguration, LinearScale, BarController, BarElement, CategoryScale } from 'chart.js';
 import { CommonModule } from '@angular/common';
-import { map, Observable, tap } from 'rxjs';
+import { combineLatest, map, Observable, tap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSearch, faCog, faUsers, faFemale, faMale, faCalendarDay, faBusinessTime, faMoneyBillTrendUp, faEnvelope} from '@fortawesome/free-solid-svg-icons';
@@ -34,9 +34,10 @@ Chart.register(
 })
 
 export class HomeComponent implements OnInit {
+  selectedChart: string = 'employeeChart';
+  chartInstance: any;
   token = localStorage.getItem('token');
   loggedUser!: User;
-  userImage: any;
   user: User = {} as User;
   employmentChart: any;
   hasStatistics: boolean = false;
@@ -69,15 +70,27 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loadEmploymentStatistics();
-    this.createDoughnutChart();
-    this.createBarChart();
-    this.loadUsersAndImages();
-    this.fetchUser();
+    // Initially show the employee chart by loading real employment statistics
+    this.loadEmploymentStatistics(); // This will trigger `createChart()` with real statistics
+
+    // Initialize the users list and images
+    this.users$ = combineLatest([
+      this.hrAdminService.searchUsersByName(this.nameFilter),
+    ]).pipe(
+      map(([nameResults]) => {
+        return [...new Set([...nameResults])];
+      })
+    );
+
+    this.loadUsersAndImages(); // Load user images
+    this.fetchUser(); // Fetch the logged-in user
+
+    // Update the current date every minute
     setInterval(() => {
-      this.currentDate = new Date(); // Update the current date and time every minute
+      this.currentDate = new Date();
     }, 60000);
   }
+
 
   fetchUnreadMessages(): void {
     if (this.loggedUser) {
@@ -96,7 +109,58 @@ export class HomeComponent implements OnInit {
       console.log('Logged user is not set, skipping unread messages fetch');
     }
   }
+
   
+  toggleChart(chartType: string): void {
+    this.selectedChart = chartType;
+  
+    // Destroy the existing chart instance to avoid overlaying
+    if (this.chartInstance) {
+      this.chartInstance.destroy();
+    }
+  
+    // Switch between the two chart types
+    if (chartType === 'employeeChart') {
+      // This will call the method that uses actual employment statistics
+      this.loadEmploymentStatistics(); // Will automatically call createChart() with real data
+    } else if (chartType === 'roleChart') {
+      // This will create the role distribution chart
+      this.createRoleChart();
+    }
+  }
+
+  /*createDoughnutChart(): void {
+    const data = {
+      labels: ['Employed', 'Terminated'],
+      datasets: [{
+        data: [9, 2],
+        backgroundColor: ['#75C869', '#E62E2D'],
+      }]
+    };
+
+    this.chartInstance = new Chart('chartCanvas', {
+      type: 'doughnut',
+      data: data,
+      options: { responsive: true, plugins: { legend: { display: true }}}
+    });
+  }*/
+
+  createRoleChart(): void {
+    const data = {
+      labels: ['Driver', 'Accountant', 'Servicer', 'HR Administrator', 'Route Administrator'],
+      datasets: [{
+        data: [3, 1, 1, 2, 2],
+        backgroundColor: ['#ffd369', '#fae0a2', '#d4cebc', '#80848c', '#393E46'],
+        borderColor: ['#ffd369', '#fae0a2', '#d4cebc', '#80848c', '#393E46']
+      }]
+    };
+
+    this.chartInstance = new Chart('chartCanvas', {
+      type: 'pie',
+      data: data,
+      options: { responsive: true, plugins: { legend: { display: true }}}
+    });
+  }
   
   navigateToChats(): void {
     this.router.navigate(['/inbox']);
@@ -124,7 +188,6 @@ export class HomeComponent implements OnInit {
       })
     );
   }
-
   searchUsersByName(): void {
     this.users$ = this.hrAdminService.searchUsersByName(this.nameFilter).pipe(
       map(users => users.filter(user => user.employed))
@@ -168,15 +231,15 @@ export class HomeComponent implements OnInit {
     const data = {
       labels: ['Employed', 'Terminated'],
       datasets: [{
-        data: [employedCount, terminatedCount],
-        backgroundColor: ['rgba(75, 200, 100, 0.7)', 'rgba(235, 40, 45, 0.7)'],
-        borderColor: ['rgba(75, 200, 100, 0.9)', 'rgba(255, 40, 45, 0.9)'],
+        data: [employedCount, terminatedCount], // Actual statistics passed as parameters
+        backgroundColor: ['#393E46', '#FFD369'], // Employed is green, Terminated is red
+        borderColor: ['#393E46', '#FFD369'],
         borderWidth: 1.5
       }]
     };
-
-    const config: ChartConfiguration<'pie', number[], string> = {
-      type: 'pie',
+  
+    this.chartInstance = new Chart('chartCanvas', {
+      type: 'pie',  // You can change to 'doughnut' if needed
       data: data,
       options: {
         responsive: true,
@@ -189,10 +252,9 @@ export class HomeComponent implements OnInit {
           }
         }
       }
-    };
-
-    this.employmentChart = new Chart('employmentChartCanvas', config);
+    });
   }
+  
 
   loadEmploymentStatistics(): void {
     if (this.token) {
@@ -200,10 +262,12 @@ export class HomeComponent implements OnInit {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.token}`
       });
+      
       this.hrAdminService.getEmploymentStatistics(headers).subscribe({
         next: (stats) => {
           this.employedCount = stats.employedCount;
           this.terminatedCount = stats.terminatedCount;
+          // Create the chart with the fetched statistics
           this.createChart(this.employedCount, this.terminatedCount);
         },
         error: (error: HttpErrorResponse) => {
@@ -216,22 +280,13 @@ export class HomeComponent implements OnInit {
       this.hasStatistics = false;
     }
   }
+  
+  
   public fetchUser(): void {
     if (this.token != null) {
       this.authService.getUserFromToken(this.token).subscribe(
         (response: User) => {
           this.loggedUser = response;
-          if (this.loggedUser.profilePicture) {
-            this.hrAdminService.getUserProfilePicture(this.loggedUser.id).subscribe(
-              base64Image => {
-                this.userImage = this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64,${base64Image}`);
-              },
-              error => {
-                console.log('No image found:', error);
-                this.userImage = null;
-              }
-            );
-          }
           this.fetchUnreadMessages();
         },
         (error: HttpErrorResponse) => {
@@ -241,7 +296,19 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  createDoughnutChart(): void {
+  getRoleDisplayName(role: string): string {
+    const roleMap: { [key: string]: string } = {
+      'ROLE_ROUTEADMINISTRATOR': 'Route Administrator',
+      'ROLE_HRAdministrator': 'HR Administrator',
+      'ROLE_DRIVER': 'Driver',
+      'ROLE_SERVICER': 'Servicer',
+      'ROLE_ACCOUNTANT': 'Accountant'
+    };
+    return roleMap[role] || role;
+  }
+  
+
+  /*createDoughnutChart(): void {
     const data = {
       labels: ['Driver', 'Accountant', 'Servicer', 'HR Administrator', 'Route Administrator'],
       datasets: [{
@@ -282,54 +349,7 @@ export class HomeComponent implements OnInit {
 
     this.employmentChart = new Chart('rolesChartCanvas', config);
   }
+*/
 
-  createBarChart(): void {
-    const data = {
-      labels: ['1980', '1985', '1990', '1995', '2000', '2005'],
-      datasets: [{
-        label: 'Number of employees / Year of birth',
-        data: [2, 1, 1, 2, 3, 0],
-        backgroundColor: 'rgba(53, 162, 235, 0.8)',
-        borderColor: 'rgba(53, 162, 235, 1)',
-        borderWidth: 1
-      }]
-    };
-
-    const config: ChartConfiguration<'bar', number[], string> = {
-      type: 'bar',
-      data: data,
-      options: {
-        responsive: true,
-        scales: {
-          x: {
-            type: 'category',
-            display: true,
-            title: {
-              display: true,
-              text: 'Godina Rođenja'
-            }
-          },
-          y: {
-            type: 'linear',
-            display: true,
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Broj Zaposlenih'
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            position: 'top'
-          },
-          tooltip: {
-            enabled: true
-          }
-        }
-      }
-    };
-    this.employmentChart = new Chart('employmentAgeChartCanvas', config);
-  }
 
 }

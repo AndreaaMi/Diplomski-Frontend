@@ -1,20 +1,23 @@
-<div class="flex flex-col w-full h-full  gap-8 font-manrope text-white justify-start">
+<div class="h-screen bg-[#EEEEEE]  h-full font-manrope scroll-smooth justify-center">
+    <div class="flex justify-center p-4">
+      <h1 class="text-[50px] text-[#222831] font-bold">Employees</h1>
+    </div>
 
-    <div class="flex flex-row w-full justify-center items-center mb-4">
+    <div class="flex flex-row w-full justify-center p-4 items-center mb-4">
         <div class="relative" style="width: 50%;">
             <input class="shadow-lg w-full pl-10 pr-4 py-2 border-none rounded-lg bg-white text-blueGray" type="text" [(ngModel)]="nameFilter" (ngModelChange)="onNameFilterChange($event)" placeholder="Search by name">
             <button class="absolute left-3 top-1/2 transform -translate-y-1/2">
-                <fa-icon [icon]="faSearch" class="text-blueGray"/>
+                <fa-icon [icon]="faSearch" class="text-[#393E46]"/>
             </button>
         </div>
         <div class="relative ml-4">
-            <button (click)="toggleRoleDropdown()" class="shadow-lg filter-btn bg-white p-2 rounded-lg">
-                <fa-icon [icon]="faFilter" class="text-blueGray"/>
+            <button (click)="toggleRoleDropdown()" class="shadow-lg filter-btn bg-[#FFD369] hover:bg-[#FFD369]/80 p-2 rounded-lg">
+                <fa-icon [icon]="faFilter" class="text-[#222831]"/>
             </button>
-            <div *ngIf="roleDropdownOpen" class="absolute top-full right-0 bg-white shadow-2xl rounded-lg shadow-lg z-20 mt-2">
-                <ul class="py-2 text-sm">
+            <div *ngIf="roleDropdownOpen" class="absolute top-full right-0 bg-[#393E46] shadow-2xl rounded-lg z-20 mt-2">
+                <ul class="text-sm p-2">
                     <li *ngFor="let role of roles">
-                        <label class="flex items-center px-4 py-2 text-darkGrey w-40">
+                        <label class="flex items-center px-4 py-2 bg-[#393E46] text-[#EEEEEE] w-40">
                             <input type="checkbox" [value]="role" (change)="onRoleChange($event)" class="mr-2">
                             {{ role }}
                         </label>
@@ -24,8 +27,8 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-5 gap-4 justify-between h-full">
-        <div class="card text-blueGray hover:text-blueGray hover:border-[3px] hover:border-blueGray transition-[0.5s] relative cursor-pointer"
+    <div class="flex flex-wrap gap-14 p-4 h-full w-full">
+        <div class="card text-[#EEEEEE]  hover:text-[#FFD369] hover:border-[5px] hover:border-[#FFD369] transition-[0.5s] relative cursor-pointer"
             (click)="navigateToAddNewEmployee()">
             <div class="flex flex-col justify-center items-center h-full">
                 <fa-icon [icon]="faPlus" class="text-[40px] mb-4"></fa-icon>
@@ -33,33 +36,33 @@
             </div>
         </div>
         <div *ngFor="let user of users$ | async; let i = index"
-            class="card hover:translate-y-[-5px] transition-[0.5s] relative">
+            class="card transition duration-300 transform hover:scale-105 hover:-translate-y-1 relative mb-8">
             <head>
                 <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
             </head>
             <button id="dropdownOffsetButton{{i}}" (click)="toggleDropdown(i)"
-                class="text-blueGray focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-centeritems-center absolute top-5 right-5"
+                class="text-[#EEEEEE] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-centeritems-center absolute top-5 right-5"
                 type="button">
-                <fa-icon [icon]="faEllipsis" class="text-[28px] hover:text-lightGrey/50 transition-[0.5s]" />
+                <fa-icon [icon]="faEllipsis" class="text-[28px] hover:text-[#EEEEEE]/40 transition-[0.5s]" />
             </button>
 
             <body>
                 <div *ngIf="dropdownOpen[i]"
-                    class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-2xl w-40 dark:bg-gray-700 absolute top-[70px] right-6">
+                    class="z-10 bg-[#393E46] divide-y divide-gray-100 rounded-lg shadow-2xl w-40 dark:bg-gray-700 absolute top-[70px] right-6">
                     <ul class="py-2 text-[16px]">
-                        <li class="text-blueGray hover:bg-blueGray/5 transition-[0.5s]">
+                        <li class="text-white hover:bg-white/5 transition-[0.5s]">
                             <button class="edit-btn " (click)="editEmployee(user.id)">
                                 <p class="block px-4 py-2">
                                     Edit Profile</p>
                             </button>
                         </li>
-                        <li class="text-blueGray hover:bg-blueGray/5 transition-[0.5s]">
+                        <li class="text-white hover:bg-white/5 transition-[0.5s]">
                             <button class="salary-btn" (click)="openAssignSalaryForm(user.id)">
                                 <p class="block px-4 py-2">
                                     Add Salary</p>
                             </button>
                         </li>
-                        <li class="text-deepRed hover:bg-blueGray/5 transition-[0.5s]">
+                        <li class="text-deepRed hover:bg-white/5 transition-[0.5s]">
                             <button class="terminate-btn" (click)="navigateToDeleteEmployee(user.id)">
                                 <p class="block px-4 py-2">Delete</p>
                             </button>
@@ -71,14 +74,14 @@
 
             <div class="image-container">
                 <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" alt="{{ user.name }}"
-                    class="user-image shadow-xl bg-fixed opacity-100 transition-[0.5] ease-in-out hover:opacity-50 transition-[0.5s] cursor-pointer"
+                    class="user-image border-[#FFD369] border-[5px] shadow-xl bg-fixed opacity-100 transition-[0.5] ease-in-out hover:opacity-50 transition-[0.5s] cursor-pointer"
                     (click)="openImageModal(userImages.get(user.id))">
                 <div *ngIf="!userImages.get(user.id)" class="no-image-placeholder">X</div>
             </div>
 
             <div class="card-content text-center">
-                <h5 class="card-title text-blueGray">{{ user.name }} {{ user.lastname }}</h5>
-                <p class="card-role text-blueGray/80">{{ getRoleDisplayName(user.roles) }}</p>
+                <h5 class="card-title text-[#EEEEEE] ">{{ user.name }} {{ user.lastname }}</h5>
+                <p class="card-role text-[#EEEEEE]/80">{{ getRoleDisplayName(user.roles) }}</p>
                 <p [ngClass]="getSalaryClass(user.id)" class="mt-2 text-lg font-bold">
                     {{ getSalaryMessage(user.id) }}
                   </p>

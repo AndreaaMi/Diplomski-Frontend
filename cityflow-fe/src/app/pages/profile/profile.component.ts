@@ -93,27 +93,31 @@ export class ProfileComponent implements OnInit{
         dateOfBirth: this.dateOfBirth,
         phoneNumber: this.phoneNumber
     };
-
+  
     this.userService.updateProfile(updateDto).subscribe(
         (response: any) => {
-          this.toast.error({detail:"ERROR", summary:'Failed to update profile!', duration:3000});
+          // Assuming the response is valid, even if we get a 200 but Angular treats it as an error
+          console.log('Profile update successful:', response);
+          this.toast.success({ detail: "SUCCESS", summary: 'Profile data successfully updated!', duration: 3000 });
+          
+          // Fetch the updated user data and refresh the UI without full page reload
+          this.fetchUser();
         },
         (error: HttpErrorResponse) => {
-          this.fetchUser(); 
-          if (this.usernameChanged || this.passwordChanged) {
-            localStorage.removeItem('token');
-            this.router.navigate(['/signin']);
-            setTimeout(() => {
-              window.location.reload();
-              }, 5);
+          // This will catch even the success response with the 200 status due to a formatting issue
+          console.error('Failed to update profile:', error);
+          
+          // Show the toast as a fallback, even though it's technically a success
+          if (error.status === 200) {
+            this.toast.success({ detail: "SUCCESS", summary: 'Profile data successfully updated!', duration: 3000 });
+            this.fetchUser();
           } else {
-              this.resetEditingFlags();
+            this.toast.error({ detail: "ERROR", summary: 'Failed to update profile!', duration: 3000 });
           }
-            this.toast.success({detail:"SUCCESS", summary:'Profile data successfully updated!', duration:3000});
-
         }
     );
-}
+  }
+  
 
 private resetEditingFlags(): void {
     this.toggleEditAccount = false;

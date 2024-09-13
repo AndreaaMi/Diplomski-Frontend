@@ -1,13 +1,12 @@
 .chat-container {
     display: flex;
-    height: 96.6vh;
+    height: 88vh;
 }
 
 .user-list-section {
     width: 300px;
-    background: #f0f0f0;
+    background: #222831;
     padding: 10px;
-    border-right: 1px solid #f0f0f0;
 }
 
 .user-search {
@@ -18,7 +17,7 @@
 .user-search input {
     width: 100%;
     padding: 8px 30px 8px 10px;
-    background: white;
+    background: #393E46;
     box-sizing: border-box;
     border: none;
 }
@@ -32,18 +31,17 @@
 
 .user-list {
     overflow-y: auto;
-    color: #303133;
+    color: #EEEEEE;
 }
 
 .user-item {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #f0f0f0;
     cursor: pointer;
 }
 .unread-message {
-    background-color: #f8d7da; /* Light red background for unread messages */
+    background-color: white; /* Light red background for unread messages */
   }
   
   .font-bold {
@@ -69,13 +67,13 @@
 
 .user-item span {
     font-size: 16px;
-    color: #303133;
+    color: #EEEEEE;
     font-weight: bold;
 }
 
 .user-item p {
     font-size: 12px;
-    color: #7a7c82;
+    color: #abacb0;
     margin-top: 4px;
 }
 
@@ -84,8 +82,8 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    padding: 20px;
-    background-color: white;
+    
+    background-color: #393E46;
     color: #1f2630;
 
 }
@@ -110,9 +108,9 @@
 }
 
 .mine {
-    background-color:#e9d5a0;
+    background-color:#FFD369;
     align-self: flex-end;
-    color: #313b49;
+    color: #222831;
     margin-left: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 800px;
@@ -120,9 +118,9 @@
 }
 
 .theirs {
-    background-color: #e3e3e3;
+    background-color: #cccccc;
     align-self: flex-start;
-    color: #1f2630;
+    color: #222831;
     margin-right: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 800px;
@@ -140,12 +138,12 @@ button {
 }
 
 button:hover {
-    background-color: #049f21;
+    background-color: #d6af4f;
 }
 
 .send-button {
     padding: 10px;
-    background-color: #4CD137;
+    background-color: #FFD369;
     color: white;
     border: none;
     cursor: pointer;
@@ -153,7 +151,7 @@ button:hover {
 }
 
 .send-icon:hover {
-    color: #049f21;
+    color: #d6af4f;
     transform: scale(1.1);
 
 }
@@ -162,7 +160,7 @@ button:hover {
     border: none;
     background: none;
     cursor: pointer;
-    color: #4CD137;
+    color: #FFD369;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -175,8 +173,7 @@ button:hover {
     display: flex;
     align-items: center;
     padding: 10px;
-    background: linear-gradient(180deg, #f0f0f0, #f9fafb);
-    border-bottom: 1px solid #f0f0f0;
+    background: #222831;
     margin-bottom: 10px;
 }
 
@@ -190,7 +187,7 @@ button:hover {
 
 .user-details span {
     font-size: 18px;
-    color: #303133;
+    color: #EEEEEE;
     display: flex;
     align-items: center;
 }

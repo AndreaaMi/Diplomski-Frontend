@@ -1,109 +1,89 @@
-<div class="flex flex-row w-full h-full justify-between bg-[#f9fafb] gap-4">
-    <div class="flex h-full items-center justify-center w-[23%] bg-white p-2 shadow-md rounded-[10px]">
-        <div class="flex flex-col ">
-            <!-- Total Employees -->
-            <div class="flex flex-col space-y-10">
-                <!-- Current Date and Time -->
-                <div class="text-center">
-                    <fa-icon [icon]="faCalendarDay" class="text-green-500 text-[60px]"></fa-icon>
-                    <div class="text-3xl font-bold">{{ currentDate | date:'MMM d, y' }}</div>
-                    <div class="text-sm text-gray-600">Today's Date</div>
-                </div>
-                <!-- Total Employees -->
-                <div class="text-center">
-                    <div class="flex justify-center items-center space-x-4">
-                        <fa-icon [icon]="faUsers" class="text-blueGray text-[60px]"></fa-icon>
-                        <span class="text-[50px] font-bold">9</span>
-                    </div>
-                    
-                    <div class="text-sm text-gray-600">Total Employees</div>
-                </div>
-        
-                <!-- Gender Ratio -->
-                <div class="text-center">
-                    <div class="flex justify-center items-center space-x-4">
-                        <fa-icon [icon]="faFemale" class="text-pink-500 text-[60px]"></fa-icon>
-                        <span class="text-[40px] font-bold">4</span>
-                        <fa-icon [icon]="faMale" class="text-blue-500 text-[60px]"></fa-icon>
-                        <span class="text-[40px] font-bold">5</span>
-                    </div>
-                    <div class="text-sm text-gray-600">Gender Ratio</div>
-                </div>
-        
-                <!-- Overtime Statistics -->
-                <div class="text-center">
-                    <fa-icon [icon]="faBusinessTime" class="text-orange-500 text-[60px]"></fa-icon>
-                    <span class="text-[50px] font-bold">15%</span>
-                    <div class="text-sm text-gray-600">Overtime Rate</div>
-                </div>
-        
-                <!-- Financial Stats -->
-                <div class="text-center">
-                    <fa-icon [icon]="faMoneyBillTrendUp" class="text-green-500 text-[60px]"></fa-icon>
-                    <span class="text-[40px] font-bold">100K</span>
-                    <div class="text-sm text-gray-600">Total Income This Year</div>
-                </div>
-            </div>
-        </div>
+<div class="h-screen bg-[#EEEEEE] flex flex-col font-manrope scroll-smooth justify-center">
+    <div class="flex justify-center p-4">
+      <h1 class="text-[50px] font-bold">Dashboard</h1>
     </div>
-    <div class="flex flex-col h-full w-[30%] gap-4">
-            <div class="flex flex-col p-2 bg-white shadow-md rounded-[10px] md:w-[470px] h-full md:h-[465px]">
-                <div class="flex justify-between p-2 gap-1">
-                    <div class="flex flex-grow items-center relative">
-                        <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="onNameFilterChange($event)" placeholder="Search by name" class="pl-3 pr-10 py-1 w-full rounded shadow-sm border border-gray-300">
-                        <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-blueGray">
-                            <fa-icon [icon]="faSearch" class="text-blueGray"/>
-                        </button>
-                    </div>
-                    <button (click)="navigateToEmployees()" class="bg-blueGray hover:bg-blueGray/80 text-white font-bold py-1 px-2 rounded shadow-sm">
-                        <fa-icon [icon]="faCog" class="text-white"/> <!-- Replace the previous icon and text with a settings icon -->
-                    </button>
-                </div>
-                <div class="flex flex-col space-y-2 overflow-auto h-[400px]">
-                    <div *ngFor="let user of users$ | async" class="flex items-center p-2 border-b border-gray-200">
-                        <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" alt="{{ user.name }}" class="w-10 h-10 rounded-full shadow-sm mr-3">
-                        <div *ngIf="!userImages.get(user.id)" class="w-10 h-10 bg-gray-200 rounded-full shadow-sm mr-3 flex items-center justify-center">N/A</div>
-                        <div class="flex-grow">
-                            <div class="font-semibold">{{ user.name }} {{ user.lastname }}</div>
-                            <div class="text-xs text-gray-600">{{ user.roles }}</div>
-                        </div>
-                    </div>
-                </div>
+    <div class="flex flex-row h-[90%] ">
+      <!-- Left Side: Stats and Search -->
+      <div class="grid grid-cols-2 gap-4 p-4 w-1/2  justify-center">
+        <!-- Stats -->
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Total Employees -->
+          <div class="bg-[#222831] p-4 rounded-[10px] text-white shadow-lg">
+            <fa-icon [icon]="faUsers" class="text-[#FFD369] text-[50px]"></fa-icon>
+            <div class="text-right">
+              <span class="text-[40px] font-bold">9</span>
+              <p class="text-sm">Total Employees</p>
             </div>
-        
-        <div class="text-center p-2 bg-white shadow-md rounded-[10px] md:w-470px h-full md:h-[440px]">
-            <fa-icon [icon]="faEnvelope" class="text-red-500 text-[150px]"></fa-icon>
-            <div class="text-3xl font-bold">{{ unreadMessagesCount }}</div>
-            <div class="text-sm text-gray-600">Unread Messages</div>
-            <button 
-              class="bg-blue-500 text-white px-4 py-2 rounded mt-4 hover:bg-blue-700"
-              (click)="navigateToChats()">
-              Go to Chats
-            </button>
           </div>
-     
-    </div>
-    <div class="flex flex-col h-full w-[47%] gap-4">
-        <div class="grid grid-cols-2 w-full h-full gap-4">
-            <div class="w-full  h-full p-8 bg-white shadow-md rounded-[10px]">
-                <div class="flex flex-col items-center justify-center h-[400px]">
-                    <h2 class="text-sm">Employment Statistics (All Time)</h2>
-                    <canvas id="employmentChartCanvas" class="w-full h-52"></canvas>
-                </div>
+          <!-- Gender Ratio -->
+          <div class="bg-[#222831] p-4 rounded-[10px] text-white shadow-lg">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <fa-icon [icon]="faFemale" class="text-[#FF69B4] text-[50px]"></fa-icon>
+                <span class="text-[30px] font-bold ml-2">4</span>
+              </div>
+              <div class="flex items-center">
+                <fa-icon [icon]="faMale" class="text-[#FFD369] text-[50px]"></fa-icon>
+                <span class="text-[30px] font-bold ml-2">5</span>
+              </div>
             </div>
+            <p class="text-sm text-center mt-2">Gender Ratio</p>
+          </div>
+          <!-- Overtime Rate -->
+          <div class="bg-[#222831] p-4 rounded-[10px] text-white shadow-lg">
+            <fa-icon [icon]="faBusinessTime" class="text-[#FFA500] text-[50px]"></fa-icon>
+            <div class="text-right">
+              <span class="text-[40px] font-bold">15%</span>
+              <p class="text-sm">Overtime Rate</p>
+            </div>
+          </div>
+          <!-- Income -->
+          <div class="bg-[#222831] p-4 rounded-[10px] text-white shadow-lg">
+            <fa-icon [icon]="faMoneyBillTrendUp" class="text-green-500 text-[50px]"></fa-icon>
+            <div class="text-right">
+              <span class="text-[40px] font-bold">100K</span>
+              <p class="text-sm">Income This Year</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Search Section -->
+        <div class="bg-[#222831] p-4 rounded-[10px] shadow-lg h-full">
+          <div class="flex items-center">
+              <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="onNameFilterChange($event)"
+                  placeholder="Search employees" class="w-full bg-[#EEEEEE] text-[#222831] px-3 py-2 rounded-[10px]">
+              <fa-icon [icon]="faSearch" class="text-[#FFD369] ml-2"></fa-icon>
+          </div>
+          <!-- Employees List -->
+          <div class="mt-4 overflow-y-auto h-full"> <!-- Adjust height as needed -->
+              <div *ngFor="let user of users$ | async" class="flex items-center p-2">
+                  <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" alt="{{ user.name }}"
+                      class="w-10 h-10 rounded-full shadow-sm mr-3">
+                  <div *ngIf="!userImages.get(user.id)" class="w-10 h-10 bg-gray-200 rounded-full shadow-sm mr-3 flex items-center justify-center">N/A</div>
+                  <div class="flex-grow">
+                      <div class="font-semibold text-white">{{ user.name }} {{ user.lastname }}</div>
+                      <div class="text-xs text-[#FFD369]">{{ getRoleDisplayName(user.roles) }}</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
-            <div class="w-full h-full p-3 bg-white shadow-md rounded-[10px]">
-                <div class="flex flex-col items-center justify-center h-[400px]">
-                    <h2 class="text-sm">Roles Statistics</h2>
-                    <canvas id="rolesChartCanvas" class="w-full h-52"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="flex w-full h-full">
-            <div class="bg-white shadow-md rounded-[10px] p-3 w-full">
-                <h2 class="text-sm">Age Statistics</h2>
-                <canvas id="employmentAgeChartCanvas" class="w-full h-55"></canvas>
-            </div>
+      <div class="flex flex-col w-1/2 justify-center p-6 items-center text-center">
+          <div class="mb-4 w-full h-[50px] bg-[#222831] gap-12 rounded-[10px] flex justify-center items-center">
+            <!-- Radio buttons to toggle between charts -->
+            <label class="mr-4 text-white">
+              <input type="radio" name="chart" value="employeeChart" checked (change)="toggleChart('employeeChart')"> Employee Chart
+            </label>
+            <label class="text-white">
+              <input type="radio" name="chart" value="roleChart" (change)="toggleChart('roleChart')"> Role Chart
+            </label>
+          </div>
+        
+        <!-- Employee/Role Chart Section -->
+        <div class="mt-4">
+          <canvas id="chartCanvas" class="w-[620px] h-[620px]"></canvas>
         </div>
     </div>
-</div>
+  </div>
+  </div>

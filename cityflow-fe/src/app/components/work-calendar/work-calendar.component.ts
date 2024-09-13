@@ -35,12 +35,12 @@ export class WorkCalendarComponent implements OnInit {
   customizeDayCell(arg: any): void {
     const isWeekendDay = isWeekend(arg.date);
     if (isWeekendDay) {
-      arg.el.style.backgroundColor = '#f0f0f0'; // Light gray for weekends
-      arg.el.style.color = '#1f2630'; // Dark gray text
+      arg.el.style.backgroundColor = '#222831'; // Light gray for weekends
+      arg.el.style.color = '#EEEEEE'; // Dark gray text
 
     } else {
-      arg.el.style.backgroundColor = '#ffffff'; // White for regular days
-      arg.el.style.color = '#1f2630'; // Darker text for weekdays
+      arg.el.style.backgroundColor = '#393E46'; // White for regular days
+      arg.el.style.color = '#EEEEEE'; // Darker text for weekdays
     }
   }
 
@@ -113,8 +113,8 @@ export class WorkCalendarComponent implements OnInit {
 
   public getEventStyles(extendedProps: any): any {
     return {
-      backgroundColor: '#5f7783', // Light blue for event background
-      color: 'white', // Darker text for the event
+      backgroundColor: '#FFD369', // Light blue for event background
+      color: '#222831', // Darker text for the event
       borderRadius: '0.375rem', // Rounded corners
       border: '2px solid #5f7783', // Light border around the event
       boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)', // Soft shadow

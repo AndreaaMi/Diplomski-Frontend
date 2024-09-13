@@ -1,6 +1,6 @@
 .profile-pic {
-    width: 8rem;
-    height: 8rem;
+    width: 18rem;
+    height: 18rem;
     position: relative;
     border-radius: 50%;
     overflow: hidden;
@@ -21,7 +21,7 @@
   }
   
   .plus-sign {
-    font-size: 26px;
+    font-size: 40px;
     color: #FFF;
   }
   .profile-pic:hover .no-image-plus {

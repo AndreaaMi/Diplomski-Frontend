@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUser, faHome, faIdCard, faMessage, faCircle, faCalendar, faBus, faMoneyBillTransfer, faRoute } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHome, faIdCard, faMessage, faCircle, faCalendar, faBus, faMoneyBillTransfer, faRoute, faChartLine} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../service/auth.service';
 import { User } from '../../models/user';
 import { response } from 'express';
@@ -28,7 +28,7 @@ export class SidePanelMenuComponent implements OnInit{
   faMoneyBillTransfer = faMoneyBillTransfer;
   faRoute = faRoute;
   faCircle = faCircle;
-
+  faChartLine = faChartLine;
 
   faCalendar = faCalendar;
   showHome : boolean = true;
@@ -85,6 +85,7 @@ export class SidePanelMenuComponent implements OnInit{
   }
 
   public viewHome() : void{
+    this.showHome = true;
     this.navigateToHome();
     this.showProfile = false;
     this.showCards = false;
@@ -121,6 +122,12 @@ export class SidePanelMenuComponent implements OnInit{
     this.showProfile = false;
     this.showCards = true;
     this.showInbox = false;
+    this.showRoutes = false;
+    this.showEmployees = false;
+    this.showUserBalance = false;
+    this.showUserCardBalance = false;
+    this.showRequests = false;
+    this.showBuses = false;
     this.navigateToCards();
     this.showWorkCalendar = false;
     this.showUserRoutes = false;
@@ -137,6 +144,8 @@ export class SidePanelMenuComponent implements OnInit{
     this.showWorkCalendar = false;
     this.showUserRoutes = true;
     this.showUserCardBalance = false;
+    this.showEmployees = false;
+
 
   }
   
@@ -165,6 +174,8 @@ export class SidePanelMenuComponent implements OnInit{
     this.showBuses = false;
     this.navigateToRoutes();
     this.showWorkCalendar = false;
+    this.showEmployees = false;
+
 
   }
 
@@ -175,6 +186,8 @@ export class SidePanelMenuComponent implements OnInit{
     this.showInbox = false;
     this.showBuses = true;
     this.navigateToBuses();
+    this.showEmployees = false;
+
 
   }
 
@@ -184,7 +197,13 @@ export class SidePanelMenuComponent implements OnInit{
     this.showEmployees = true;
     this.showInbox = false;
     this.navigateToEmployees();
+    this.showRoutes = false;
+    this.showUserBalance = false;
+    this.showUserCardBalance = false;
+    this.showRequests = false;
+    this.showBuses = false;
     this.showWorkCalendar = false;
+    this.showUserRoutes = false;
 
   }
   public viewUserBalance() : void{

@@ -12,7 +12,7 @@
   
 .fc-daygrid-day-events {
     overflow-y: auto;
-    max-height: 100px;
+    max-height: 80px;
 }
 
 .fc-more {
@@ -20,7 +20,7 @@
 }
 
 :root{
-  --fc-button-text-color: #000000;
+  --fc-button-text-color: #EEEEEE;
   --fc-button-bg-color: #FFFFFF;
   --fc-button-border-color: transparent;
   --fc-button-hover-bg-color: #DCDDE1;
@@ -33,9 +33,9 @@
 
   --fc-small-font-size: .85em;
   --fc-page-bg-color: #F5F6FA;
-  --fc-neutral-bg-color: rgba(208, 208, 208, 0.3);
-  --fc-neutral-text-color: #000000;
-  --fc-border-color: #c1ced4;
+  --fc-neutral-bg-color: white;
+  --fc-neutral-text-color: #EEEEEE;
+  --fc-border-color: #EEEEEE;
 }
   
 .full-calendar-button:hover {
