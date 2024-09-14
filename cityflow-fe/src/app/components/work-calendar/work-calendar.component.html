@@ -1,16 +1,22 @@
-<div class="h-screen bg-[#EEEEEE]  h-full font-manrope scroll-smooth justify-center">
-  <div class="flex justify-center p-4">
-    <h1 class="text-[50px] text-[#222831] font-bold">Work Calendar</h1>
-  </div>
-<div class="w-full container mx-auto p-4 bg-[#222831] text-white text-bold rounded-[10px] shadow-xl">
-  <full-calendar class="w-full h-[80vh] md:h-[85vh] lg:h-[85vh] " [options]="calendarOptions" (click)="addShift()">
-    <ng-template #eventContent let-arg>
-      <div *ngIf="arg.event.extendedProps" [ngStyle]="getEventStyles(arg.event.extendedProps)" class="p-4 rounded-md shadow">
-        <p class="font-semibold text-lg">{{ arg.event.title }}</p>
+<div class="bg-[#222831] flex justify-center items-center w-full h-full font-manrope">
+  <div class="flex flex-row bg-[#EEEEEE] rounded-[16px] shadow-lg w-[90%] h-[90%]">
 
-        <p class="text-base">{{ arg.event.start | date: 'HH:mm' }} - {{ arg.event.end | date: 'HH:mm' }}</p>
-      </div>
-    </ng-template>
-  </full-calendar>
-</div>
+    <!-- Left Side: Instructions and Info -->
+    <div class="flex flex-col w-[22%] px-6 py-4 bg-gradient-to-r from-[#222831] to-[#393E46] rounded-l-[16px] justify-center items-center">
+      <h2 class="text-[37px] text-white font-bold mb-4 text-center">Work Calendar</h2>
+      <p class="text-[20px] text-white/70 text-center">Click any date to add a shift. Manage your schedule efficiently.</p>
+    </div>
+
+    <!-- Right Side: FullCalendar Integration -->
+    <div class="flex flex-col w-[78%] p-6 items-center text-center">
+      <full-calendar class="w-full h-full overflow-auto custom-scrollbar" [options]="calendarOptions" (click)="addShift()">
+        <ng-template #eventContent let-arg >
+          <div *ngIf="arg.event.extendedProps" [ngStyle]="getEventStyles(arg.event.extendedProps)" class="p-1 rounded-md shadow ">
+            <p class="text-lg font-medium">{{ arg.event.title }}</p>
+            <p class="text-base font-bold">{{ arg.event.start | date: 'HH:mm' }} - {{ arg.event.end | date: 'HH:mm' }}</p>
+          </div>
+        </ng-template>
+      </full-calendar>
+    </div>
+  </div>
 </div>

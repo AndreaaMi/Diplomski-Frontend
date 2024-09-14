@@ -1,89 +1,97 @@
-<div class="h-screen bg-[#EEEEEE] flex flex-col font-manrope scroll-smooth justify-center">
-    <div class="flex justify-center p-4">
-      <h1 class="text-[50px] font-bold">Dashboard</h1>
-    </div>
-    <div class="flex flex-row h-[90%] ">
-      <!-- Left Side: Stats and Search -->
-      <div class="grid grid-cols-2 gap-4 p-4 w-1/2  justify-center">
-        <!-- Stats -->
-        <div class="grid grid-cols-2 gap-4">
-          <!-- Total Employees -->
-          <div class="bg-[#222831] p-4 rounded-[10px] text-white shadow-lg">
-            <fa-icon [icon]="faUsers" class="text-[#FFD369] text-[50px]"></fa-icon>
-            <div class="text-right">
-              <span class="text-[40px] font-bold">9</span>
-              <p class="text-sm">Total Employees</p>
-            </div>
-          </div>
-          <!-- Gender Ratio -->
-          <div class="bg-[#222831] p-4 rounded-[10px] text-white shadow-lg">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <fa-icon [icon]="faFemale" class="text-[#FF69B4] text-[50px]"></fa-icon>
-                <span class="text-[30px] font-bold ml-2">4</span>
-              </div>
-              <div class="flex items-center">
-                <fa-icon [icon]="faMale" class="text-[#FFD369] text-[50px]"></fa-icon>
-                <span class="text-[30px] font-bold ml-2">5</span>
-              </div>
-            </div>
-            <p class="text-sm text-center mt-2">Gender Ratio</p>
-          </div>
-          <!-- Overtime Rate -->
-          <div class="bg-[#222831] p-4 rounded-[10px] text-white shadow-lg">
-            <fa-icon [icon]="faBusinessTime" class="text-[#FFA500] text-[50px]"></fa-icon>
-            <div class="text-right">
-              <span class="text-[40px] font-bold">15%</span>
-              <p class="text-sm">Overtime Rate</p>
-            </div>
-          </div>
-          <!-- Income -->
-          <div class="bg-[#222831] p-4 rounded-[10px] text-white shadow-lg">
-            <fa-icon [icon]="faMoneyBillTrendUp" class="text-green-500 text-[50px]"></fa-icon>
-            <div class="text-right">
-              <span class="text-[40px] font-bold">100K</span>
-              <p class="text-sm">Income This Year</p>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Search Section -->
-        <div class="bg-[#222831] p-4 rounded-[10px] shadow-lg h-full">
-          <div class="flex items-center">
-              <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="onNameFilterChange($event)"
-                  placeholder="Search employees" class="w-full bg-[#EEEEEE] text-[#222831] px-3 py-2 rounded-[10px]">
-              <fa-icon [icon]="faSearch" class="text-[#FFD369] ml-2"></fa-icon>
-          </div>
-          <!-- Employees List -->
-          <div class="mt-4 overflow-y-auto h-full"> <!-- Adjust height as needed -->
-              <div *ngFor="let user of users$ | async" class="flex items-center p-2">
-                  <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" alt="{{ user.name }}"
-                      class="w-10 h-10 rounded-full shadow-sm mr-3">
-                  <div *ngIf="!userImages.get(user.id)" class="w-10 h-10 bg-gray-200 rounded-full shadow-sm mr-3 flex items-center justify-center">N/A</div>
-                  <div class="flex-grow">
-                      <div class="font-semibold text-white">{{ user.name }} {{ user.lastname }}</div>
-                      <div class="text-xs text-[#FFD369]">{{ getRoleDisplayName(user.roles) }}</div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+<div class="bg-[#222831] flex justify-center items-center w-full h-full">
+  <div class="flex flex-row font-manrope bg-[#EEEEEE] rounded-[16px] shadow-lg w-[80%] h-[90%]">
 
-      <div class="flex flex-col w-1/2 justify-center p-6 items-center text-center">
-          <div class="mb-4 w-full h-[50px] bg-[#222831] gap-12 rounded-[10px] flex justify-center items-center">
-            <!-- Radio buttons to toggle between charts -->
-            <label class="mr-4 text-white">
-              <input type="radio" name="chart" value="employeeChart" checked (change)="toggleChart('employeeChart')"> Employee Chart
-            </label>
-            <label class="text-white">
-              <input type="radio" name="chart" value="roleChart" (change)="toggleChart('roleChart')"> Role Chart
-            </label>
+    <!-- Left Side: Stats and Search -->
+    <div
+      class="flex flex-col w-[40%] px-8 py-6 bg-gradient-to-r from-[#222831] to-[#393E46] text-white rounded-l-[16px] ">
+
+      <!-- Title -->
+       <div class="w-full flex justify-center items-center">      
+        <h2 class="text-[32px] uppercase tracking-widest font-medium text-white/50 mt-4">Dashboard</h2>
+       </div>
+      <!-- Stats Section -->
+      <div class="grid grid-cols-2 gap-8 mt-12">
+        <!-- Total Employees -->
+        <div
+          class="flex flex-col gap-2 p-2 rounded-[10px] shadow-lg justify-center items-center hover:bg-white/10 transition-[0.5s] cursor-pointer"
+          (click)="navigateToEmployees()">
+          <div class="flex flex-row gap-4 text-right items-center justify-center">
+            <fa-icon [icon]="faUsers" class="text-[#FFD369] text-[50px]"></fa-icon>
+            <span class="text-[40px] font-bold">9</span>
           </div>
-        
-        <!-- Employee/Role Chart Section -->
-        <div class="mt-4">
-          <canvas id="chartCanvas" class="w-[620px] h-[620px]"></canvas>
+          <div>
+            <p class="text-sm">Total Employees</p>
+          </div>
         </div>
+
+        <!-- Gender Ratio -->
+        <div class="flex flex-col gap-2 p-2 rounded-[10px] shadow-lg flex items-center justify-center hover:bg-white/10 transition-[0.5s] cursor-pointer" (click)="navigateToChats()">
+          <div class="flex flex-row gap-4 text-right items-center justify-center">
+            <fa-icon [icon]="faEnvelope" class="text-[#FFD369] text-[50px]"></fa-icon>
+            <span class="text-[40px] font-bold">{{ unreadMessagesCount }}</span>
+          </div>
+          <div>
+          <p class="text-sm">Unread Messages</p>
+          </div>
+        </div>
+
+        <!-- Overtime Rate -->
+        <div class="flex flex-col gap-2 p-2 rounded-[10px] shadow-lg flex items-center justify-center hover:bg-white/10 transition-[0.5s] cursor-pointer" (click)="navigateToCalendar()">
+          <div class="flex flex-row gap-4 text-right items-center justify-center">
+          <fa-icon [icon]="faBusinessTime" class="text-[#FFD369] text-[50px]"></fa-icon>
+            <span class="text-[40px] font-bold">15%</span>
+          </div>
+          <div>
+            <p class="text-sm">Overtime Rate</p>
+          </div>
+        </div>
+
+        <!-- Income -->
+        <div class="flex flex-col gap-2 p-2 rounded-[10px] shadow-lg flex items-center justify-center hover:bg-white/10 transition-[0.5s] cursor-pointer" (click)="navigateToEmployees()">
+          <div class="flex flex-row gap-4 text-right items-center justify-center">
+          <fa-icon [icon]="faMoneyBillTrendUp" class="text-[#FFD369] text-[50px]"></fa-icon>
+            <span class="text-[40px] font-bold">9</span>
+          </div>
+          <div>
+            <p class="text-sm">Unallocated wages</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Section -->
+      <div class="rounded-[10px] shadow-lg mt-16">
+        <div class=" overflow-y-auto h-[300px] custom-scrollbar">
+          <div *ngFor="let user of users$ | async" class="flex items-center p-2">
+            <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" alt="{{ user.name }}"
+              class="w-10 h-10 rounded-full shadow-sm mr-3">
+            <div *ngIf="!userImages.get(user.id)"
+              class="w-10 h-10 bg-gray-200 rounded-full shadow-sm mr-3 flex items-center justify-center">N/A</div>
+            <div class="flex-grow">
+              <div class="font-semibold text-white text-[20px]">{{ user.name }} {{ user.lastname }}</div>
+              <div class="text-[25px] text-[#FFD369]">{{ getRoleDisplayName(user.roles) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side: Chart Display -->
+    <div class="flex flex-col w-[40%] justify-center ml-40 gap-8 items-center">
+      <!-- Radio Buttons for Chart Toggle -->
+      <div class="w-full flex gap-24 justify-center items-center text-bold">
+        <label class="text-[#222831] text-xl font-bold">
+          <input type="radio" name="chart" value="employeeChart" checked (change)="toggleChart('employeeChart')">
+          Employed / Termianted
+        </label>
+        <label class="text-[#222831] text-xl font-bold">
+          <input type="radio" name="chart" value="roleChart" (change)="toggleChart('roleChart')"> Roles
+        </label>
+      </div>
+
+      <!-- Chart Canvas (Original Size) -->
+      <div class="w-full flex justify-center">
+        <canvas id="chartCanvas" class="w-[420px] h-[420px]"></canvas> <!-- Adjusted chart size -->
+      </div>
     </div>
   </div>
-  </div>
+</div>

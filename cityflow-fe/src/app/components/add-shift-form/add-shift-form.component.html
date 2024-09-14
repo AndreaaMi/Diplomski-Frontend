@@ -1,121 +1,152 @@
-<div *ngIf="formOpen" class="flex items-center justify-center min-h-screen relative z-[1]  font-manrope">
+<div class="bg-[#222831] flex justify-center items-center w-full h-full">
+  <div class="flex flex-row font-manrope bg-[#EEEEEE] rounded-[16px] shadow-lg w-[60%] h-[80%]">
+    <div class="flex flex-col w-[55%] justify-center items-center">
+      <form #newShiftForm="ngForm" (ngSubmit)="addShift(newShiftForm)" class="flex flex-col gap-2">
 
-  <div class="flex flex-col rounded-[10px] bg-white p-2 pb-6 shadow-2xl w-[600px] items-center justify-center relative  font-manrope">
+          <div class="flex flex-col font-manrope font-regular justify-center items-center text-darkGray">
+            <button type="button" (click)="toggleUserModal()"
+              class="w-full text-[16px] h-[50px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-3">
+              {{ selectedUser ? (selectedUser.name + ' ' + selectedUser.lastname) : 'Select User' }}
+            </button>
 
-    <form #newShiftForm="ngForm" (ngSubmit)="addShift(newShiftForm)">
-      <div class="flex flex-col items-center justify-center w-full pt-4">
-        <p class="text-darkGray font-manrope font-semibold text-[35px]">Add New Shift</p>
-      </div>
-      <div class="flex flex-col w-full">
-        <div class="flex flex-col font-manrope font-regular text-darkGray">
-          <button type="button" (click)="toggleUserModal()"
-            class="w-[444px] h-[60px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-3">
-            {{ selectedUser ? (selectedUser.name + ' ' + selectedUser.lastname) : 'Select User' }}
-          </button>
+            <div *ngIf="userModalOpen" class="fixed inset-0 flex items-center justify-center absolute z-[10]">
+              <div class="bg-[#393E46] rounded-[10px] w-[1200px] h-[800px] overflow-auto custom-scrollbar shadow-2xl ">
+                <div class="bg-[#EEEEEE] p-4 flex justify-between items-center">
+                  <span class="text-xl font-semibold text-[#222831]">Select a User</span>
+                  <button (click)="toggleUserModal()">
+                    <fa-icon [icon]="faX" class="pr-1 text-[24px] text-[#222831] hover:text-[#222831]/70" />
+                  </button>
+                </div>
+              
+                <ul class="list-none p-4 space-y-4">
+                  <li *ngFor="let user of users$ | async" (click)="selectUser(user)"
+                      class="flex items-center space-x-4 cursor-pointer p-4 hover:bg-lightGrey/10 rounded-md transition-all duration-300 ease-in-out">
+                    <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" [alt]="user.name"
+                         class="h-16 w-16 rounded-full border-[2px] border-[#FFD369] object-cover shadow-lg">
+                    <div *ngIf="!userImages.get(user.id)"
+                         class="h-16 w-16 rounded-full bg-gray-300 flex items-center justify-center text-white">N/A</div>
+                    <div class="flex-1 min-w-0">
+                      <div class="text-[20px] font-semibold text-white">{{ user.name }} {{ user.lastname }}</div>
+                      <div class="text-s text-white/40">{{ user.email }}</div>
+                    </div>
+                    <div class="flex items-center justify-center text-center">
+                       <span class="p-2 text-l w-[260px] h-[40px] rounded-[10px] bg-white/60 text-[#222831]">
+                        <fa-icon *ngIf="user.roles.includes('Admin')" [icon]="faUserShield" class="text-lg pr-2"></fa-icon>
+                      <fa-icon *ngIf="user.roles.includes('ADMIN')" [icon]="faUserShield" class="text-lg pr-2"></fa-icon>
+                      <fa-icon *ngIf="user.roles.includes('Employee')" [icon]="faUserTie" class="text-lg pr-2"></fa-icon>
+                      
+                        {{ getRoleDisplayName(user.roles) }}</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            
+          </div>
 
-          <div *ngIf="userModalOpen" class="fixed inset-0 flex items-center justify-center absolute z-[10]">
-            <div class="bg-white rounded-[10px] w-full h-full overflow-auto shadow-2xl ">
-              <div class="border-b p-4 flex justify-between items-center">
-                <span class="text-lg font-semibold text-darkGrey">Select a User</span>
-                <button (click)="toggleUserModal()">
-                  <fa-icon [icon]="faX" class="pr-1 text-[21px] text-darkGray hover:text-darkGrey/60" />
+          <div *ngIf="busModalOpen" class="fixed inset-0 flex items-center justify-center absolute z-[10]">
+            <div class="bg-[#393E46] rounded-[10px] w-[1200px] h-[800px] overflow-auto custom-scrollbar shadow-2xl ">
+              <div class="bg-[#EEEEEE] p-4 flex justify-between items-center">
+                <span class="text-xl font-semibold text-[#222831]">Select a Bus</span>
+                <button (click)="toggleBusModal()">
+                  <fa-icon [icon]="faX" class="pr-1 text-[24px] text-[#222831] hover:text-[#222831]/70" />
                 </button>
               </div>
-              <ul class="list-none p-2 space-y-2">
-                <li *ngFor="let user of users$ | async" (click)="selectUser(user)"
-                  class="flex items-center space-x-2 cursor-pointer p-2 hover:bg-lightGrey/10">
-                  <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" [alt]="user.name"
-                    class="h-10 w-10 rounded-full object-cover shadow-lg">
-                  <div *ngIf="!userImages.get(user.id)"
-                    class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center text-white">N/A</div>
-                  <div>{{ user.name }} {{ user.lastname }} - {{ user.roles }}</div>
+              <ul class="list-none p-4 space-y-4">
+                <li *ngFor="let bus of buses$ | async" (click)="selectBus(bus)"
+                    class="flex items-center space-x-4 cursor-pointer p-4 hover:bg-lightGrey/10 rounded-md transition-all duration-300 ease-in-out">
+                  <fa-icon [icon]="faBus" class="text-[40px] text-[#FFD369] pr-2"></fa-icon>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-[20px] font-semibold text-white">{{ bus.licencePlate }}</div>
+                  </div>
+                  <span class="p-2 text-l w-[260px] h-[40px] rounded-[10px] text-center bg-white/60 text-[#008000]">
+                    <fa-icon [icon]="faCheck"></fa-icon>
+                    Available for shift
+                  </span>
                 </li>
               </ul>
             </div>
           </div>
-        </div>
+          
 
-        <div *ngIf="busModalOpen" class="fixed inset-0 flex items-center justify-center absolute z-[10]">
-          <div class="bg-white rounded-[10px] w-full h-full overflow-auto shadow-2xl ">
-            <div class="border-b p-4 flex justify-between items-center">
-              <span class="text-lg font-semibold text-darkGrey">Select a Bus</span>
-              <button (click)="toggleBusModal()">
-                <fa-icon [icon]="faX" class="pr-1 text-[21px] text-darkGray hover:text-darkGrey/60" />
-              </button>
-            </div>
-            <ul class="list-none p-2 space-y-2">
-              <li *ngFor="let bus of buses$ | async" (click)="selectBus(bus)"
-                class="flex items-center space-x-2 text-darkGray p-2 hover:bg-lightGrey/10 hover:cursor-pointer">
-                <div>{{ bus.licencePlate }}</div>
-              </li>
-            </ul>
-          </div>
-        </div>
+          <button (click)="toggleBusModal()" type="button"
+            class="w-full text-[16px] h-[50px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-3">
+            {{ selectedBus ? selectedBus.licencePlate : 'Select Bus' }}
+          </button>
 
-        <button (click)="toggleBusModal()" type="button"
-          class="w-[444px] h-[60px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-3">
-          {{ selectedBus ? selectedBus.licencePlate : 'Select Bus' }}
-        </button>
-
-        <div *ngIf="locationModalOpen" class="fixed inset-0 flex items-center justify-center absolute z-[10]">
-          <div class="bg-white rounded-[10px] w-full h-full shadow-2xl p-4">
-            <div class="border-b flex justify-between items-center">
-              <span class="text-lg font-semibold text-darkGrey">Select a Location</span>
-              <button (click)="toggleLocationModal()">
-                <fa-icon [icon]="faX" class="pr-1 text-[21px] text-darkGray hover:text-darkGrey/60" />
-              </button>
-            </div>
-            <div #mapContainer class="h-[580px] w-full p-2"></div>
-            <button (click)="confirmLocation()"
-              class="w-full h-[60px] font-manrope mt-4 font-semibold text-white rounded-[10px] bg-lightGreen hover:bg-deepGreen transition-[0.5s]">
-              Confirm Location
-            </button>
-          </div>
-        </div>
-
-        <button (click)="toggleLocationModal()" type="button"
-          class="w-[444px] h-[60px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-3">
-          {{ selectedLocation || 'Select Location' }}
-        </button>
-
-        <div class="flex flex-col w-full items-center">
-          <p class="text-blueGray font-manrope font-semibold text-[18px] mt-4 mb-2">Select Date And Extra Hours</p>
-          <div class="flex flex-row w-full gap-4 justify-center">
-            <div class="flex flex-col w-[213px]">
-              <div class="flex flex-col font-manrope items-center text-white ">
-                <input type="datetime-local" id="startTime" name="startTime" [(ngModel)]="newShift.startTime"
-                  class="w-full h-[50px] shadow-lg border border-[#e4e4e7] rounded-[10px] px-2 py-4 text-blueGray"
-                  placeholder="Start Time">
+          <div *ngIf="locationModalOpen" class="fixed inset-0 flex items-center justify-center absolute z-[10]">
+            <div class="bg-[#393E46] rounded-[10px] w-[1200px] h-[800px] overflow-auto custom-scrollbar shadow-2xl ">
+              <div class="bg-[#EEEEEE] p-4 flex justify-between items-center">
+                <span class="text-xl font-semibold text-[#222831]">Select a Location</span>
+                <button (click)="toggleLocationModal()">
+                  <fa-icon [icon]="faX" class="pr-1 text-[24px] text-[#222831] hover:text-[#222831]/70" />
+                </button>
+              </div>
+              <div class="p-4">
+              <div #mapContainer class="h-[633px] w-full p-4 bg-white rounded-[10px] shadow-inner"></div>
+                <div class="flex justify-center items-center mt-4">
+                <button (click)="confirmLocation()"
+                        class="w-full h-[50px] font-manrope font-semibold text-[#222831] rounded-[10px] bg-[#FFD369] hover:bg-[#FFD369]/70 transition-[0.5s]">
+                  Confirm Location
+                </button>
               </div>
             </div>
-            <div class="flex flex-col w-[213px]">
-              <div class="flex flex-col font-manrope font-regular items-center text-white ">
-                <input type="number" id="extraHours" name="extraHours" [(ngModel)]="newShift.extraHours"
-                  class="rounded-[10px] w-full h-[50px] shadow-lg border border-[#e4e4e7] bg-white px-2 py-4 text-blueGray"
-                  placeholder="Extra Hours">
+            </div>
+          </div>
+
+          <button (click)="toggleLocationModal()" type="button"
+            class="w-full h-[50px] text-[16px] font-manrope font-semibold text-blueGray rounded-[10px] shadow-lg border border-[#e4e4e7] bg-white hover:bg-darkGrey/5 transition-[0.5s] my-3">
+            {{ selectedLocation || 'Select Location' }}
+          </button>
+
+          <div class="flex flex-col w-full items-center">
+            <p class="text-blueGray font-manrope font-semibold text-[16px] mt-4 mb-2">Select Date And Extra Hours</p>
+            <div class="flex flex-row w-full gap-4 justify-center">
+              <div class="flex flex-col w-[213px]">
+                <div class="flex flex-col font-manrope items-center text-white ">
+                  <input type="datetime-local" id="startTime" name="startTime" [(ngModel)]="newShift.startTime"
+                    class="w-full h-[50px] shadow-lg border border-[#e4e4e7] rounded-[10px] px-2 py-4 text-blueGray"
+                    placeholder="Start Time">
+                </div>
+              </div>
+              <div class="flex flex-col w-[213px]">
+                <div class="flex flex-col font-manrope font-regular items-center text-white ">
+                  <input type="number" id="extraHours" name="extraHours" [(ngModel)]="newShift.extraHours"
+                    class="rounded-[10px] w-full h-[50px] shadow-lg border border-[#e4e4e7] bg-white px-2 py-4 text-blueGray"
+                    placeholder="Extra Hours">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        
-        <div class="flex flex-col font-manrope font-regular text-blueGray mt-5 items-center">
-          <p class="text-darkGray font-manrope font-semibold text-[18px]">Select Days of the Week</p>
-          <div class="grid grid-cols-4 justify-between gap-4 mt-2 justify-center">
-            <div *ngFor="let day of daysOfWeek" (click)="toggleDaySelection(day)"
-              [ngClass]="{'bg-darkBusYellow/80 text-white': isDaySelected(day), 'bg-white text-blueGray': !isDaySelected(day)}"
-              class="cursor-pointer shadow-lg border border-[#e4e4e7] w-[100px] h-[50px] flex items-center justify-center rounded-[10px] transition-[0.5s] hover:bg-darkGrey/5">
-              {{ day }}
+
+          <div class="flex flex-col font-manrope font-regular text-blueGray mt-5 items-center">
+            <p class="text-darkGray font-manrope font-semibold text-[16px]">Select Days of the Week</p>
+            <div class="grid grid-cols-4 justify-between gap-3 mt-2 justify-center">
+              <div *ngFor="let day of daysOfWeek" (click)="toggleDaySelection(day)"
+                [ngClass]="{'bg-[#393E46] text-white': isDaySelected(day), 'bg-white text-blueGray': !isDaySelected(day)}"
+                class="cursor-pointer shadow-lg border border-[#e4e4e7] w-[103px] h-[50px] flex items-center justify-center rounded-[10px] transition-[0.5s] hover:bg-darkGrey/5">
+                {{ day }}
+              </div>
             </div>
           </div>
+
+        <div class="items-center mt-4">
+          <button type="submit" class="w-[444px] h-[50px] font-manrope font-semibold text-[#222831] rounded-[10px] 
+            bg-[#FFD369] hover:bg-[#FFD369]/70 transition-[0.5s] my-2">
+            Add Shift
+          </button>
         </div>
-        
-      </div>
-      <div class="flex flex-row gap-2 items-center">
-        <button type="submit" class="w-[444px] h-[60px] font-manrope font-semibold text-white rounded-[10px] 
-            bg-lightGreen hover:bg-deepGreen transition-[0.5s] my-4">
-          Add Shift
-        </button>
-      </div>
-    </form>
+      </form>
+    </div>
+
+    <!-- Information Section -->
+    <div
+      class="w-[45%] bg-gradient-to-r from-[#222831] to-[#393E46] flex flex-col justify-center items-center text-white p-8 rounded-r-[16px]">
+      <h2 class="text-[35px] font-bold mb-4">Manage Shifts</h2>
+      <p class="text-[20px] mb-6 text-white/70 text-center">Select a worker and assign them a shift. Enter all required information to
+        schedule efficiently.</p>
+    </div>
+
   </div>
 </div>

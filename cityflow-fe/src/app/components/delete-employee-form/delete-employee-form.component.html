@@ -1,22 +1,27 @@
-<div class="flex flex-col justify-center items-center pb-12 min-h-screen">
-    <form (ngSubmit)="deleteEmployee()">
-        <div class="flex flex-col w-[600px] rounded-[10px] bg-white justify-center p-6 items-center justify-center p-6 pb-12 shadow-2xl">
-            <div class="flex flex-col items-center justify-center w-full pb-2 space-x-3">
-                <p class="text-darkGrey font-manrope font-semibold text-[30px]">Terminate</p>
-                <p class="text-blueGray font-manrope font-medium text-[35px]">{{ username }} (<span class="text-[24px]">{{ userRole }}</span>)</p>
+<div class="bg-[#222831] flex justify-center items-center w-full h-full">
+    <div class="flex flex-row font-manrope bg-[#EEEEEE] rounded-[16px] shadow-lg w-[60%] h-[80%]">
+      <form (ngSubmit)="deleteEmployee()" class="flex flex-col w-[55%] justify-center items-center">
+        <div class="flex flex-col font-manrope font-regular justify-center items-center text-darkGray w-full">
+            <div class="px-12  mt-8">
+                <p class="text-[32px] uppercase tracking-widest font-medium text-[#222831]/50 text-center">{{ username }} ({{ userRole }})</p>
+              </div>
+          <div class="flex flex-col my-4 w-[80%] h-full items-center">
+            <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
+              <label class="text-[16px] mb-2">Reason for Termination</label>
+              <textarea #reasonInput [(ngModel)]="reason" name="reason" class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[420px] w-full bg-white px-2 py-4" 
+                        placeholder="Enter reason for termination..." required></textarea>
             </div>
-            <div class="flex flex-row my-6 w-[80%]">
-                <div class="flex flex-col w-full">
-                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                        <p class="text-[16px] mb-2">Reason</p>
-                        <textarea #reasonInput [(ngModel)]="reason" name="reason" class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[350px] w-full max-h-[400px] min-h-[200px] bg-white px-2 py-4 placeholder:text-blueGray/30" placeholder="Enter reason for termiantion..."
-          placeholder="Enter reason for termination" required></textarea>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-deepRed justify-center items-center hover:bg-lightRed transition-[0.5s]">
-                <p class="font-manrope text-white font-semibold text-[24px]">Terminate</p>
+            <button class="w-full h-[50px] mt-8 font-manrope font-semibold text-[#222831] rounded-[10px] bg-[#FFD369] hover:bg-[#FFD369]/70 transition-[0.5s]" type="submit">
+              <p class="text-[24px]">Terminate</p>
             </button>
+          </div>
         </div>
-    </form>
-</div>
+      </form>
+      <!-- Information Section -->
+      <div class="w-[45%] bg-gradient-to-r from-[#222831] to-[#393E46] flex flex-col justify-center items-center text-white p-8 rounded-r-[16px]">
+        <h2 class="text-[35px] font-bold mb-4 text-center">Termination Details</h2>
+        <p class="text-[20px] mb-6 text-white/50 text-center">Ensure to document the reasons for termination clearly to maintain compliance with employment laws and regulations.</p>
+      </div>
+    </div>
+  </div>
+  

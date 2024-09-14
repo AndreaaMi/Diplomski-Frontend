@@ -171,6 +171,9 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/employees']);
   }
 
+  navigateToCalendar(): void {
+    this.router.navigate(['/work-calendar']);
+  }
   loadUsersAndImages(): void {
     this.users$ = this.hrAdminService.searchUsersByName('').pipe(
       map(users => users.filter(user => user.employed)), 

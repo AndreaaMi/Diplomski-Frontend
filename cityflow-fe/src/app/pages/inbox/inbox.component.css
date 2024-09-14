@@ -1,14 +1,3 @@
-.chat-container {
-    display: flex;
-    height: 88vh;
-}
-
-.user-list-section {
-    width: 300px;
-    background: #222831;
-    padding: 10px;
-}
-
 .user-search {
     position: relative;
     margin-bottom: 10px;
@@ -29,11 +18,6 @@
     transform: translateY(-50%);
 }
 
-.user-list {
-    overflow-y: auto;
-    color: #EEEEEE;
-}
-
 .user-item {
     display: flex;
     align-items: center;
@@ -49,8 +33,8 @@
   }
 
 .user-item img {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -82,8 +66,6 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    
-    background-color: #393E46;
     color: #1f2630;
 
 }
@@ -108,9 +90,9 @@
 }
 
 .mine {
-    background-color:#FFD369;
+    background-color:#222831;
     align-self: flex-end;
-    color: #222831;
+    color: white;
     margin-left: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 800px;
@@ -118,7 +100,7 @@
 }
 
 .theirs {
-    background-color: #cccccc;
+    background-color: white;
     align-self: flex-start;
     color: #222831;
     margin-right: auto;
@@ -173,13 +155,13 @@ button:hover {
     display: flex;
     align-items: center;
     padding: 10px;
-    background: #222831;
+    background: white;
     margin-bottom: 10px;
 }
 
 .user-avatar {
-    width: 50px;
-    height: 50px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     margin-right: 15px;
 
@@ -187,7 +169,8 @@ button:hover {
 
 .user-details span {
     font-size: 18px;
-    color: #EEEEEE;
+    font-weight: bold;
+    color: #222831;
     display: flex;
     align-items: center;
 }

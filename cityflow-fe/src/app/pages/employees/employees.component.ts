@@ -116,7 +116,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   getSalaryClass(userId: number): string {
-    return this.salaries.get(userId) ? 'text-green-500' : 'text-yellow-500';
+    return this.salaries.get(userId) ? 'text-green-500' : 'text-red-700';
   }
 
   toggleRoleDropdown(): void {

@@ -6,15 +6,50 @@
 
 
 
-.fc-daygrid-day {
-    height: 80px; 
-  }
   
 .fc-daygrid-day-events {
     overflow-y: auto;
     max-height: 80px;
 }
 
+.fc-daygrid-day {
+    height: 80px;
+    background-color: #EEEEEE; /* Svetliji deo za dane */
+    color: #222831; /* Tamniji tekst za dane */
+  }
+  
+  .fc-daygrid-day-top {
+    background-color: #393E46; /* Tamnija boja za zaglavlje dana */
+    color: #FFFFFF; /* Beli tekst */
+    height: 30px;
+  }
+  
+  
+  
+  .fc-button {
+    background-color: #393E46; /* Dugmad u stilu tamnije strane */
+    color: #222831;
+    border: none;
+  }
+  
+  .fc-button-active {
+    background-color: #222831;
+    color: #FFD369;
+  }
+  
+  .fc-prev-button, .fc-next-button {
+    font-size: 24px; /* Veća ikona za navigaciju */
+  }
+  
+  .fc-toolbar-title {
+    font-size: 28px; /* Veći font za naslov */
+    color: #222831;
+  }
+  
+  .fc-scrollgrid {
+    border: none; /* Uklanjanje defaultnih bordera */
+  }
+  
 .fc-more {
     cursor: pointer;
 }
@@ -25,8 +60,7 @@
   --fc-button-border-color: transparent;
   --fc-button-hover-bg-color: #DCDDE1;
   --fc-button-hover-border-color: transparent;
-  --fc-button-active-bg-color: #DCDDE1;
-  --fc-button-active-border-color: transparent;
+
 
   --fc-event-bg-color: transparent;
   --fc-event-border-color: transparent;

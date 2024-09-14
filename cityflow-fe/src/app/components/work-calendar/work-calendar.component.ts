@@ -61,7 +61,7 @@ export class WorkCalendarComponent implements OnInit {
         const eventSources = shifts.map((shift: any) => {
           return this.hrAdminService.getUserDetails(shift.userId).pipe(
             map(user => ({
-              title: `User: ${user.username}`,
+              title:user.username,
               start: shift.startTime,
               end: shift.endTime,
               location: shift.location,

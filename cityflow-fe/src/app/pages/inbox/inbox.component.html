@@ -1,15 +1,16 @@
-<div class="bg-[#EEEEEE]  h-full font-manrope scroll-smooth justify-center">
-  <div class="flex justify-center p-4">
-    <h1 class="text-[50px] text-[#222831] font-bold">Chats</h1>
-  </div>
-<div class="chat-container font-manrope rounded-[10px] space-x-3 p-4">
-  <div class="user-list-section rounded-[10px]">
+<div class="bg-[#222831] flex justify-center items-center w-full h-full">
+
+<div class="flex flex-row font-manrope bg-[#EEEEEE] rounded-[16px] shadow-lg w-[90%] h-[90%]">
+
+<div class="flex flex-col p-6 bg-gradient-to-r from-[#222831] to-[#393E46] rounded-l-[16px] w-[20%]">
+<!--Search-->
     <div class="user-search text-blueGray/10 rounded-[10px] mt-3 mr-2 ml-2">
       <input type="text" [(ngModel)]="nameFilter" (ngModelChange)="searchUsersByName()"
         placeholder="Search users by name" class="rounded-[10px]">
       <fa-icon [icon]="faSearch" class="search-icon text-white/30"></fa-icon>
     </div>
-    <div class="user-list">
+    <!--List-->
+    <div class="overflow-y-auto text-[#EEEEEE]">
       <ng-container *ngIf="nameFilter; else showPartners">
         <div *ngFor="let user of chatUsers" class="user-item" (click)="selectUser(user)">
           <img *ngIf="userImages.get(user.id)" [src]="userImages.get(user.id)" alt="{{ user.name }}">
@@ -18,6 +19,7 @@
           </div>
         </div>
       </ng-container>
+
       <ng-template #showPartners>
         <div *ngFor="let partner of communicationPartners" 
         (click)="selectUser(partner.user)" 
@@ -32,22 +34,23 @@
           </div>
         </div>
       </ng-template>
+
     </div>
   </div>
 
-  <div class="message-area rounded-[10px] shadow-lg">
+  <div class="message-area rounded-[10px] shadow-lg w-[80%]">
     <div *ngIf="!selectedUser" class="flex flex-col items-center justify-center h-full">
-      <fa-icon [icon]="faPaperPlane" class="text-[#FFD369] opacity-30 text-[190px]"></fa-icon>
-      <p class="text-[#EEEEEE] opacity-50 text-[25px] font-semibold mt-4">
+      <fa-icon [icon]="faPaperPlane" class="text-[#FFD369] opacity-40 text-[190px]"></fa-icon>
+      <p class="text-black/40 opacity-50 text-[25px] font-semibold mt-4">
         Stay connected with your team.
       </p>
-      <p class="text-[#EEEEEE] opacity-50 text-[18px] mt-2">
+      <p class="text-black/40 opacity-50 text-[18px] mt-2">
         Select a user to start chatting or search for a colleague.
       </p>
     </div>
-    <div *ngIf="selectedUser" class="user-info  shadow-lg">
+    <div *ngIf="selectedUser" class="user-info flex flex-row justify-center shadow-lg">
       <img *ngIf="userImages.get(selectedUser.id)" [src]="userImages.get(selectedUser.id)" alt="{{ selectedUser.name }}"
-        class="user-avatar  border-[1px] border-blueGray/70">
+        class="user-avatar  border-[1px] border-[#222831]">
       <div class="user-details">
         <span>{{ selectedUser.name }} {{ selectedUser.lastname }} ({{ getRoleDisplayName(selectedUser.roles) }})</span>
       </div>
@@ -63,14 +66,14 @@
                    [ngClass]="{'text-blue-500': message.readStatus, 'text-blueGray/50': !message.readStatus}" class="text-xs"></fa-icon>
           <fa-icon [icon]="message.readStatus ? faCheckDouble : faCheck" 
                    [ngClass]="{'text-blue-500': message.readStatus, 'text-blueGray/50': !message.readStatus}" class="text-xs"></fa-icon>
-          <span class="ml-1 text-white/70">{{ message.readStatus ? 'Read' : 'Delivered' }}</span>
+          <span class="ml-1 text-black/70">{{ message.readStatus ? 'Read' : 'Delivered' }}</span>
         </div>
       </div>
     </div>
     <div class="flex flex-row w-full rounded-md gap-4 items-center p-[20px]">
       <div class="flex flex-row w-[95%] h-auto">
         <textarea
-          class="placeholder:italic flex w-full bg-white/10 text-white p-2 shadow-lg border-none rounded-[10px] max-h-[100px] min-h-[60px] h-[60px]"
+          class="placeholder:italic flex w-full bg-white/10 text-[#222831] p-2 shadow-lg border-none rounded-[10px] max-h-[100px] min-h-[60px] h-[60px]"
           [(ngModel)]="newMessageContent" placeholder="Enter your message here..."></textarea>
       </div>
       <div
@@ -82,3 +85,4 @@
   </div>
 </div>
 </div>
+

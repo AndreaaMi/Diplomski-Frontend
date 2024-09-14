@@ -1,7 +1,7 @@
-<div class="h-screen bg-[#EEEEEE]  h-full font-manrope scroll-smooth justify-center">
-    <div class="flex justify-center p-4">
-      <h1 class="text-[50px] text-[#222831] font-bold">Employees</h1>
-    </div>
+<div class="h-screen bg-[#222831] overflow-y-auto h-full font-manrope custom-scrollbar justify-center">
+    <div class="w-full flex justify-center items-center p-8">      
+        <h2 class="text-[32px] uppercase tracking-widest font-medium text-white/50 mt-4">Employees</h2>
+       </div>
 
     <div class="flex flex-row w-full justify-center p-4 items-center mb-4">
         <div class="relative" style="width: 50%;">
@@ -85,14 +85,16 @@
                 <p [ngClass]="getSalaryClass(user.id)" class="mt-2 text-lg font-bold">
                     {{ getSalaryMessage(user.id) }}
                   </p>
-                <div #modal *ngIf="isModalOpen" class="modal-overlay">
-                    <div class="modal-content">
-                        <button class="close" (click)="closeModal()">&times;</button>
-                        <div class="modal-body">
-                            <img [src]="selectedImage" alt="Full size image">
-                        </div>
-                    </div>
-                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <div #modal *ngIf="isModalOpen" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close" (click)="closeModal()">&times;</button>
+            <div class="modal-body">
+                <img [src]="selectedImage" alt="Full size image">
             </div>
         </div>
     </div>

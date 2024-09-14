@@ -149,4 +149,15 @@ private resetEditingFlags(): void {
       );
     }
   }
+
+  getRoleDisplayName(role: string): string {
+    const roleMap: { [key: string]: string } = {
+      'ROLE_ROUTEADMINISTRATOR': 'Route Administrator',
+      'ROLE_HRAdministrator': 'HR Administrator',
+      'ROLE_DRIVER': 'Driver',
+      'ROLE_SERVICER': 'Servicer',
+      'ROLE_ACCOUNTANT': 'Accountant'
+    };
+    return roleMap[role] || role;
+  }
 }

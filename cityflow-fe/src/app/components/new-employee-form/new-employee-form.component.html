@@ -1,85 +1,98 @@
-<div class="flex flex-col justify-center items-center pb-12 min-h-screen ">
-    <form #RegisterForm="ngForm" (ngSubmit)="registerUser(RegisterForm)">
-        <div class="flex flex-col w-[1000px] rounded-[10px] bg-white items-center justify-center p-6 shadow-2xl">
-            <div class="flex flex-col items-center justify-center w-full mt-4">
-                <p class="text-darkGrey font-manrope font-semibold text-[35px]">Add new employee</p>
-            </div>
+<div class="bg-[#222831] flex justify-center items-center w-full h-full">
+    <div class="flex flex-row font-manrope bg-[#EEEEEE] rounded-[16px] shadow-lg w-[60%] h-[80%]">
+            <form #RegisterForm="ngForm" (ngSubmit)="registerUser(RegisterForm)" class="flex flex-col w-[55%] justify-center items-center gap-2">
+                <div class="flex flex-col font-manrope font-regular justify-center items-center w-[80%] h-full text-darkGray">
+                    <div class="flex flex-row w-full my-4">
+                        <!-- Left Column for Personal Details -->
+                        <div class="flex flex-col w-1/2 gap-2">
+                            <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
+                                <p class="text-[14px] mb-2">First Name</p>
+                                <input
+                                    class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px]  w-full bg-white"
+                                    placeholder="e.g. John" ngModel name="name" type="text" required>
+                            </div>
+                            <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
+                                <p class="text-[14px] mb-2">Last Name</p>
+                                <input
+                                    class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px]  w-full bg-white"
+                                    placeholder="e.g. Doe" ngModel name="lastname" type="text" required>
+                            </div>
+                            <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
+                                <p class="text-[14px] mb-2">Date of Birth</p>
+                                <input
+                                    class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full bg-white"
+                                    placeholder="MM/DD/YYYY" type="date" ngModel name="dateOfBirth">
+                            </div>
+                            <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
+                                <p class="text-[14px] mb-2">Phone number</p>
+                                <input
+                                    class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full bg-white"
+                                    placeholder="Enter your phone number" ngModel name="phoneNumber" type="text">
+                            </div>
+                        </div>
+                        <div class="flex w-[4%]"></div> <!-- Spacer Column -->
+                        <!-- Right Column for Credentials -->
+                        <div class="flex flex-col w-1/2 gap-2">
+                            <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
+                                <p class="text-[14px] mb-2">Username</p>
+                                <input
+                                    class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full bg-white"
+                                    placeholder="e.g. john" ngModel name="username" type="text" required>
+                            </div>
+                            <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
+                                <p class="text-[14px] mb-2">Email</p>
+                                <input
+                                    class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full bg-white"
+                                    placeholder="you@gmail.com" ngModel name="email" type="email" required>
+                            </div>
+                            <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
+                                <p class="text-[14px] mb-2">Password</p>
+                                <input
+                                    class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full bg-white"
+                                    placeholder="Enter your password" ngModel name="password" type="password" required>
+                            </div>
+                            <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4 relative">
+                                <p class="text-[14px] mb-2">User Role</p>
+                                <select ngModel name="roles"
+                                    class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[50px] w-full bg-white px-2 py-2 appearance-none text-blueGray">
+                                    <option value="ROLE_ROUTEADMINISTRATOR"
+                                        style="color: black; font-size: 18px; background-color: white; outline: none;">
+                                        Route
+                                        Administrator</option>
+                                    <option value="ROLE_HRAdministrator"
+                                        style="color: black; font-size: 18px; background-color: white; outline: none;">
+                                        HR
+                                        Administrator</option>
+                                    <option value="ROLE_DRIVER"
+                                        style="color: black; font-size: 18px; background-color: white; outline: none;">
+                                        Driver
+                                    </option>
+                                    <option value="ROLE_SERVICER"
+                                        style="color: black; font-size: 18px; background-color: white; outline: none;">
+                                        Servicer
+                                    </option>
+                                    <option value="ROLE_Accountant"
+                                        style="color: black; font-size: 18px; background-color: white; outline: none;">
+                                        Accountant</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full h-[50px] mt-8 font-manrope font-semibold text-[#222831] rounded-[10px] bg-[#FFD369] hover:bg-[#FFD369]/70 transition-[0.5s]"
+                        type="submit">
+                        Add Employee
+                    </button>
+                </div>
 
-            <div class="flex flex-row my-4 w-full">
-                <div class="flex flex-col w-[48%]">
-                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                        <p class="text-[14px] mb-2">First Name</p>
-                        <input
-                            class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
-                            placeholder="e.g. John" ngModel name="name" type="text" required>
-                    </div>
-                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                        <p class="text-[14px] mb-2">Last Name</p>
-                        <input
-                            class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
-                            placeholder="e.g. Doe" ngModel name="lastname" type="text" required>
-                    </div>
-                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                        <p class="text-[14px] mb-2">Date of Birth</p>
-                        <input
-                            class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
-                            placeholder="MM/DD/YYYY" type="date" ngModel name="dateOfBirth">
-                    </div>
-                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                        <p class="text-[14px] mb-2">Phone number</p>
-                        <input
-                            class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
-                            placeholder="Enter your phone number" ngModel name="phoneNumber" type="text">
-                    </div>
-                </div>
-                <div class="flex w-[4%]"></div>
-                <div class="flex flex-col w-[48%]">
-                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                        <p class="text-[14px] mb-2">Username</p>
-                        <input
-                            class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
-                            placeholder="e.g. john" ngModel name="username" type="text" required>
-                    </div>
-                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                        <p class="text-[14px] mb-2">Email</p>
-                        <input
-                            class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
-                            placeholder="you@gmail.com" ngModel name="email" type="email" required>
-                    </div>
-                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4">
-                        <p class="text-[14px] mb-2">Password</p>
-                        <input
-                            class="shadow-lg border border-[#e4e4e7] placeholder:text-blueGray/30 rounded-[10px] h-[50px] w-full w-full bg-white px-2 py-4"
-                            placeholder="Enter your password" ngModel name="password" type="password" required>
-                    </div>
-                    <div class="flex flex-col font-manrope font-regular w-full text-blueGray my-4 relative">
-                        <p class="text-[14px] mb-2">User Role</p>
-                        <select ngModel name="roles"
-                            class="shadow-lg border border-[#e4e4e7] rounded-[10px] h-[50px] w-full bg-white px-2 py-2 appearance-none text-blueGray">
-                            <option value="ROLE_ROUTEADMINISTRATOR"
-                                style="color: black; font-size: 18px; background-color: white; outline: none;">Route
-                                Administrator</option>
-                            <option value="ROLE_HRAdministrator"
-                                style="color: black; font-size: 18px; background-color: white; outline: none;">HR
-                                Administrator</option>
-                            <option value="ROLE_DRIVER"
-                                style="color: black; font-size: 18px; background-color: white; outline: none;">Driver
-                            </option>
-                            <option value="ROLE_SERVICER"
-                                style="color: black; font-size: 18px; background-color: white; outline: none;">Servicer
-                            </option>
-                            <option value="ROLE_Accountant"
-                                style="color: black; font-size: 18px; background-color: white; outline: none;">
-                                Accountant</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <button
-                class="flex flex-row w-[444px] h-[64px] rounded-[10px] bg-lightGreen justify-center items-center hover:bg-deepGreen transition-[0.5s]"
-                type="submit">
-                <p class="font-manrope text-white font-semibold text-[24px]">Save</p>
-            </button>
+            </form>
+
+        <!-- Information Section -->
+        <div
+            class="w-[45%] bg-gradient-to-r from-[#222831] to-[#393E46] flex flex-col justify-center items-center text-white p-8 rounded-r-[16px]">
+            <h2 class="text-[35px] font-bold mb-4 text-center">Add New Employee</h2>
+            <p class="text-[20px] mb-6 text-white/50 text-center">Enter all required information to add a new employee to the system.
+            </p>
         </div>
-    </form>
+    </div>
 </div>

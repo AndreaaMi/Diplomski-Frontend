@@ -3,7 +3,6 @@
       
       <!-- Left Side: Profile Information and Image -->
       <div class="flex flex-col px-16 py-6 w-[40%] space-y-6 justify-center items-center bg-gradient-to-r from-[#222831] to-[#393E46] text-white rounded-l-[16px]">
-        
         <!-- User Image and Upload Option -->
         <div class="relative group">
             <div class="profile-pic shadow-xl border-[6px] border-[#FFD369]" (click)="fileInput.click()">
@@ -23,7 +22,7 @@
         <!-- User Info -->
         <div class="flex flex-col items-center">
           <h2 class="text-[45px] font-bold">{{ loggedUser.name }} {{ loggedUser.lastname }}</h2>
-          <p class="text-[25px] text-gray-300">{{ loggedUser.roles }}</p>
+          <p class="text-[25px] text-gray-300">{{ getRoleDisplayName(loggedUser.roles) }}</p>
           <p class="text-[20px] text-gray-400">{{ loggedUser.email }}</p>
           <p class="text-[20px] text-gray-400">{{ loggedUser.phoneNumber }}</p>
         </div>

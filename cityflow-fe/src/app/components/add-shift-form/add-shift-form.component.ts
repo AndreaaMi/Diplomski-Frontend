@@ -14,7 +14,7 @@ import { Location } from '../../models/location';
 import { NgbCalendar, NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import {faExclamationTriangle, faX} from '@fortawesome/free-solid-svg-icons';
+import {faExclamationTriangle, faX, faUserShield, faUserTie, faBus, faCheck} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgToastService } from 'ng-angular-popup';
 import { DayOfWeek } from '../../models/dayOfWeek';
@@ -61,6 +61,10 @@ export class AddShiftFormComponent implements OnInit {
   datepickerOpen: boolean = false; 
   faExclamationTriangle = faExclamationTriangle;
   faX = faX;
+  faUserShield = faUserShield;
+  faUserTie = faUserTie;
+  faBus = faBus;
+  faCheck = faCheck;
 
 	model!: NgbDateStruct;
 	date!: { year: number; month: number };
@@ -229,5 +233,15 @@ export class AddShiftFormComponent implements OnInit {
         });
       });
     }
+  }
+  getRoleDisplayName(role: string): string {
+    const roleMap: { [key: string]: string } = {
+      'ROLE_ROUTEADMINISTRATOR': 'Route Administrator',
+      'ROLE_HRAdministrator': 'HR Administrator',
+      'ROLE_DRIVER': 'Driver',
+      'ROLE_SERVICER': 'Servicer',
+      'ROLE_ACCOUNTANT': 'Accountant'
+    };
+    return roleMap[role] || role;
   }
 }
